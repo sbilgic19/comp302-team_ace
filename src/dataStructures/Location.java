@@ -5,6 +5,15 @@ public class Location { // Data structure class for location
 	private int locationY;
 	
 	
+	
+	
+	
+	public Location(int locationX, int locationY) {
+		super();
+		this.locationX = locationX;
+		this.locationY = locationY;
+	}
+
 	public void moveLeft() {
 		this.locationX--;
 	}
@@ -43,17 +52,17 @@ public class Location { // Data structure class for location
 	public int getLocationX() {
 		return locationX;
 	}
-	public void changeLocationX(int locationX) {
+	public void setLocationX(int locationX) {
 		this.locationX = locationX;
 	}
 	public int getLocationY() {
 		return locationY;
 	}
-	public void changeLocationY(int locationY) {
+	public void setLocationY(int locationY) {
 		this.locationY = locationY;
 	}
 	
-	public void changeLocation(int locationX, int locationY) {
+	public void setLocation(int locationX, int locationY) {
 		this.locationX = locationX;
 		this.locationY = locationY;
 	}
