@@ -23,8 +23,8 @@ public class AuthorizationTest {
 		System.out.println(AuthorizationController.validateLogin(username, password));
 		
 		
-		System.out.println(Authorization.isLoggedIn);
-		System.out.println(Authorization.activeUser.getUsername());
+		System.out.println(Authorization.getIsLoggedIn());
+		System.out.println(Authorization.getActiveUser().getUsername());
 
 	}
 

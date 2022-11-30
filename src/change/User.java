@@ -69,7 +69,7 @@ public class User {
 	}
 
 
-	public void changeName(String mail) {
+	public void changeMail(String mail) {
 		this.mail = mail;
 	}
 

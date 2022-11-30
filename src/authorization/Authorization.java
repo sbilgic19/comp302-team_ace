@@ -5,27 +5,23 @@ import java.util.ArrayList;
 
 public class Authorization {
 	
-	static ArrayList<User> recordedUsers = new ArrayList<User>();
-	static User activeUser;
-	static Boolean isLoggedIn;
-	static User admin = new User("admin123","Admin123@","admin@admin.com");
+	private static ArrayList<User> recordedUsers = new ArrayList<User>(); // Temporary solution until database is constructed. It can be changed with text file. 
+	private static User activeUser;
+	private static Boolean isLoggedIn;
+	private static String loginMessage;
+	private static String registerMessage;
 	
-	
-	
-	
-	
-	public static void register(User user) {
+
+
+	public static void register(User user) { // methods can be protected except getters
 		recordedUsers.add(user);
 	}
 	
-	public static void login(User user) {
+	public static void login(User user) { 
 		isLoggedIn = true;
 		activeUser = user;
 	}
 
-	public static ArrayList<User> getRecorded_users() {
-		return recordedUsers;
-	}
 
 	public static User getActiveUser() {
 		return activeUser;
@@ -34,6 +30,30 @@ public class Authorization {
 	public static Boolean getIsLoggedIn() {
 		return isLoggedIn;
 	}
+
+	public static ArrayList<User> getRecordedUsers() {
+		return recordedUsers;
+	}
+
+	public static String getLoginMessage() {
+		return loginMessage;
+	}
+
+	public static String getRegisterMessage() {
+		return registerMessage;
+	}
+	
+	
+
+	public static void setLoginMessage(String loginMessage) {
+		Authorization.loginMessage = loginMessage;
+	}
+
+	public static void setRegisterMessage(String registerMessage) {
+		Authorization.registerMessage = registerMessage;
+	}
+	
+	
 	
 	
 	

@@ -31,7 +31,7 @@ public class AuthorizationController {
 	
 	public static boolean passwordValidation(String password) {
 		
-		if (Pattern.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,15}$", password)) {
+		if (Pattern.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,15}$", password)) { 
 			return true;
 		}
 		
@@ -44,57 +44,75 @@ public class AuthorizationController {
 	
 	
 	public static User searchUsername(String username) {
-		for (User u : Authorization.recordedUsers) {
+		for (User u : Authorization.getRecordedUsers()) {
 			if(u.getUsername().equals(username)) {
 				return u;
 			}
 		}
 		
-		return new User(null,null);
+		return new User(null,null); // better idea can be found ###
 		
 	}
 	
 	
 	
-	public static String validateRegister(String username, String password) {
+	public static String validateRegister(String username, String password) { // one of the validateRegister can be deleted when other things has fixed. 
+		String message;
 		if(usernameValidation(username)) {
 			if(passwordValidation(password)) {
 				if (! (searchUsername(username) == null)) {
 				User u = new User(username,password);
 				Authorization.register(u);
-				return "Your account successfully registered.";
+				message = "Your account successfully registered.";
+				Authorization.setRegisterMessage(message);
+				return message;
 				}
 				else {
-					return "Username already exist";
+					message = "Username already exist.";
+					Authorization.setRegisterMessage(message);
+					return message;
 				}
 			}
 			else {
-				return passwordValidationMasage;
+				message = passwordValidationMasage;
+				Authorization.setRegisterMessage(message);
+				return message;
 			}
 		}
-		return usernameValidationMasage;
+		message = usernameValidationMasage;
+		Authorization.setRegisterMessage(message);
+		return message;
 		
 
 	}
 	
 	
 	public static String validateRegister(String username, String password, String mail) {
+		String message;
 		if(usernameValidation(username)) {
 			if(passwordValidation(password)) {
 				if (searchUsername(username).equals(null)) {
+					message = "Your account successfully registered.";
 					User u = new User(username,password,mail);
 					Authorization.register(u);
-					return "Your account successfully registered.";
+					Authorization.setRegisterMessage(message);
+					return message;
 				}
 				else {
-					return "Username already exist.";
+					message = "Username already exist.";
+					Authorization.setRegisterMessage(message);
+					return message;
 				}
 			}
 			else {
-				return passwordValidationMasage;
+				message = passwordValidationMasage;
+				Authorization.setRegisterMessage(message);
+				return message;
 			}
 		}
-		return usernameValidationMasage;
+		message = usernameValidationMasage;
+		Authorization.setRegisterMessage(message);
+		return message;
 		
 
 	}
@@ -102,16 +120,32 @@ public class AuthorizationController {
 	
 	
 	public static String validateLogin(String username, String password) {
+		String message;
 		User u = searchUsername(username);
 		if (!(u == null)) {
 			if(u.getPassword().equals(password)) {
+				message = "Succcessfully logged in.";
 				Authorization.login(u);
-				return "Succcessfully logged in.";
+				Authorization.setRegisterMessage(message);
+				return message;
 			}
-			return "There is no such a username:" + username;
+			message = "There is no such a username:" + username;
+			Authorization.setRegisterMessage(message);
+			return message;
 		}
-		return "Username or password invalid. Please try again.";
+		message = "Username or password invalid. Please try again.";
+		Authorization.setRegisterMessage(message);
+		return message;
 	}
+	
+	public static void activateAdminAccount() { // 
+		User admin = new User("admin123","Admin123@","admin@admin.com");
+		Authorization.register(admin);
+	}
+	
+	
+	
+	
 	
 	
 	
