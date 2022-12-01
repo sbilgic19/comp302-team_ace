@@ -7,7 +7,7 @@ import UI.GameFrame;
 
 public class ButtonHandler implements ActionListener {
 	
-	GameFrame gameFrame;
+	private GameFrame gameFrame;
 	
 	public ButtonHandler(GameFrame gameFrame) {
 		this.gameFrame = gameFrame;
