@@ -7,11 +7,11 @@ public class AuthorizationTest {
 		//AuthorizationController ac = new AuthorizationController();
 		
 
-		Boolean uv_1 = AuthorizationController.usernameValidation("admin123");
+		Boolean uv_1 = AuthorizationHandler.usernameValidation("admin123");
 		System.out.println(uv_1);
-		Boolean uv_2 = AuthorizationController.usernameValidation("Username21");
+		Boolean uv_2 = AuthorizationHandler.usernameValidation("Username21");
 		System.out.println(uv_2);
-		Boolean pv_1 = AuthorizationController.passwordValidation("Admin123@");
+		Boolean pv_1 = AuthorizationHandler.passwordValidation("Admin123@");
 		System.out.println(pv_1);
 		String username = "Username21";
 		String password = "Admin123@";
@@ -19,8 +19,8 @@ public class AuthorizationTest {
 		
 		
 		
-		System.out.println(AuthorizationController.validateRegister(username, password));
-		System.out.println(AuthorizationController.validateLogin(username, password));
+		System.out.println(AuthorizationHandler.validateRegister(username, password));
+		System.out.println(AuthorizationHandler.validateLogin(username, password));
 		
 		
 		System.out.println(Authorization.getIsLoggedIn());

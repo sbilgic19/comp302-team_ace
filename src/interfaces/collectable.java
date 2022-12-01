@@ -1,5 +1,5 @@
 package interfaces;
 
-public interface collectable {
+public interface collectable { 
 
 }

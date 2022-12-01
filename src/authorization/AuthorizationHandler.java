@@ -2,9 +2,10 @@ package authorization;
 
 //import java.util.ArrayList;
 import java.util.regex.*;
-import change.User;
 
-public class AuthorizationController {
+import domain.User;
+
+public class AuthorizationHandler {
 	
 	
 	private static String usernameValidationMasage = "WARNING: Username should contains alphanumeric characters, underscore and dot.\r\n"

@@ -1,7 +1,8 @@
 package authorization;
 
-import change.User;
 import java.util.ArrayList;
+
+import domain.User;
 
 public class Authorization {
 	
