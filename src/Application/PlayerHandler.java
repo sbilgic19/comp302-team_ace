@@ -7,10 +7,14 @@ public class PlayerHandler {
 	
 	private Player player;
 	private GameFrame gameFrame;
+	private int numRow;
+	private int numCol;
 	
 	public PlayerHandler(Player player, GameFrame gameFrame) {
 		this.player = player;
 		this.gameFrame = gameFrame;
+		numRow = gameFrame.getNumRow();
+		numCol = gameFrame.getNumCol();
 	}
 
 	public void updatePlayerPosition(int changeInX, int changeInY) {
@@ -21,8 +25,8 @@ public class PlayerHandler {
 		int newXPlayerPosition = xPlayerPosition + changeInX;
 		int newYPlayerPosition = yPlayerPosition + changeInY;
 		
-		if (newXPlayerPosition >= 0 && newXPlayerPosition < 10 && newYPlayerPosition >= 0 
-					&& newYPlayerPosition < 15) {  
+		if (newXPlayerPosition >= 0 && newXPlayerPosition < numRow && newYPlayerPosition >= 0 
+					&& newYPlayerPosition < numCol) {  
 			gameFrame.updatePlayerView(xPlayerPosition, yPlayerPosition,
 					newXPlayerPosition, newYPlayerPosition);
 			player.setXPosition(newXPlayerPosition);

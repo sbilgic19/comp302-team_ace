@@ -84,6 +84,14 @@ public class GameFrame extends JFrame {
 		return new String(passwordField.getPassword());
 	}
 	
+	public int getNumRow() {
+		return numRow;
+	}
+	
+	public int getNumCol() {
+		return numCol;
+	}
+
 	public void switchGameView() {
 		remove(usernameLabel);
 		remove(usernameField);
