@@ -102,8 +102,8 @@ public class GameFrame extends JFrame {
 	
 	private void setGameMap() {	
 		gameMap = new JLabel[numRow][numCol];
-		for (int ii = 0; ii < 10; ii++) {
-			for (int jj = 0; jj < 15; jj++) {
+		for (int ii = 0; ii < numRow; ii++) {
+			for (int jj = 0; jj < numCol; jj++) {
 				gameMap[ii][jj] = new JLabel();
 				add(gameMap[ii][jj]);
 			}	
