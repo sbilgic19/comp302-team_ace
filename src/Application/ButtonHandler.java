@@ -21,6 +21,8 @@ public class ButtonHandler implements ActionListener {
 			if (username.compareTo("akural19") == 0 &&
 				password.compareTo("test123") == 0) {
 				gameFrame.switchGameView();
+			}else {
+				gameFrame.giveAnErrorPopUpInTheScreen();
 			}
 		}	
 	}
