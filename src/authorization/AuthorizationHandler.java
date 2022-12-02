@@ -3,7 +3,7 @@ package authorization;
 //import java.util.ArrayList;
 import java.util.regex.*;
 
-import domain.User;
+import Domain.User;
 
 public class AuthorizationHandler {
 	

@@ -1,4 +1,4 @@
-package domain;
+package Domain;
 
 public class Player extends User { // User'dan extend olmal bu adda baka bir class daha var o class' User'dan extend olacak ekilde d�itirebilirsiniz.
 

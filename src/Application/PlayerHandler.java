@@ -1,6 +1,6 @@
 package Application;
 
-import domain.Player;
+import Domain.Player;
 import UI.GameFrame;
 
 public class PlayerHandler {
@@ -9,28 +9,21 @@ public class PlayerHandler {
 	private GameFrame gameFrame;
 	private int numRow;
 	private int numCol;
+	PlayerMoveLogic playerLogic;
 	
 	public PlayerHandler(Player player, GameFrame gameFrame) {
 		this.player = player;
 		this.gameFrame = gameFrame;
 		numRow = gameFrame.getNumRow();
 		numCol = gameFrame.getNumCol();
+		playerLogic = new PlayerMoveLogic(this.gameFrame);
 	}
 
 	public void updatePlayerPosition(int changeInX, int changeInY) {
 		
-		int xPlayerPosition = player.getXPosition();
-		int yPlayerPosition = player.getYPosition();
-		
-		int newXPlayerPosition = xPlayerPosition + changeInX;
-		int newYPlayerPosition = yPlayerPosition + changeInY;
-		
-		if (newXPlayerPosition >= 0 && newXPlayerPosition < numRow && newYPlayerPosition >= 0 
-					&& newYPlayerPosition < numCol) {  
-			gameFrame.updatePlayerView(xPlayerPosition, yPlayerPosition,
-					newXPlayerPosition, newYPlayerPosition);
-			player.setXPosition(newXPlayerPosition);
-			player.setYPosition(newYPlayerPosition);
+			playerLogic.updatePlayerPosition(this.player, this.numRow, this.numCol, changeInX, changeInY);
 		}
-	}	
+	
+	
+	
 }
