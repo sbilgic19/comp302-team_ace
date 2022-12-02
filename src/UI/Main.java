@@ -4,14 +4,13 @@ import javax.swing.JFrame;
 import Application.ButtonHandler;
 import Application.KeyHandler;
 import Application.PlayerHandler;
-import Domain.Player;
+import domain.Player;
 
 public class Main {
 	public static void main(String[] args) {
-		
-		Player player = new Player();
-		
+
 		GameFrame gameFrame = new GameFrame();
+		Player player = new Player(gameFrame.getUsernameMessage(),gameFrame.getPasswordMessage());
 		ButtonHandler buttonHandler = new ButtonHandler(gameFrame);
 		PlayerHandler playerHandler = new PlayerHandler(player, gameFrame);
 		KeyHandler keyHandler = new KeyHandler(playerHandler);
