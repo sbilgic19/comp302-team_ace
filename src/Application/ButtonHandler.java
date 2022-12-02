@@ -12,19 +12,19 @@ public class ButtonHandler implements ActionListener {
 	public ButtonHandler(GameFrame gameFrame) {
 		this.gameFrame = gameFrame;
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		if (event.getActionCommand().compareTo("Login") == 0) {
 			String username = gameFrame.getUsernameMessage();
 			String password = gameFrame.getPasswordMessage();
-			if (username.compareTo("akural19") == 0 &&
-				password.compareTo("test123") == 0) {
-				gameFrame.switchGameView();
-			}else {
-				String message = "Authentication Failed! Either password or username is incorrect. Passwords are case-sensitive";
-				gameFrame.showPopUpOnScreen(message);
+			for(User user: Authorization.getRecordedUsers()){
+				if (username.compareTo(user.getUsername()) == 0 &&
+						password.compareTo(user.getPassword()) == 0) {
+					gameFrame.switchGameView();
+				}
+				//	else {gameFrame.giveAnErrorPopUpInTheScreen();	}
 			}
-		}	
+		}
 	}
 }
