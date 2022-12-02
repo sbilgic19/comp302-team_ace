@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 
@@ -107,7 +108,11 @@ public class GameFrame extends JFrame {
 	
 		gameMap[0][0].setIcon(playerIcon);
 	}
-	
+	public void giveAnErrorPopUpInTheScreen() {
+		String message = "Authentication Failed! Either password or username is incorrect. Passwords are case-sensitive";
+		JOptionPane.showMessageDialog(new JFrame(), message, "Dialog",
+		        JOptionPane.ERROR_MESSAGE);
+	}
 	private void setGameMap() {	
 		gameMap = new JLabel[numRow][numCol];
 		for (int ii = 0; ii < numRow; ii++) {
