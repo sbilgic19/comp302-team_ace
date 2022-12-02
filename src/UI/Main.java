@@ -1,5 +1,5 @@
 package UI;
-import javax.swing.JFrame;
+import 	javax.swing.JFrame;
 
 
 import Application.ButtonHandler;
@@ -10,7 +10,10 @@ import Domain.Player;
 public class Main {
 	public static void main(String[] args) {
 
+		Authorization.addUserToRecord(new User("nsavran", "123456"));
+
 		GameFrame gameFrame = new GameFrame();
+		AuthorizationHandler authorizationHandler = new AuthorizationHandler(gameFrame);
 		Player player = new Player(gameFrame.getUsernameMessage(),gameFrame.getPasswordMessage());
 		ButtonHandler buttonHandler = new ButtonHandler(gameFrame);
 		PlayerHandler playerHandler = new PlayerHandler(player, gameFrame);

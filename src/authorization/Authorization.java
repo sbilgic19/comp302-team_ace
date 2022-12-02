@@ -45,7 +45,9 @@ public class Authorization {
 		return registerMessage;
 	}
 	
-	
+	public static void addUserToRecord(User user){
+		recordedUsers.add(user);
+	}
 
 	public static void setLoginMessage(String loginMessage) {
 		Authorization.loginMessage = loginMessage;

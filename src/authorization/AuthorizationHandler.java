@@ -7,7 +7,11 @@ import Domain.User;
 
 public class AuthorizationHandler {
 	
-	
+	private GameFrame gameFrame;
+
+	public AuthorizationHandler(GameFrame gameFrame){
+		this.gameFrame = gameFrame;
+	}
 	private static String usernameValidationMasage = "WARNING: Username should contains alphanumeric characters, underscore and dot.\r\n"
 			+ "Underscore and dot can't be at the end or start of a username (e.g _username / username_ / .username / username.).\r\n"
 			+ "Underscore and dot can't be next to each other (e.g user_.name).\r\n"
