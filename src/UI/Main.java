@@ -1,10 +1,11 @@
 package UI;
 import javax.swing.JFrame;
 
+
 import Application.ButtonHandler;
 import Application.KeyHandler;
 import Application.PlayerHandler;
-import domain.Player;
+import Domain.Player;
 
 public class Main {
 	public static void main(String[] args) {
