@@ -21,7 +21,7 @@ public class Main {
 		gameFrame.switchLoginView();
 		
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gameFrame.setSize(1240,720);
+		gameFrame.setSize(600,400);
 		gameFrame.setLocationRelativeTo(null);
 		gameFrame.setResizable(false);
 		gameFrame.setVisible(true);

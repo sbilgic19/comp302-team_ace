@@ -22,7 +22,8 @@ public class ButtonHandler implements ActionListener {
 				password.compareTo("test123") == 0) {
 				gameFrame.switchGameView();
 			}else {
-				gameFrame.giveAnErrorPopUpInTheScreen();
+				String message = "Authentication Failed! Either password or username is incorrect. Passwords are case-sensitive";
+				gameFrame.showPopUpOnScreen(message);
 			}
 		}	
 	}

@@ -99,6 +99,7 @@ public class GameFrame extends JFrame {
 		remove(passwordLabel);
 		remove(passwordField);
 		remove(loginButton);
+		
 		requestFocus();
 		
 		setLayout(new GridLayout(numRow, numCol, 0, 0));
@@ -108,8 +109,7 @@ public class GameFrame extends JFrame {
 	
 		gameMap[0][0].setIcon(playerIcon);
 	}
-	public void giveAnErrorPopUpInTheScreen() {
-		String message = "Authentication Failed! Either password or username is incorrect. Passwords are case-sensitive";
+	public void showPopUpOnScreen(String message) {
 		JOptionPane.showMessageDialog(new JFrame(), message, "Dialog",
 		        JOptionPane.ERROR_MESSAGE);
 	}
