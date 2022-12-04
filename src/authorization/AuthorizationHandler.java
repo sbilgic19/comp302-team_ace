@@ -4,6 +4,7 @@ package authorization;
 import java.util.regex.*;
 
 import Domain.User;
+import UI.GameFrame;
 
 public class AuthorizationHandler {
 

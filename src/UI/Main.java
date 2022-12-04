@@ -6,6 +6,9 @@ import Application.ButtonHandler;
 import Application.KeyHandler;
 import Application.PlayerHandler;
 import Domain.Player;
+import Domain.User;
+import authorization.Authorization;
+import authorization.AuthorizationHandler;
 
 public class Main {
 	public static void main(String[] args) {
@@ -21,7 +24,8 @@ public class Main {
 		
 		gameFrame.setButtonHandler(buttonHandler);
 		gameFrame.setKeyHandler(keyHandler);
-		gameFrame.switchLoginView();
+		//gameFrame.switchLoginView();
+		gameFrame.showMainView();
 		
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameFrame.setSize(600,400);
