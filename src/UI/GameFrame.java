@@ -14,6 +14,8 @@ import javax.swing.JPasswordField;
 
 import Application.ButtonHandler;
 import Application.KeyHandler;
+import Application.MainScreenPanelButtonsHandler;
+import Application.SignUpButtonHandler;
 
 public class GameFrame extends JFrame {
 
@@ -36,9 +38,16 @@ public class GameFrame extends JFrame {
 	private ButtonHandler buttonHandler;
 	private KeyHandler keyHandler;
 	
+	private MainScreenPanel mainScreen;
+	private MainScreenPanelButtonsHandler mainButtonHandler;
+	
+	private SignUpPanel signupPanel;
+	private SignUpButtonHandler signupHandler;
 	public GameFrame() {
 		
 		super("Escape From Koç");
+		
+		
 		
 		iconFactory = IconFactory.getInstance();
 		gameIcon = iconFactory.generateIcon("gameImage.jpg", 0, 0);
@@ -58,6 +67,11 @@ public class GameFrame extends JFrame {
 	}
 	
 	public void switchLoginView() {
+		mainScreen.setVisible(false);
+		mainScreen.setEnabled(false);
+		remove(mainScreen);
+		
+		requestFocus();
 		setLayout(new FlowLayout());
 		
 		add(usernameLabel);
@@ -68,6 +82,31 @@ public class GameFrame extends JFrame {
 		
 		loginButton.addActionListener(buttonHandler);
 	}
+	public void switchSignUpView() {
+		mainScreen.setVisible(false);
+		mainScreen.setEnabled(false);
+		remove(mainScreen);
+		
+		signupPanel = new SignUpPanel();
+		signupHandler = new SignUpButtonHandler(this);
+		add(signupPanel);
+		signupPanel.getSignupButton().addActionListener(signupHandler);
+		signupPanel.setVisible(true);
+		
+		requestFocus();
+		
+		
+	}
+	
+		
+	public void showMainView() {
+		mainScreen = new MainScreenPanel();
+		add(mainScreen);
+		mainButtonHandler = new MainScreenPanelButtonsHandler(this);
+		mainScreen.setVisible(true);
+		mainScreen.getLoginButton().addActionListener(mainButtonHandler);
+		mainScreen.getSigninButton().addActionListener(mainButtonHandler);
+	}
 	
 	public void setButtonHandler(ButtonHandler buttonHandler) {
 		this.buttonHandler = buttonHandler;
@@ -76,6 +115,20 @@ public class GameFrame extends JFrame {
 	public void setKeyHandler(KeyHandler keyHandler) {
 		this.keyHandler = keyHandler;
 	}
+	
+	// Sign Up Check i için
+	public String getSignupUsername() {
+		return signupPanel.getSignupUsername();
+	}
+	
+	public String getSignupPassword() {
+		return signupPanel.getSignupPassword();
+	}
+	
+	public String getSignupCheckPassword() {
+		return signupPanel.getSignupCheckPassword();
+	}
+	//
 	
 	public String getUsernameMessage() {
 		return usernameField.getText();
@@ -92,7 +145,7 @@ public class GameFrame extends JFrame {
 	public int getNumCol() {
 		return numCol;
 	}
-
+	
 	public void switchGameView() {
 		remove(usernameLabel);
 		remove(usernameField);
@@ -109,9 +162,9 @@ public class GameFrame extends JFrame {
 	
 		gameMap[0][0].setIcon(playerIcon);
 	}
-	public void showPopUpOnScreen(String message) {
-		JOptionPane.showMessageDialog(new JFrame(), message, "Dialog",
-		        JOptionPane.ERROR_MESSAGE);
+	public void showPopUpOnScreen(String message, String popUpType, int MessageType) {
+		JOptionPane.showMessageDialog(new JFrame(), message, popUpType,
+				MessageType);
 	}
 	private void setGameMap() {	
 		gameMap = new JLabel[numRow][numCol];

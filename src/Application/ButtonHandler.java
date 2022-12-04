@@ -3,7 +3,11 @@ package Application;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
+import Domain.User;
 import UI.GameFrame;
+import authorization.Authorization;
 
 public class ButtonHandler implements ActionListener {
 	
@@ -22,9 +26,11 @@ public class ButtonHandler implements ActionListener {
 				if (username.compareTo(user.getUsername()) == 0 &&
 						password.compareTo(user.getPassword()) == 0) {
 					gameFrame.switchGameView();
+					return;
 				}
 				//	else {gameFrame.giveAnErrorPopUpInTheScreen();	}
 			}
+			gameFrame.showPopUpOnScreen("Alert!! Either username or password is incorrect. ", "Alert" ,JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }
