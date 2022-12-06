@@ -12,15 +12,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 
-import Application.ButtonHandler;
-import Application.KeyHandler;
-import Application.MainScreenPanelButtonsHandler;
-import Application.SignUpButtonHandler;
+import Controllers.LoginAuthorizationHandler;
+import Controllers.KeyHandler;
+import Controllers.MainScreenPanelButtonsHandler;
+import Controllers.SignUpButtonHandler;
 
 public class GameFrame extends JFrame {
 
-	private int numRow = 10; 
-	private int numCol = 15;
+	private int numRow = 30; // 10
+	private int numCol = 45; // 15
 	
 	private JTextField usernameField;
 	private JPasswordField passwordField;
@@ -35,7 +35,7 @@ public class GameFrame extends JFrame {
 	
 	private JLabel[][] gameMap;
 	
-	private ButtonHandler buttonHandler;
+	private LoginAuthorizationHandler buttonHandler;
 	private KeyHandler keyHandler;
 	
 	private MainScreenPanel mainScreen;
@@ -108,7 +108,7 @@ public class GameFrame extends JFrame {
 		mainScreen.getSigninButton().addActionListener(mainButtonHandler);
 	}
 	
-	public void setButtonHandler(ButtonHandler buttonHandler) {
+	public void setButtonHandler(LoginAuthorizationHandler buttonHandler) {
 		this.buttonHandler = buttonHandler;
 	}
 	

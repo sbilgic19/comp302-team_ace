@@ -1,4 +1,4 @@
-package Application;
+package Controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,16 +22,6 @@ public class MainScreenPanelButtonsHandler implements ActionListener{
 	public void actionPerformed(ActionEvent event) {
 		if (event.getActionCommand().compareTo("Log In") == 0) {
 			gameFrame.switchLoginView();
-			
-//			String username = mainScreenPanel.getUsernameMessage();
-//			String password = mainScreenPanel.getPasswordMessage();
-//			for(User user: Authorization.getRecordedUsers()){
-//				if (username.compareTo(user.getUsername()) == 0 &&
-//						password.compareTo(user.getPassword()) == 0) {
-//					mainScreenPanel.switchGameView();
-//				}
-//				//	else {gameFrame.giveAnErrorPopUpInTheScreen();	}
-//			}
 		}else if (event.getActionCommand().compareTo("Sign Up") == 0) {
 			gameFrame.switchSignUpView();
 		}

@@ -1,4 +1,4 @@
-package Application;
+package ApplicationLogic;
 
 import domain.Player;
 import UI.GameFrame;

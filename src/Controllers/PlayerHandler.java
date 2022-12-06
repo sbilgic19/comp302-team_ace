@@ -1,6 +1,7 @@
-package Application;
+package Controllers;
 
 import domain.Player;
+import ApplicationLogic.PlayerMoveLogic;
 import UI.GameFrame;
 
 public class PlayerHandler {

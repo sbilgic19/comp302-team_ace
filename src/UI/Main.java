@@ -1,24 +1,23 @@
 package UI;
 import javax.swing.JFrame;
 
-
-import Application.ButtonHandler;
-import Application.KeyHandler;
-import Application.PlayerHandler;
+import Controllers.LoginAuthorizationHandler;
+import Controllers.KeyHandler;
+import Controllers.PlayerHandler;
 import domain.Player;
 import domain.User;
 import authorization.Authorization;
-import authorization.AuthorizationHandler;
+
 
 public class Main {
 	public static void main(String[] args) {
 
-		Authorization.addUserToRecord(new User("nsavran", "123456"));
+		//Authorization.addUserToRecord(new User("nsavran", "123456"));
 
 		GameFrame gameFrame = new GameFrame();
-		AuthorizationHandler authorizationHandler = new AuthorizationHandler(gameFrame);
+		//AuthorizationLogic authorizationHandler = new AuthorizationLogic(gameFrame);
 		Player player = new Player(gameFrame.getUsernameMessage(),gameFrame.getPasswordMessage());
-		ButtonHandler buttonHandler = new ButtonHandler(gameFrame);
+		LoginAuthorizationHandler buttonHandler = new LoginAuthorizationHandler(gameFrame);
 		PlayerHandler playerHandler = new PlayerHandler(player, gameFrame);
 		KeyHandler keyHandler = new KeyHandler(playerHandler);
 		
@@ -28,7 +27,7 @@ public class Main {
 		gameFrame.showMainView();
 		
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gameFrame.setSize(600,400);
+		gameFrame.setSize(1600,920);
 		gameFrame.setLocationRelativeTo(null);
 		gameFrame.setResizable(false);
 		gameFrame.setVisible(true);

@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import Application.MainScreenPanelButtonsHandler;
+import Controllers.MainScreenPanelButtonsHandler;
 
 public class MainScreenPanel extends JPanel{
 	
@@ -22,8 +22,8 @@ public class MainScreenPanel extends JPanel{
 		mainScreenLabel = new JLabel();
 		loginButton = new JButton("Log In");
 		signinButton = new JButton("Sign Up");
-		loginButton.setBounds(250, 150, 100, 20);
-		signinButton.setBounds(250, 190, 100,20);
+		loginButton.setBounds(700, 400, 200, 50);
+		signinButton.setBounds(700, 450, 200, 50);
 		
 		
 		
