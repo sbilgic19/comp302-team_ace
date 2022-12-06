@@ -50,8 +50,8 @@ public class GameFrame extends JFrame {
 		
 		
 		iconFactory = IconFactory.getInstance();
-		gameIcon = iconFactory.generateIcon("gameImage.jpg", 0, 0);
-		playerIcon = iconFactory.generateIcon("playerIcon.png", 40, 40);
+		gameIcon = iconFactory.generateIcon("../assets/gameImage.jpg", 0, 0);
+		playerIcon = iconFactory.generateIcon("../assets/playerIcon.png", 40, 40);
 		gameImage = gameIcon.getImage();
 		setIconImage(gameImage);
 		
