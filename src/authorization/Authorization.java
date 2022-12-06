@@ -3,7 +3,7 @@ package authorization;
 import java.util.ArrayList;
 
 
-import Domain.User;
+import domain.User;
 
 public class Authorization {
 	

@@ -5,8 +5,8 @@ import javax.swing.JFrame;
 import Application.ButtonHandler;
 import Application.KeyHandler;
 import Application.PlayerHandler;
-import Domain.Player;
-import Domain.User;
+import domain.Player;
+import domain.User;
 import authorization.Authorization;
 import authorization.AuthorizationHandler;
 

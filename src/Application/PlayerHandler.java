@@ -1,6 +1,6 @@
 package Application;
 
-import Domain.Player;
+import domain.Player;
 import UI.GameFrame;
 
 public class PlayerHandler {

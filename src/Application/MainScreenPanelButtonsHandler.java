@@ -3,7 +3,7 @@ package Application;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import Domain.User;
+import domain.User;
 import UI.GameFrame;
 import UI.MainScreenPanel;
 import authorization.Authorization;

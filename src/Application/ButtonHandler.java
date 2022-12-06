@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import Domain.User;
+import domain.User;
 import UI.GameFrame;
 import authorization.Authorization;
 
