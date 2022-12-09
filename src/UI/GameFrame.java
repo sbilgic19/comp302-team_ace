@@ -21,6 +21,7 @@ public class GameFrame extends JFrame {
 	private IconFactory iconFactory;
 	private ImageIcon gameIcon;
 	private Image gameImage;
+	private JLabel lives;
 	private LoginAuthorizationHandler buttonHandler;
 	private KeyHandler keyHandler;
 	
@@ -48,11 +49,14 @@ public class GameFrame extends JFrame {
 		passwordLabel = new JLabel("Password:");
 		usernameField = new JTextField(10);
 		passwordField = new JPasswordField(10);
+		lives = new JLabel();
 		
 		loginButton = new JButton("Login");
 		loginButton.setFocusable(false);
 		loginButton.setBackground(Color.GRAY);
 		loginButton.setOpaque(false);
+		
+		
 
 	}
 	
@@ -164,31 +168,35 @@ public class GameFrame extends JFrame {
 		timer.start();
 
 		pauseButton.addActionListener(e -> {
-			pauseButton.setVisible(false);
+			if(!GameState.getInstance().isPaused()) {
 			GameState.getInstance().setPaused(true);
 			timer.stop();
-			resumeButton.setVisible(true);
+			pauseButton.setText(">");}
+			else {
+				GameState.getInstance().setPaused(false);
+				timer.start();
+				pauseButton.setText("II");}
+			
 		});
 
-		resumeButton.addActionListener(e -> {
-			resumeButton.setVisible(false);
-			GameState.getInstance().setPaused(false);
-			timer.start();
-			pauseButton.setVisible(true);
-		});
-
-
-		this.add(pauseButton,BorderLayout.NORTH);
-		this.add(resumeButton,BorderLayout.EAST);
-		gamePanel = new GamePanel();
+		lives.setText("Remaining lives: 3");
+		lives.setVisible(true);
+		add(lives,BorderLayout.NORTH);
+		
+		this.add(pauseButton,BorderLayout.EAST);
+		gamePanel = new GamePanel(this);
 		gamePanel.setSize(1500,850);
 		gamePanel.setVisible(true);
 		this.add(gamePanel,BorderLayout.CENTER);
+		
+
 
 		gamePanel.setGameMap();
 		gamePanel.setFocusable(true);
 		gamePanel.requestFocusInWindow();
 		gamePanel.addKeyListener(keyHandler);
+		
+		
 
 
 
@@ -212,5 +220,13 @@ public class GameFrame extends JFrame {
 	public void showPopUpOnScreen(String message, String popUpType, int MessageType) {
 		JOptionPane.showMessageDialog(new JFrame(), message, popUpType,
 				MessageType);
+	}
+	
+	public void updatePlayerLivesView(int life) {
+        lives.setText("Remaining lives: " + life);
+    }
+	
+	public void increaseSecond(int second) {
+		this.second += second;
 	}
 }

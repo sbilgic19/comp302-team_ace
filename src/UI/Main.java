@@ -36,7 +36,7 @@ public class Main {
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameFrame.setSize(1600,920);
 		gameFrame.setLocationRelativeTo(null);
-		gameFrame.setResizable(false);
+		gameFrame.setResizable(true);
 		gameFrame.setVisible(true);
 	}
 }
