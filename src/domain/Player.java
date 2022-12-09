@@ -2,9 +2,11 @@ package domain;
 
 import dataStructures.Location;
 
+
 public class Player {
 
 	public Location location;
+  private int lives;
 	
 	public Player() {
 		super();
@@ -14,6 +16,7 @@ public class Player {
 	public Player(int x, int y) {
 		super();
 		this.location = new Location(x,y);
+    this.lives = 3;
 	}
 	
 
@@ -21,19 +24,39 @@ public class Player {
 		return location;
 	}
 	
-	
 
-
-
-
+	public int getLives() 
+	{
+		return lives;
+	}
 	
+	/**
+	 * Sets the lives of the Player.
+	 * 
+	 * @param lives integer to be set.
+	 */
+	public void setLives(int lives) 
+	{
+		this.lives = lives;
+	}
 	
+	/**
+	 * Decrease the number of lives of the Player by 1.
+	 */
+	public void decreaseLives()
+	{
+		if (lives > 0)
+		{
+			this.lives -= 1;
+		}
+	}
 	
-	
-	
-	
-	
-	
-	
+	/**
+	 * Increase the number of lives of th ePLayer by 1.
+	 */
+	public void increaseLives()
+	{
+		this.lives += 1;
+	}
 
 }
