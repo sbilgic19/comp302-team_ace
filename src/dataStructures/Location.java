@@ -1,6 +1,6 @@
 package dataStructures;
 
-public class Location { // Data structure class for location // front-end'de kullanýldýðý yapýya uygun deðiþtirilmesi gerekebilir.
+public class Location { 
 	private int locationX;
 	private int locationY;
 	

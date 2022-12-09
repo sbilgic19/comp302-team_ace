@@ -14,7 +14,10 @@ public class GamePanel extends JPanel {
 
     private static JLabel[][] gameMap;
     private static Icon playerIcon;
+
+    private static Icon tableIcon;
     private static Icon extraLifeIcon;
+
     private static final int numRow = 30;
     private static final int numCol = 45;
     private GameFrame gameFrame;
@@ -24,9 +27,13 @@ public class GamePanel extends JPanel {
     public GamePanel(GameFrame gameFrame) {
 
         playerIcon = IconFactory.getInstance().generateIcon("../assets/playerIcon.png", 40, 40);
+
+        tableIcon = IconFactory.getInstance().generateIcon("../assets/tableIcon.png", 40, 40);
+
         extraLifeIcon = IconFactory.getInstance().generateIcon("../assets/playerIcon.png", 40, 40);
         
         this.gameFrame = gameFrame;
+
 
         this.setLayout(new GridLayout(numRow, numCol, 0, 0));
 
@@ -60,10 +67,19 @@ public class GamePanel extends JPanel {
                 
             }
         }
+
+        gameMap[0][6].setIcon(tableIcon);
         gameMap[0][0].setIcon(playerIcon);
         PowerUpHandler.getInstance().getRandomPowerUp();
+
     }
-    public static void updatePlayerView(int xPlayerPosition, int yPlayerPosition,
+    
+	public static JLabel[][] getGameMap() {
+		return gameMap;
+	}
+    
+
+	public static void updatePlayerView(int xPlayerPosition, int yPlayerPosition,
                                  int newXPlayerPosition, int newYPlayerPosition) {
         gameMap[xPlayerPosition][yPlayerPosition].setIcon(null);
         gameMap[newXPlayerPosition][newYPlayerPosition].setIcon(playerIcon);
@@ -81,6 +97,11 @@ public class GamePanel extends JPanel {
     	return gameMap;
     }    
     
+    
+
+
+
+
     
 
 
