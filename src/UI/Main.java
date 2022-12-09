@@ -1,4 +1,5 @@
 package UI;
+
 import javax.swing.JFrame;
 
 import Controllers.LoginAuthorizationHandler;
@@ -10,10 +11,14 @@ import authorization.Authorization;
 
 
 public class Main {
+	
+	private static int frameWidth = 1500;
+	private static int frameHeight = 750;
+	
 	public static void main(String[] args) {
 
 		//Authorization.addUserToRecord(new User("nsavran", "123456"));
-
+		
 		GameFrame gameFrame = new GameFrame();
 		//AuthorizationLogic authorizationHandler = new AuthorizationLogic(gameFrame);
 		Player player = new Player(gameFrame.getUsernameMessage(),gameFrame.getPasswordMessage());
@@ -27,9 +32,9 @@ public class Main {
 		gameFrame.showMainView();
 		
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gameFrame.setSize(1600,920);
+		gameFrame.setSize(frameWidth, frameHeight);
 		gameFrame.setLocationRelativeTo(null);
 		gameFrame.setResizable(false);
-		gameFrame.setVisible(true);
+		gameFrame.setVisible(true);		
 	}
 }

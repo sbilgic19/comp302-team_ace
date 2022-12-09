@@ -41,5 +41,4 @@ public class MainScreenPanel extends JPanel{
 	public JLabel getMainLabel() {
 		return mainScreenLabel;
 	}
-
 }

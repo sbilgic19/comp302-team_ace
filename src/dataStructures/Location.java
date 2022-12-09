@@ -1,12 +1,8 @@
 package dataStructures;
 
-public class Location { // Data structure class for location // front-end'de kullanýldýðý yapýya uygun deðiþtirilmesi gerekebilir.
+public class Location { // Data structure class for location // front-end'de kullanï¿½ldï¿½ï¿½ï¿½ yapï¿½ya uygun deï¿½iï¿½tirilmesi gerekebilir.
 	private int locationX;
 	private int locationY;
-	
-	
-	
-	
 	
 	public Location(int locationX, int locationY) {
 		super();
@@ -45,10 +41,8 @@ public class Location { // Data structure class for location // front-end'de kul
 	
 	public void moveDown(int n) {
 		this.locationY = this.locationY-n;
-	
 	}
-	
-	
+
 	public int getLocationX() {
 		return locationX;
 	}
@@ -66,7 +60,4 @@ public class Location { // Data structure class for location // front-end'de kul
 		this.locationX = locationX;
 		this.locationY = locationY;
 	}
-	
-	
-
 }
