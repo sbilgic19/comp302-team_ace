@@ -18,6 +18,8 @@ public class Authorization {
 	private String registerMessage;
 	FileWriter fwriter;
 	FileReader freader;
+	
+	
 	public Authorization() {
 		recordedUsers.add(new User("nsavran", "123456"));
 		try {

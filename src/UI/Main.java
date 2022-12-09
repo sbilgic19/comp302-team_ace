@@ -23,7 +23,7 @@ public class Main {
 
 		GameFrame gameFrame = new GameFrame();
 		//AuthorizationLogic authorizationHandler = new AuthorizationLogic(gameFrame);
-		Player player = new Player(gameFrame.getUsernameMessage(),gameFrame.getPasswordMessage());
+		Player player = new Player(0,5);
 		LoginAuthorizationHandler buttonHandler = new LoginAuthorizationHandler(gameFrame);
 		PlayerHandler playerHandler = new PlayerHandler(player, gameFrame);
 		KeyHandler keyHandler = new KeyHandler(playerHandler);

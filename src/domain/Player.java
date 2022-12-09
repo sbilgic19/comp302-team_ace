@@ -1,32 +1,39 @@
 package domain;
 
-public class Player extends User { // User'dan extend olmal bu adda baka bir class daha var o class' User'dan extend olacak ekilde d�itirebilirsiniz.
+import dataStructures.Location;
 
-	private int xPlayerPosition;
-	private int yPlayerPosition;
+public class Player {
 
-	public Player(String id, String password) {
-		super(id, password);
-		this.xPlayerPosition = 0;
-		this.yPlayerPosition = 5;
-		// TODO Auto-generated constructor stub
+	public Location location;
+	
+	public Player() {
+		super();
 	}
-
-	public int getXPosition() {
-		return xPlayerPosition;
+	
+	
+	public Player(int x, int y) {
+		super();
+		this.location = new Location(x,y);
 	}
+	
 
-	public int getYPosition() {
-		return yPlayerPosition;
+	public Location getLocation() {
+		return location;
 	}
+	
+	
 
-	public void setXPosition(int newXPlayerPosition) {
-		xPlayerPosition = newXPlayerPosition;
-	}
 
-	public void setYPosition(int newYPlayerPosition) {
-		yPlayerPosition = newYPlayerPosition;
-	}
 
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

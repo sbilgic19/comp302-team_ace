@@ -8,12 +8,14 @@ public class GamePanel extends JPanel {
 
     private static JLabel[][] gameMap;
     private static Icon playerIcon;
+    private static Icon tableIcon;
     private static final int numRow = 30;
     private static final int numCol = 45;
 
     public GamePanel() {
 
         playerIcon = IconFactory.getInstance().generateIcon("../assets/playerIcon.png", 40, 40);
+        tableIcon = IconFactory.getInstance().generateIcon("../assets/tableIcon.png", 40, 40);
 
         this.setLayout(new GridLayout(numRow, numCol, 0, 0));
 
@@ -27,13 +29,25 @@ public class GamePanel extends JPanel {
                 add(gameMap[ii][jj]);
             }
         }
+        gameMap[0][6].setIcon(tableIcon);
         gameMap[0][5].setIcon(playerIcon);
     }
-    public static void updatePlayerView(int xPlayerPosition, int yPlayerPosition,
+    
+	public static JLabel[][] getGameMap() {
+		return gameMap;
+	}
+    
+
+	public static void updatePlayerView(int xPlayerPosition, int yPlayerPosition,
                                  int newXPlayerPosition, int newYPlayerPosition) {
         gameMap[xPlayerPosition][yPlayerPosition].setIcon(null);
         gameMap[newXPlayerPosition][newYPlayerPosition].setIcon(playerIcon);
     }
+
+
+
+
+    
 
 
 }

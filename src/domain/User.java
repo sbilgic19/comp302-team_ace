@@ -1,6 +1,7 @@
 package domain;
 
 public class User {
+	private Player player;
 	private String username;
 	private String password;
 	private String mail;
@@ -33,6 +34,19 @@ public class User {
 		
 	}
 	
+	
+	public void createNewPlayer() {
+		Player player1 = new Player();
+		this.player = player1;
+	}
+	
+	public void createNewPlayer(int x , int y) { // with Location
+		Player player1 = new Player(x,y);
+		this.player = player1;
+	}
+	
+
+	
 	public void updateUserInfo(String newUsername, String newPassword, String newMail) {
 		this.username = newUsername;
 		this.password = newPassword;
@@ -41,6 +55,11 @@ public class User {
 	
 	public void levelPassed() { // when level has completed call it.
 		this.maxLevelReached ++;
+	}
+	
+	
+	public Player getPlayer() {
+		return this.player;
 	}
 
 

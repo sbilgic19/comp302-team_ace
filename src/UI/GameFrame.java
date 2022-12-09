@@ -37,7 +37,7 @@ public class GameFrame extends JFrame {
 
 	public GameFrame() {
 		
-		super("Escape From Koç");
+		super("Escape From Koc");
 		
 		iconFactory = IconFactory.getInstance();
 		gameIcon = iconFactory.generateIcon("../assets/gameImage.jpg", 0, 0);

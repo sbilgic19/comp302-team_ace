@@ -14,18 +14,21 @@ public class PlayerMoveLogic  {
 	
 	public void updatePlayerPosition(Player player, int numRow, int numCol, int changeInX, int changeInY) {
 			
-			int xPlayerPosition = player.getXPosition();
-			int yPlayerPosition = player.getYPosition();
+			int xPlayerPosition = player.getLocation().getLocationX();
+			int yPlayerPosition = player.getLocation().getLocationY();
 			
 			int newXPlayerPosition = xPlayerPosition + changeInX;
 			int newYPlayerPosition = yPlayerPosition + changeInY;
 			
 			if (newXPlayerPosition >= 0 && newXPlayerPosition < numRow && newYPlayerPosition >= 0 
 						&& newYPlayerPosition < numCol) {  
-				GamePanel.updatePlayerView(xPlayerPosition, yPlayerPosition,
-						newXPlayerPosition, newYPlayerPosition);
-				player.setXPosition(newXPlayerPosition);
-				player.setYPosition(newYPlayerPosition);
+				
+				if(GamePanel.getGameMap()[newXPlayerPosition][newYPlayerPosition].getIcon() == null) {
+					GamePanel.updatePlayerView(xPlayerPosition, yPlayerPosition,
+							newXPlayerPosition, newYPlayerPosition);
+					player.getLocation().setLocationX(newXPlayerPosition);
+					player.getLocation().setLocationY(newYPlayerPosition);
+				}
 			}
 		}
 
