@@ -171,7 +171,7 @@ public class GameFrame extends JFrame {
 
 		this.add(pauseButton,BorderLayout.NORTH);
 		this.add(resumeButton,BorderLayout.EAST);
-		gamePanel = new GamePanel(this);
+		gamePanel = new GamePanel();
 		gamePanel.setSize(1500,850);
 		gamePanel.setVisible(true);
 		this.add(gamePanel,BorderLayout.CENTER);
