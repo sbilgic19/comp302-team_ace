@@ -1,5 +1,6 @@
 package ApplicationLogic;
 
+import UI.GamePanel;
 import domain.Player;
 import UI.GameFrame;
 
@@ -21,7 +22,7 @@ public class PlayerMoveLogic  {
 			
 			if (newXPlayerPosition >= 0 && newXPlayerPosition < numRow && newYPlayerPosition >= 0 
 						&& newYPlayerPosition < numCol) {  
-				gameFrame.updatePlayerView(xPlayerPosition, yPlayerPosition,
+				GamePanel.updatePlayerView(xPlayerPosition, yPlayerPosition,
 						newXPlayerPosition, newYPlayerPosition);
 				player.setXPosition(newXPlayerPosition);
 				player.setYPosition(newYPlayerPosition);

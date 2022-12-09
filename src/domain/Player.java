@@ -8,7 +8,7 @@ public class Player extends User { // User'dan extend olmal bu adda baka bir cla
 	public Player(String id, String password) {
 		super(id, password);
 		this.xPlayerPosition = 0;
-		this.yPlayerPosition = 0;
+		this.yPlayerPosition = 5;
 		// TODO Auto-generated constructor stub
 	}
 

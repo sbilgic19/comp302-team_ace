@@ -1,57 +1,46 @@
 package UI;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.Image;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
+import javax.swing.*;
 
-import Controllers.LoginAuthorizationHandler;
-import Controllers.KeyHandler;
-import Controllers.MainScreenPanelButtonsHandler;
-import Controllers.SignUpButtonHandler;
+import Controllers.*;
 
 public class GameFrame extends JFrame {
-
-	private int numRow = 30; // 10
-	private int numCol = 45; // 15
-	
+	private int numRow = 30;
+	private int numCol = 45;
+	private GamePanel gamePanel;
 	private JTextField usernameField;
 	private JPasswordField passwordField;
 	private JLabel usernameLabel;
 	private JLabel passwordLabel;
 	private JButton loginButton;
-	
+	private JButton pauseButton;
+	private JButton resumeButton;
 	private IconFactory iconFactory;
 	private ImageIcon gameIcon;
-	private ImageIcon playerIcon;
 	private Image gameImage;
-	
-	private JLabel[][] gameMap;
-	
 	private LoginAuthorizationHandler buttonHandler;
 	private KeyHandler keyHandler;
 	
 	private MainScreenPanel mainScreen;
 	private MainScreenPanelButtonsHandler mainButtonHandler;
-	
+
 	private SignUpPanel signupPanel;
 	private SignUpButtonHandler signupHandler;
+
+	private Timer timer;
+	private JLabel timerAsSecond;
+	private int second;
+
+
 	public GameFrame() {
 		
 		super("Escape From Koç");
 		
-		
-		
 		iconFactory = IconFactory.getInstance();
 		gameIcon = iconFactory.generateIcon("../assets/gameImage.jpg", 0, 0);
-		playerIcon = iconFactory.generateIcon("../assets/playerIcon.png", 40, 40);
 		gameImage = gameIcon.getImage();
 		setIconImage(gameImage);
 		
@@ -64,6 +53,7 @@ public class GameFrame extends JFrame {
 		loginButton.setFocusable(false);
 		loginButton.setBackground(Color.GRAY);
 		loginButton.setOpaque(false);
+
 	}
 	
 	public void switchLoginView() {
@@ -95,7 +85,6 @@ public class GameFrame extends JFrame {
 		
 		requestFocus();
 		
-		
 	}
 	
 		
@@ -111,11 +100,11 @@ public class GameFrame extends JFrame {
 	public void setButtonHandler(LoginAuthorizationHandler buttonHandler) {
 		this.buttonHandler = buttonHandler;
 	}
-	
+
 	public void setKeyHandler(KeyHandler keyHandler) {
 		this.keyHandler = keyHandler;
 	}
-	
+
 	// Sign Up Check i için
 	public String getSignupUsername() {
 		return signupPanel.getSignupUsername();
@@ -137,48 +126,82 @@ public class GameFrame extends JFrame {
 	public String getPasswordMessage() {
 		return new String(passwordField.getPassword());
 	}
-	
-	public int getNumRow() {
-		return numRow;
-	}
-	
-	public int getNumCol() {
-		return numCol;
-	}
-	
+
+	public int getNumRow(){return numRow;}
+
+	public int getNumCol(){return numCol;}
+
 	public void switchGameView() {
 		remove(usernameLabel);
 		remove(usernameField);
 		remove(passwordLabel);
 		remove(passwordField);
 		remove(loginButton);
-		
-		requestFocus();
-		
-		setLayout(new GridLayout(numRow, numCol, 0, 0));
-		setGameMap();
-		
-		addKeyListener(keyHandler);
-	
-		gameMap[0][0].setIcon(playerIcon);
+
+		setLayout(new BorderLayout());
+
+		pauseButton = new JButton("II");
+		pauseButton.setFocusable(false);
+		pauseButton.setSize(50,50);
+
+		resumeButton = new JButton(">");
+		resumeButton.setFocusable(false);
+		resumeButton.setVisible(false);
+		resumeButton.setSize(50,50);
+
+
+		second = 25;
+		timer = createTimer();
+		timer.start();
+
+		pauseButton.addActionListener(e -> {
+			pauseButton.setVisible(false);
+			GameState.getInstance().setPaused(true);
+			timer.stop();
+			resumeButton.setVisible(true);
+		});
+
+		resumeButton.addActionListener(e -> {
+			resumeButton.setVisible(false);
+			GameState.getInstance().setPaused(false);
+			timer.start();
+			pauseButton.setVisible(true);
+		});
+
+
+		this.add(pauseButton,BorderLayout.NORTH);
+		this.add(resumeButton,BorderLayout.EAST);
+		gamePanel = new GamePanel(this);
+		gamePanel.setSize(1500,850);
+		gamePanel.setVisible(true);
+		this.add(gamePanel,BorderLayout.CENTER);
+
+		gamePanel.setGameMap();
+		gamePanel.setFocusable(true);
+		gamePanel.requestFocusInWindow();
+		gamePanel.addKeyListener(keyHandler);
+
+
+
+		timerAsSecond = new JLabel();
+		timerAsSecond.setSize(50,50);
+
+		add(timerAsSecond,BorderLayout.SOUTH);
+
+	}
+
+	private Timer createTimer(){
+		Timer timer = new Timer(1000, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				second--;
+				timerAsSecond.setText(""+ second);
+			}
+		});
+		return timer;
 	}
 	public void showPopUpOnScreen(String message, String popUpType, int MessageType) {
 		JOptionPane.showMessageDialog(new JFrame(), message, popUpType,
 				MessageType);
-	}
-	private void setGameMap() {	
-		gameMap = new JLabel[numRow][numCol];
-		for (int ii = 0; ii < numRow; ii++) {
-			for (int jj = 0; jj < numCol; jj++) {
-				gameMap[ii][jj] = new JLabel();
-				add(gameMap[ii][jj]);
-			}	
-		} 	
-	}
-	
-	public void updatePlayerView(int xPlayerPosition, int yPlayerPosition,  
-			int newXPlayerPosition, int newYPlayerPosition) {
-		gameMap[xPlayerPosition][yPlayerPosition].setIcon(null);
-		gameMap[newXPlayerPosition][newYPlayerPosition].setIcon(playerIcon);
 	}
 }
