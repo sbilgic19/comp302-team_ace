@@ -26,7 +26,7 @@ public class LoginAuthorizationHandler implements ActionListener {
 			String password = gameFrame.getPasswordMessage();
 			authLogic = new Authorization();
 			if(authLogic.loginAuthorization(username, password)) {
-				gameFrame.switchBuildView();
+				gameFrame.switchGameView();
 			}else {
 				gameFrame.showPopUpOnScreen("Alert!! Either username or password is incorrect. ", "Alert" ,JOptionPane.ERROR_MESSAGE);
 			}
