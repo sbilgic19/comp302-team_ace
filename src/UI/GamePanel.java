@@ -18,34 +18,34 @@ public class GamePanel extends JPanel {
     private static Icon tableIcon;
     private static Icon extraLifeIcon;
 
-    private static final int numRow = 30;
-    private static final int numCol = 45;
+    private static int numRow;
+    private static int numCol;
     private GameFrame gameFrame;
     
     
 
     public GamePanel(GameFrame gameFrame) {
+    	
+    	numRow = gameFrame.getNumRow();
+    	numCol = gameFrame.getNumCol();
 
-        playerIcon = IconFactory.getInstance().generateIcon("../assets/playerIcon.png", 40, 40);
-
-        tableIcon = IconFactory.getInstance().generateIcon("../assets/tableIcon.png", 40, 40);
-
-        extraLifeIcon = IconFactory.getInstance().generateIcon("../assets/playerIcon.png", 40, 40);
+        playerIcon = IconFactory.getInstance().generateIcon("../assets/playerIcon.png", 50, 50);
+        tableIcon = IconFactory.getInstance().generateIcon("../assets/tableIcon.png", 50, 50);
+        extraLifeIcon = IconFactory.getInstance().generateIcon("../assets/playerIcon.png", 50, 50);
         
         this.gameFrame = gameFrame;
-
-
+        
         this.setLayout(new GridLayout(numRow, numCol, 0, 0));
-
     }
 
-    public void setGameMap() {
+    public void setGameMap(JLabel[][] buildModeMap) {
     	
         gameMap = new JLabel[numRow][numCol];
         for (int ii = 0; ii < numRow; ii++) {
             for (int jj = 0; jj < numCol; jj++) {
-                gameMap[ii][jj] = new JLabel();
-                add(gameMap[ii][jj]);
+				gameMap[ii][jj] = buildModeMap[ii][jj];
+				gameMap[ii][jj].setBorder(null);
+				add(gameMap[ii][jj]);
                 
                 gameMap[ii][jj].addMouseListener(new MouseAdapter() {
                     @Override
@@ -73,8 +73,6 @@ public class GamePanel extends JPanel {
         PowerUpHandler.getInstance().getRandomPowerUp();
 
     }
-    
-    
 
 	public static void updatePlayerView(int xPlayerPosition, int yPlayerPosition,
                                  int newXPlayerPosition, int newYPlayerPosition) {
@@ -86,20 +84,10 @@ public class GamePanel extends JPanel {
     {
     	//gameMap[location.getLocationX()][location.getLocationY()].setIcon(extraLifeIcon);
     	gameMap[10][10].setText("EL");
-    	gameMap[15][15].setText("ET");
+    	gameMap[10][11].setText("ET");
     }
     
-    public static JLabel[][] getGameMap()
-    {
+    public static JLabel[][] getGameMap() {
     	return gameMap;
     }    
-    
-    
-
-
-
-
-    
-
-
 }

@@ -8,6 +8,9 @@ import domain.Player;
 
 
 public class Main {
+	
+	private static int frameWidth = 1500;
+	private static int frameHeight = 750;
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -34,9 +37,9 @@ public class Main {
 		gameFrame.showMainView();
 		
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gameFrame.setSize(1600,920);
+		gameFrame.setSize(frameWidth, frameHeight);
 		gameFrame.setLocationRelativeTo(null);
-		gameFrame.setResizable(true);
+		gameFrame.setResizable(false);
 		gameFrame.setVisible(true);
 	}
 }

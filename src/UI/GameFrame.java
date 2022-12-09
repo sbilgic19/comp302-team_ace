@@ -8,8 +8,8 @@ import javax.swing.*;
 import Controllers.*;
 
 public class GameFrame extends JFrame {
-	private int numRow = 30;
-	private int numCol = 45;
+	private int numRow = 15;
+	private int numCol = 29;
 	private GamePanel gamePanel;
 	private JTextField usernameField;
 	private JPasswordField passwordField;
@@ -35,7 +35,9 @@ public class GameFrame extends JFrame {
 	private JLabel timerAsSecond;
 	private int second;
 
-
+	private JButton buildModeSubmitButton;
+	private BuildPanel buildPanel;
+	
 	public GameFrame() {
 		
 		super("Escape From Koc");
@@ -55,9 +57,6 @@ public class GameFrame extends JFrame {
 		loginButton.setFocusable(false);
 		loginButton.setBackground(Color.GRAY);
 		loginButton.setOpaque(false);
-		
-		
-
 	}
 	
 	public void switchLoginView() {
@@ -89,9 +88,7 @@ public class GameFrame extends JFrame {
 		signupPanel.setVisible(true);
 		
 		requestFocus();
-		
 	}
-	
 		
 	public void showMainView() {
 		mainScreen = new MainScreenPanel();
@@ -143,16 +140,29 @@ public class GameFrame extends JFrame {
 	public int getNumRow(){return numRow;}
 
 	public int getNumCol(){return numCol;}
-
-	public void switchGameView() {
+	
+	public void switchBuildView() {
 		remove(usernameLabel);
 		remove(usernameField);
 		remove(passwordLabel);
 		remove(passwordField);
 		remove(loginButton);
-
+		
 		setLayout(new BorderLayout());
+		buildPanel = new BuildPanel(this);
+		add(buildPanel, BorderLayout.CENTER);
+		BuildMode buildMode = new BuildMode(this, buildPanel);
+		buildModeSubmitButton = new JButton("Submit");
+		add(buildModeSubmitButton, BorderLayout.SOUTH);
+		BuildModeButtonHandler buildModeButtonHandler = new BuildModeButtonHandler(this, buildMode);
+		buildModeSubmitButton.addActionListener(buildModeButtonHandler);
+	}
 
+	public void switchGameView(JLabel[][] buildModeMap) {
+		
+		remove(buildModeSubmitButton);
+		remove(buildPanel);
+	
 		pauseButton = new JButton("II");
 		pauseButton.setFocusable(false);
 		pauseButton.setSize(50,50);
@@ -161,8 +171,7 @@ public class GameFrame extends JFrame {
 		resumeButton.setFocusable(false);
 		resumeButton.setVisible(false);
 		resumeButton.setSize(50,50);
-
-
+		
 		second = 25;
 		timer = createTimer();
 		timer.start();
@@ -176,30 +185,21 @@ public class GameFrame extends JFrame {
 				GameState.getInstance().setPaused(false);
 				timer.start();
 				pauseButton.setText("II");}
-			
 		});
 
 		lives.setText("Remaining lives: 3");
 		lives.setVisible(true);
 		add(lives,BorderLayout.NORTH);
 		
-		this.add(pauseButton,BorderLayout.EAST);
+		add(pauseButton,BorderLayout.EAST);
 		gamePanel = new GamePanel(this);
-		gamePanel.setSize(1500,850);
-		gamePanel.setVisible(true);
-		this.add(gamePanel,BorderLayout.CENTER);
+		add(gamePanel,BorderLayout.CENTER);
+
+		gamePanel.setGameMap(buildModeMap);
 		
-
-
-		gamePanel.setGameMap();
-		gamePanel.setFocusable(true);
-		gamePanel.requestFocusInWindow();
+		gamePanel.requestFocus();
 		gamePanel.addKeyListener(keyHandler);
 		
-		
-
-
-
 		timerAsSecond = new JLabel();
 		timerAsSecond.setSize(50,50);
 
