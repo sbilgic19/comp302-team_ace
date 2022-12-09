@@ -14,6 +14,8 @@ public class PlayerHandler {
 	PlayerMoveLogic playerMoveLogic;
 	PlayerLivesLogic playerLivesLogic;
 	
+	
+
 	public PlayerHandler(Player player, GameFrame gameFrame) {
 		this.player = player;
 		this.gameFrame = gameFrame;
