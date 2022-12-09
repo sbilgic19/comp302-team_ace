@@ -7,34 +7,34 @@ public class User {
 	int maxLevelReached;
 
 	
-	public User(String id, String password) {
+	public User(String username, String password) {
 		super();
-		this.username = id;
+		this.username = username;
 		this.password = password;
 		this.mail = "<default_mail>@nomail.com";
 		this.maxLevelReached = 1;
 	}
 	
 	
-	public User(String id, String password, String mail) { // the most common constructor
+	public User(String username, String password, String mail) { // the most common constructor
 		super();
-		this.username = id;
+		this.username = username;
 		this.password = password;
 		this.mail = mail;
 		this.maxLevelReached = 1;
 	}
 	
-	public User(String id, String password, String mail, int maxLevelReached) {
+	public User(String username, String password, String mail, int maxLevelReached) {
 		super();
-		this.username = id;
+		this.username = username;
 		this.password = password;
 		this.mail = mail;
 		this.maxLevelReached = maxLevelReached;
 		
 	}
 	
-	public void updateUserInfo(String newId, String newPassword, String newMail) {
-		this.username = newId;
+	public void updateUserInfo(String newUsername, String newPassword, String newMail) {
+		this.username = newUsername;
 		this.password = newPassword;
 		this.mail = newMail;
 	}
@@ -49,8 +49,8 @@ public class User {
 	}
 
 
-	public void changeUsername(String id) {
-		this.username = id;
+	public void changeUsername(String username) {
+		this.username = username;
 	}
 
 

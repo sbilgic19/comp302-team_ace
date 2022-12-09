@@ -81,6 +81,7 @@ public class GameFrame extends JFrame {
 		signupHandler = new SignUpButtonHandler(this);
 		add(signupPanel);
 		signupPanel.getSignupButton().addActionListener(signupHandler);
+		signupPanel.getBackButton().addActionListener(signupHandler);
 		signupPanel.setVisible(true);
 		
 		requestFocus();
@@ -95,8 +96,16 @@ public class GameFrame extends JFrame {
 		mainScreen.setVisible(true);
 		mainScreen.getLoginButton().addActionListener(mainButtonHandler);
 		mainScreen.getSigninButton().addActionListener(mainButtonHandler);
+		requestFocus();
 	}
 	
+	public void backToMainView() {
+		signupPanel.setVisible(false);
+		signupPanel.setEnabled(false);
+		remove(signupPanel);
+
+		showMainView();
+	}
 	public void setButtonHandler(LoginAuthorizationHandler buttonHandler) {
 		this.buttonHandler = buttonHandler;
 	}

@@ -33,6 +33,8 @@ public class SignUpButtonHandler implements ActionListener{
 				gameFrame.showPopUpOnScreen("Alert! Either username and/or password is not long enough or passwords are not matching !!", "Alert",JOptionPane.ERROR_MESSAGE);
 			}
 			
+		}else if (event.getActionCommand().compareTo("Back") == 0) {
+			gameFrame.backToMainView();
 		}
 	}
 	
