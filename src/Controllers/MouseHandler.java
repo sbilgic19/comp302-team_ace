@@ -18,7 +18,7 @@ public class MouseHandler extends MouseAdapter {
 	@Override
 	public void mouseClicked(MouseEvent event) {
 		int xClickPosition = event.getX() - 8;
-		int yClickPosition = event.getY() - 4;
+		int yClickPosition = event.getY() - 6;
 
 		int rowStep = buildMode.getRowStep();
 		int colStep = buildMode.getColStep();
@@ -38,9 +38,6 @@ public class MouseHandler extends MouseAdapter {
 		else {
 			yPosition = xClickPosition / colStep - 1;
 		}
-		
-		// System.out.printf("%d, %d\n", xClickPosition, yClickPosition);
-		// System.out.printf("%d, %d\n", xPosition, yPosition);
 		
 		if (yPosition == (buildMode.getNumCol() - 1)) {
 			if (xPosition < buildMode.getIconNumber() - 1) {

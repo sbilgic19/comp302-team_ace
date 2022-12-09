@@ -38,8 +38,8 @@ public class BuildMode {
 		border1 = BorderFactory.createDashedBorder(Color.BLUE);
 		border2 = BorderFactory.createLineBorder(Color.RED);
 
-		float frameWidth = 1469;
-		float frameHeight = 704;
+		float frameWidth = 1468;
+		float frameHeight = 674;
 		
 		numRow = gameFrame.getNumRow();
 		numCol = gameFrame.getNumCol() + 1;
@@ -99,7 +99,7 @@ public class BuildMode {
 		return buildModeMap;
 	}
 	
-	public void setRoomObject (Location location) {
+	public void setRoomObject(Location location) {
 		buildModeMap[location.getLocationX()][location.getLocationY()].setIcon(selectedIcon);
 	}
 	
