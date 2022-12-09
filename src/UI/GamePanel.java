@@ -69,14 +69,11 @@ public class GamePanel extends JPanel {
         }
 
         gameMap[0][6].setIcon(tableIcon);
-        gameMap[0][0].setIcon(playerIcon);
+        gameMap[0][5].setIcon(playerIcon);
         PowerUpHandler.getInstance().getRandomPowerUp();
 
     }
     
-	public static JLabel[][] getGameMap() {
-		return gameMap;
-	}
     
 
 	public static void updatePlayerView(int xPlayerPosition, int yPlayerPosition,
