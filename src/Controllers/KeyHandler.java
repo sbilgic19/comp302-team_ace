@@ -1,5 +1,7 @@
 package Controllers;
 
+import UI.GameState;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -17,21 +19,20 @@ public class KeyHandler extends KeyAdapter {
 	 
 	@Override
 	public void keyPressed(KeyEvent event) {
-		currentTime = System.currentTimeMillis();
-		if (currentTime - lastSavedTime > 40) {
-			if (event.getKeyCode() == KeyEvent.VK_UP) {
-				playerHandler.updatePlayerPosition(-1, 0);
+		if(!GameState.getInstance().isPaused()) {
+			currentTime = System.currentTimeMillis();
+			if (currentTime - lastSavedTime > 40) {
+				if (event.getKeyCode() == KeyEvent.VK_UP) {
+					playerHandler.updatePlayerPosition(-1, 0);
+				} else if (event.getKeyCode() == KeyEvent.VK_DOWN) {
+					playerHandler.updatePlayerPosition(1, 0);
+				} else if (event.getKeyCode() == KeyEvent.VK_LEFT) {
+					playerHandler.updatePlayerPosition(0, -1);
+				} else if (event.getKeyCode() == KeyEvent.VK_RIGHT) {
+					playerHandler.updatePlayerPosition(0, 1);
+				}
+				lastSavedTime = currentTime;
 			}
-			else if (event.getKeyCode() == KeyEvent.VK_DOWN) {
-				playerHandler.updatePlayerPosition(1, 0);
-			}
-			else if (event.getKeyCode() == KeyEvent.VK_LEFT) {
-				playerHandler.updatePlayerPosition(0, -1);
-			}
-			else if (event.getKeyCode() == KeyEvent.VK_RIGHT) {
-				playerHandler.updatePlayerPosition(0, 1);
-			}
-			lastSavedTime = currentTime;
 		}
 	}
 }

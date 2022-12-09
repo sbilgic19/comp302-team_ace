@@ -1,17 +1,24 @@
 package UI;
-import javax.swing.JFrame;
+import javax.swing.*;
 
 import Controllers.LoginAuthorizationHandler;
 import Controllers.KeyHandler;
 import Controllers.PlayerHandler;
 import domain.Player;
-import domain.User;
-import authorization.Authorization;
 
 
 public class Main {
-	public static void main(String[] args) {
 
+	public static void main(String[] args) {
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				createAndShowGUI();
+			}
+		});
+
+	}
+
+	private static void createAndShowGUI(){
 		//Authorization.addUserToRecord(new User("nsavran", "123456"));
 
 		GameFrame gameFrame = new GameFrame();
