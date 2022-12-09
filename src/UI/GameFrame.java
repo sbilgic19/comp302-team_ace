@@ -21,6 +21,7 @@ public class GameFrame extends JFrame {
 	private IconFactory iconFactory;
 	private ImageIcon gameIcon;
 	private Image gameImage;
+	private JLabel lives;
 	private LoginAuthorizationHandler buttonHandler;
 	private KeyHandler keyHandler;
 	
