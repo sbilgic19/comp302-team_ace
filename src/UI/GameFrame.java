@@ -35,6 +35,8 @@ public class GameFrame extends JFrame {
 	
 	private JLabel[][] gameMap;
 	
+	private JLabel lives;
+	
 	private LoginAuthorizationHandler buttonHandler;
 	private KeyHandler keyHandler;
 	
@@ -64,6 +66,8 @@ public class GameFrame extends JFrame {
 		loginButton.setFocusable(false);
 		loginButton.setBackground(Color.GRAY);
 		loginButton.setOpaque(false);
+		
+		lives = new JLabel("Remaining Lives: " + 3);
 	}
 	
 	public void switchLoginView() {
@@ -156,11 +160,15 @@ public class GameFrame extends JFrame {
 		requestFocus();
 		
 		setLayout(new GridLayout(numRow, numCol, 0, 0));
-		setGameMap();
+		setGameMap();	
 		
 		addKeyListener(keyHandler);
 	
 		gameMap[0][0].setIcon(playerIcon);
+		
+		add(lives);
+		lives.setVisible(true);
+		lives.setText("Remaining lives: 3");
 	}
 	public void showPopUpOnScreen(String message, String popUpType, int MessageType) {
 		JOptionPane.showMessageDialog(new JFrame(), message, popUpType,
@@ -181,4 +189,7 @@ public class GameFrame extends JFrame {
 		gameMap[xPlayerPosition][yPlayerPosition].setIcon(null);
 		gameMap[newXPlayerPosition][newYPlayerPosition].setIcon(playerIcon);
 	}
-}
+	
+	 public void updatePlayerLivesView(int life) {
+	        lives.setText("Remaining lives: " + life);
+	    }}
