@@ -1,5 +1,8 @@
 package authorization;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -13,9 +16,27 @@ public class Authorization {
 	private Boolean isLoggedIn;
 	private String loginMessage;
 	private String registerMessage;
-	
+	FileWriter fwriter;
+	FileReader freader;
 	public Authorization() {
 		recordedUsers.add(new User("nsavran", "123456"));
+		try {
+			//this.fwriter = new FileWriter("signedUser.txt", true);
+			this.freader = new FileReader("signedUser.txt");
+			BufferedReader bufferedReader = new BufferedReader(freader);
+			 
+            String line;
+ 
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] userInfo = line.split(" ", 2);
+                User newUser = new User(userInfo[0], userInfo[1]);
+                recordedUsers.add(newUser);
+            }
+            freader.close();
+		}catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
 	}
 
 	public boolean loginAuthorization(String username, String password) {
@@ -30,7 +51,19 @@ public class Authorization {
 	}
 	
 	public boolean signupAuthorization(String username, String password, String checkPassword) {
-		if(password.equals(checkPassword) && username.length() > 8 && password.length() > 8) {
+		if(password.equals(checkPassword) && username.length() > 6 && password.length() > 6) {
+			User newUser = new User(username, password);
+			recordedUsers.add(newUser);
+			try {
+				this.fwriter = new FileWriter("signedUser.txt", true);
+				fwriter.write(username + " " + password);
+				fwriter.write("\r\n");
+				fwriter.close();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			
+			
 			return true;
 		}else {
 			return false;

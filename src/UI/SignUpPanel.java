@@ -21,6 +21,7 @@ public class SignUpPanel extends JPanel{
 	private JLabel signPasswordLabel;
 	private JLabel signCheckPasswordLabel;
 	private JButton signUpButton;
+	private JButton backButton;
 	
 	public SignUpPanel() {
 		//setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -32,6 +33,12 @@ public class SignUpPanel extends JPanel{
 		signUsernameLabel = new JLabel("Username: ");
 		signPasswordLabel = new JLabel("Password: ");
 		signCheckPasswordLabel = new JLabel("Please re-enter your password: ");
+		
+		backButton = new JButton("Back");
+		backButton.setFocusable(false);
+		backButton.setBackground(Color.GRAY);
+		backButton.setOpaque(false);
+		
 		signUpButton = new JButton("Sign Up");
 		signUpButton.setFocusable(false);
 		signUpButton.setBackground(Color.GRAY);
@@ -47,6 +54,7 @@ public class SignUpPanel extends JPanel{
 		add(signCheckPassword);
 
 		add(signUpButton);
+		add(backButton);
 	}
 	
 	public String getSignupUsername() {
@@ -61,5 +69,8 @@ public class SignUpPanel extends JPanel{
 	}
 	public JButton getSignupButton() {
 		return signUpButton;
+	}
+	public JButton getBackButton() {
+		return backButton;
 	}
 }
