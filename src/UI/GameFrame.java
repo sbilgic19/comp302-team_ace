@@ -2,6 +2,7 @@ package UI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
 
 import javax.swing.*;
 
@@ -140,7 +141,7 @@ public class GameFrame extends JFrame {
 	public int getNumRow(){return numRow;}
 
 	public int getNumCol(){return numCol;}
-	
+
 	public void switchBuildView() {
 		remove(usernameLabel);
 		remove(usernameField);
@@ -172,16 +173,16 @@ public class GameFrame extends JFrame {
 		resumeButton.setVisible(false);
 		resumeButton.setSize(50,50);
 		
-		second = 25;
+		second = 5;
 		timer = createTimer();
 		timer.start();
 
 		pauseButton.addActionListener(e -> {
 			if(!GameState.getInstance().isPaused()) {
-			GameState.getInstance().setPaused(true);
-			timer.stop();
-			pauseButton.setText(">");}
-			else {
+				GameState.getInstance().setPaused(true);
+				timer.stop();
+				pauseButton.setText(">");
+			}else{
 				GameState.getInstance().setPaused(false);
 				timer.start();
 				pauseButton.setText("II");}
@@ -208,14 +209,20 @@ public class GameFrame extends JFrame {
 	}
 
 	private Timer createTimer(){
-		Timer timer = new Timer(1000, new ActionListener() {
+		Timer localTimer = new Timer(1000, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				second--;
-				timerAsSecond.setText(""+ second);
+				if (second > 0) {
+					second--;
+					timerAsSecond.setText("" + second);
+				}else {
+					GameState.getInstance().setPaused(true);
+					timer.stop();
+					showPopUpOnScreen("GAME OVER", "Alert",JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
-		return timer;
+		return localTimer;
 	}
 	public void showPopUpOnScreen(String message, String popUpType, int MessageType) {
 		JOptionPane.showMessageDialog(new JFrame(), message, popUpType,
