@@ -4,9 +4,7 @@ import java.awt.Color;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import Controllers.MouseHandler;
@@ -102,6 +100,13 @@ public class BuildMode {
 	
 	public void setRoomObject(Location location) {
 		buildModeMap[location.getLocationX()][location.getLocationY()].setIcon(selectedIcon);
+		if(selectedIcon != null){
+			int count = buildPanel.getBuildingObjectCounter()+1;
+			buildPanel.setBuildingObjectCounter(count);
+		}else {
+			int count = buildPanel.getBuildingObjectCounter()-1;
+			buildPanel.setBuildingObjectCounter(count);
+		}
 	}
 	
 	public void setSelectedIcon(Location location, boolean flag) {

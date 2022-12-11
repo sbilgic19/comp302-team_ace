@@ -25,6 +25,8 @@ public class BuildPanel extends JPanel {
 	
 	private int panelHeight;
 	private int panelWidth;
+
+	private int buildingObjectCounter = 0;
 	
 	public BuildPanel(GameFrame gameFrame) {
 	
@@ -57,5 +59,13 @@ public class BuildPanel extends JPanel {
 		ImageIcon[] icons = {barrelIcon, doorIcon, jarIcon, vaultIcon, windowIcon, woodenBoxIcon, 
 				firstTreeIcon, secondTreeIcon, thirdTreeIcon, woodIcon, eraserIcon};
 		return icons;
-	}	
+	}
+
+	public int getBuildingObjectCounter() {
+		return buildingObjectCounter;
+	}
+
+	public void setBuildingObjectCounter(int buildingObjectCounter) {
+		this.buildingObjectCounter = buildingObjectCounter;
+	}
 }
