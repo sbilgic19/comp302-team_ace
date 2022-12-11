@@ -30,7 +30,7 @@ public class SignUpButtonHandler implements ActionListener{
 			if(authorization.signupAuthorization(username, password, checkPassword)) {
 				gameFrame.showPopUpOnScreen("The user has been created", "Dialog", JOptionPane.INFORMATION_MESSAGE);
 			}else {
-				gameFrame.showPopUpOnScreen("Alert! Either username and/or password is not long enough or passwords are not matching !!", "Alert",JOptionPane.ERROR_MESSAGE);
+				gameFrame.showPopUpOnScreen("Alert! Either username and/or password is not long enough or passwords are not matching !! or this username already exists", "Alert",JOptionPane.ERROR_MESSAGE);
 			}
 			
 		}else if (event.getActionCommand().compareTo("Back") == 0) {
