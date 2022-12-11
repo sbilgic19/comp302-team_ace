@@ -22,8 +22,8 @@ public class MainScreenPanel extends JPanel{
 		mainScreenLabel = new JLabel();
 		loginButton = new JButton("Log In");
 		signinButton = new JButton("Sign Up");
-		loginButton.setBounds(700, 400, 200, 50);
-		signinButton.setBounds(700, 450, 200, 50);
+		loginButton.setBounds(650, 325, 200, 50);
+		signinButton.setBounds(650, 375, 200, 50);
 		
 		
 		

@@ -16,8 +16,8 @@ public class Authorization {
 	private Boolean isLoggedIn;
 	private String loginMessage;
 	private String registerMessage;
-	FileWriter fwriter;
-	FileReader freader;
+	private FileWriter fwriter;
+	private FileReader freader;
 	
 	
 	public Authorization() {
@@ -53,14 +53,19 @@ public class Authorization {
 	}
 	
 	public boolean signupAuthorization(String username, String password, String checkPassword) {
+		for(User user: this.recordedUsers) {
+			if(username.toLowerCase().compareTo(user.getUsername().toLowerCase()) == 0) {
+				return false;
+			}
+		}
 		if(password.equals(checkPassword) && username.length() > 6 && password.length() > 6) {
 			User newUser = new User(username, password);
 			recordedUsers.add(newUser);
 			try {
 				this.fwriter = new FileWriter("signedUser.txt", true);
-				fwriter.write(username + " " + password);
-				fwriter.write("\r\n");
-				fwriter.close();
+				this.fwriter.write(username + " " + password);
+				this.fwriter.write("\r\n");
+				this.fwriter.close();
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
