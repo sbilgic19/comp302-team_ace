@@ -1,7 +1,6 @@
 package Controllers;
 
 import domain.Player;
-import ApplicationLogic.PlayerLivesLogic;
 import ApplicationLogic.PlayerMoveLogic;
 import UI.GameFrame;
 
@@ -12,7 +11,6 @@ public class PlayerHandler {
 	private int numRow;
 	private int numCol;
 	PlayerMoveLogic playerMoveLogic;
-	PlayerLivesLogic playerLivesLogic;
 	
 	
 
@@ -22,7 +20,6 @@ public class PlayerHandler {
 		numRow = gameFrame.getNumRow();
 		numCol = gameFrame.getNumCol();
 		playerMoveLogic = new PlayerMoveLogic(this.gameFrame);
-		playerLivesLogic = new PlayerLivesLogic(this.gameFrame);
 	}
 
 	public void updatePlayerPosition(int changeInX, int changeInY) {
@@ -30,10 +27,6 @@ public class PlayerHandler {
 			playerMoveLogic.updatePlayerPosition(this.player, this.numRow, this.numCol, changeInX, changeInY);
 		}
 	
-	public void updatePlayerLives(boolean isIncreased)
-	{
-		playerLivesLogic.updatePlayerLives(this.player, isIncreased);
-	}
 	
 	
 }

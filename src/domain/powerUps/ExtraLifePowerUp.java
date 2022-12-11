@@ -2,16 +2,26 @@ package domain.powerUps;
 
 import dataStructures.Location;
 
-public class ExtraLifePowerUp extends PowerUp{
+public class ExtraLifePowerUp implements PowerUp{
 
+	Location location;
+	String powerUpType;
+	
 	public ExtraLifePowerUp(Location location) {
-        super(location);
+        this.location = location;
         this.powerUpType = "ExtraLife";
     }
 	
 	 @Override
 	 public void triggerEffect() {
-		 super.triggerEffect();
+		 
+	 }
+	 
+	 public String getPowerUpType() {
+		 return this.powerUpType;
+	 }
+	 public Location getLocation() {
+		 return this.location;
 	 }
 	 
 	 
