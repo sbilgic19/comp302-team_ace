@@ -152,7 +152,7 @@ public class GameFrame extends JFrame {
 		BuildMode buildMode = new BuildMode(this, buildPanel);
 		buildModeSubmitButton = new JButton("Submit");
 		add(buildModeSubmitButton, BorderLayout.SOUTH);
-		BuildModeButtonHandler buildModeButtonHandler = new BuildModeButtonHandler(this, buildMode);
+		BuildModeButtonHandler buildModeButtonHandler = new BuildModeButtonHandler(this, buildMode, buildPanel);
 		buildModeSubmitButton.addActionListener(buildModeButtonHandler);
 	}
 
