@@ -215,6 +215,7 @@ public class GameFrame extends JFrame {
     }
 	
 	public void increaseSecond(int second) {
-		this.second += second;
+		int newSecond = GameTime.getInstance().getSeconds() + second;
+		GameTime.getInstance().setSeconds(newSecond);
 	}
 }

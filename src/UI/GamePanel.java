@@ -9,7 +9,6 @@ import domain.powerUps.PowerUp;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class GamePanel extends JPanel {
 
@@ -62,10 +61,10 @@ public class GamePanel extends JPanel {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                     	if(!GameState.getInstance().isPaused() && powerUp != null) {
-                    		int locx = powerUp.getLocation().getLocationX();
-                    		int locy = powerUp.getLocation().getLocationY();
+                    		int locX = powerUp.getLocation().getLocationX();
+                    		int locY = powerUp.getLocation().getLocationY();
                     		String powerUpType = powerUp.getPowerUpType();
-                        if(e.getSource() == gameMap[locx][locy]) {
+                        if(e.getSource() == gameMap[locX][locY]) {
                         	//powerUp.triggerEffect();
                         	switch(powerUpType) {
 	                        	case "ExtraLife":
@@ -78,7 +77,7 @@ public class GamePanel extends JPanel {
 	                        		break;
 	                        	default:
                         	}
-                        	gameMap[locx][locy].setIcon(null);
+                        	gameMap[locX][locY].setIcon(null);
                         	powerUp = null;
                         	
                         }
