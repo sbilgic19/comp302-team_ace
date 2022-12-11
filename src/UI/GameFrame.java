@@ -1,8 +1,5 @@
 package UI;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Observable;
 
 import javax.swing.*;
 
@@ -173,8 +170,8 @@ public class GameFrame extends JFrame {
 		resumeButton.setVisible(false);
 		resumeButton.setSize(50,50);
 		
-		second = 5;
-		timer = createTimer();
+		GameTime.getInstance().setSeconds(5*buildPanel.getBuildingObjectCounter());
+		timer = GameTime.getInstance().getTimer();
 		timer.start();
 
 		pauseButton.addActionListener(e -> {
@@ -201,29 +198,13 @@ public class GameFrame extends JFrame {
 		gamePanel.requestFocus();
 		gamePanel.addKeyListener(keyHandler);
 		
-		timerAsSecond = new JLabel();
+		timerAsSecond = GameTime.getInstance().getTimerAsSecond();
 		timerAsSecond.setSize(50,50);
 
 		add(timerAsSecond,BorderLayout.SOUTH);
 
 	}
 
-	private Timer createTimer(){
-		Timer localTimer = new Timer(1000, new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (second > 0) {
-					second--;
-					timerAsSecond.setText("" + second);
-				}else {
-					GameState.getInstance().setPaused(true);
-					timer.stop();
-					showPopUpOnScreen("GAME OVER", "Alert",JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
-		return localTimer;
-	}
 	public void showPopUpOnScreen(String message, String popUpType, int MessageType) {
 		JOptionPane.showMessageDialog(new JFrame(), message, popUpType,
 				MessageType);
