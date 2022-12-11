@@ -24,6 +24,8 @@ public class PowerUpFactory {
     	{
     		case "ExtraLife":
     			return new ExtraLifePowerUp(location);
+    		case "ExtraTime":
+    			return new ExtraTimePowerUp(location);
     			
     		default:
     			return null;
