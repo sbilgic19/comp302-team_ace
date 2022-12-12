@@ -5,8 +5,12 @@ import dataStructures.Location;
 
 public class Player {
 
-	public Location location;
-  private int lives;
+	private Location location;
+	private int lives;
+	private boolean isKeyTaken = false;
+	
+	
+
 	
 	public Player() {
 		super();
@@ -17,6 +21,15 @@ public class Player {
 		super();
 		this.location = new Location(x,y);
     this.lives = 3;
+	}
+	
+	public void takeKey() {
+		this.isKeyTaken = true;
+	}
+	
+	
+	public boolean getIsKeyTaken() {
+		return this.isKeyTaken;
 	}
 	
 

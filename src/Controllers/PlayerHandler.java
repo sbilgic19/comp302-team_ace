@@ -23,7 +23,6 @@ public class PlayerHandler {
 	}
 
 	public void updatePlayerPosition(int changeInX, int changeInY) {
-		
 			playerMoveLogic.updatePlayerPosition(this.player, this.numRow, this.numCol, changeInX, changeInY);
 		}
 	
