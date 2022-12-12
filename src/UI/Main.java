@@ -4,6 +4,7 @@ import javax.swing.*;
 import Controllers.LoginAuthorizationHandler;
 import Controllers.KeyHandler;
 import Controllers.PlayerHandler;
+import Controllers.RoomKeyHandler;
 import domain.Player;
 
 
@@ -27,12 +28,15 @@ public class Main {
 		GameFrame gameFrame = new GameFrame();
 		//AuthorizationLogic authorizationHandler = new AuthorizationLogic(gameFrame);
 		Player player = new Player(0,5);
+		RoomKeyHandler roomKeyHandler = new RoomKeyHandler(gameFrame, player);
 		LoginAuthorizationHandler buttonHandler = new LoginAuthorizationHandler(gameFrame);
 		PlayerHandler playerHandler = new PlayerHandler(player, gameFrame);
 		KeyHandler keyHandler = new KeyHandler(playerHandler);
+
 		
 		gameFrame.setButtonHandler(buttonHandler);
 		gameFrame.setKeyHandler(keyHandler);
+		gameFrame.setRoomKeyHandler(roomKeyHandler);
 		//gameFrame.switchLoginView();
 		gameFrame.showMainView();
 		

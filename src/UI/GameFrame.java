@@ -20,8 +20,10 @@ public class GameFrame extends JFrame {
 	private ImageIcon gameIcon;
 	private Image gameImage;
 	private JLabel lives;
+	private JLabel key;
 	private LoginAuthorizationHandler buttonHandler;
 	private KeyHandler keyHandler;
+	private RoomKeyHandler roomKeyHandler;
 	
 	private MainScreenPanel mainScreen;
 	private MainScreenPanelButtonsHandler mainButtonHandler;
@@ -50,6 +52,7 @@ public class GameFrame extends JFrame {
 		usernameField = new JTextField(10);
 		passwordField = new JPasswordField(10);
 		lives = new JLabel();
+		key = new JLabel();
 		
 		loginButton = new JButton("Login");
 		loginButton.setFocusable(false);
@@ -189,6 +192,10 @@ public class GameFrame extends JFrame {
 		lives.setVisible(true);
 		add(lives,BorderLayout.NORTH);
 		
+		key.setText("No Key");
+		key.setVisible(true);
+		add(key,BorderLayout.WEST);
+		
 		add(pauseButton,BorderLayout.EAST);
 		gamePanel = new GamePanel(this);
 		add(gamePanel,BorderLayout.CENTER);
@@ -214,8 +221,31 @@ public class GameFrame extends JFrame {
         lives.setText("Remaining lives: " + life);
     }
 	
+	public void updateKeyView(Boolean is_taken) {
+		if(is_taken) {
+			key.setText("Key taken");
+		}
+	}
+	
 	public void increaseSecond(int second) {
 		int newSecond = GameTime.getInstance().getSeconds() + second;
 		GameTime.getInstance().setSeconds(newSecond);
 	}
+
+	public GamePanel getGamePanel() {
+		return gamePanel;
+	}
+
+	public RoomKeyHandler getRoomKeyHandler() {
+		return roomKeyHandler;
+	}
+
+	public void setRoomKeyHandler(RoomKeyHandler roomKeyHandler) {
+		this.roomKeyHandler = roomKeyHandler;
+	}
+	
+	
+
+	
+	
 }

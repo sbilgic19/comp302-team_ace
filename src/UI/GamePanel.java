@@ -2,9 +2,13 @@ package UI;
 
 import javax.swing.*;
 
+
 import Controllers.PowerUpHandler;
+import Controllers.RoomKeyHandler;
 import dataStructures.Location;
 import domain.powerUps.PowerUp;
+import domain.Player;
+import domain.Key;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -22,10 +26,13 @@ public class GamePanel extends JPanel {
     private static int numRow;
     private static int numCol;
     private GameFrame gameFrame;
-    
+    private Key key;
     private PowerUp powerUp;
+    private Player player;
     
+    RoomKeyHandler roomKeyHandler;
     PowerUpHandler powerUpHandler;
+    
     
     
     
@@ -36,13 +43,13 @@ public class GamePanel extends JPanel {
     	numCol = gameFrame.getNumCol();
 
         playerIcon = IconFactory.getInstance().generateIcon("../assets/playerIcon.png", 50, 50);
-        tableIcon = IconFactory.getInstance().generateIcon("../assets/tableIcon.png", 50, 50);
         extraLifeIcon = IconFactory.getInstance().generateIcon("../assets/extraLifeIcon.png", 50, 50);
         extraTimeIcon = IconFactory.getInstance().generateIcon("../assets/extraTimeIcon.png", 50, 50);
-        
+
         this.gameFrame = gameFrame;
         
         this.setLayout(new GridLayout(numRow, numCol, 0, 0));
+        roomKeyHandler = gameFrame.getRoomKeyHandler();
         powerUpHandler = new PowerUpHandler(gameFrame);
         
     }
@@ -51,11 +58,31 @@ public class GamePanel extends JPanel {
     	float frameWidth = 1468;
 		float frameHeight = 674;
         gameMap = new JLabel[numRow][numCol];
+
         for (int ii = 0; ii < numRow; ii++) {
             for (int jj = 0; jj < numCol; jj++) {
 				gameMap[ii][jj] = buildModeMap[ii][jj];
 				gameMap[ii][jj].setBorder(null);
 				add(gameMap[ii][jj]);
+				
+				gameMap[ii][jj].addMouseListener(new MouseAdapter() {
+					@Override
+                    public void mouseClicked(MouseEvent e) {
+						if(!GameState.getInstance().isPaused() && key != null) {
+							int locX_key = key.getLocation().getLocationX();
+                    		int locY_key =key.getLocation().getLocationY();
+                    		if(e.getSource() == gameMap[locX_key][locY_key] && key != null) {
+                    			System.out.println(locX_key+" " + locY_key);
+                            	Boolean b = roomKeyHandler.takeKey(key);
+                            	gameFrame.updateKeyView(b);
+                            	System.out.println(b);
+                            	key = null;
+                    		}
+						}
+						
+					}
+				});
+
 				
                 gameMap[ii][jj].addMouseListener(new MouseAdapter() {
                     @Override
@@ -63,6 +90,13 @@ public class GamePanel extends JPanel {
                     	if(!GameState.getInstance().isPaused() && powerUp != null) {
                     		int locX = powerUp.getLocation().getLocationX();
                     		int locY = powerUp.getLocation().getLocationY();
+                    		int locX_key = 0;
+                    		int locY_key = 0;
+                    		if(key != null) {
+                    		locX_key = key.getLocation().getLocationX();
+                    		locY_key =key.getLocation().getLocationY();
+                    		
+                    		}
                     		String powerUpType = powerUp.getPowerUpType();
                         if(e.getSource() == gameMap[locX][locY]) {
                         	//powerUp.triggerEffect();
@@ -81,6 +115,8 @@ public class GamePanel extends JPanel {
                         	powerUp = null;
                         	
                         }
+
+                        
                        }
                     }
                 });
@@ -89,7 +125,8 @@ public class GamePanel extends JPanel {
             }
         }
 
-        gameMap[0][6].setIcon(tableIcon);
+        key = roomKeyHandler.getRandomKey();
+        System.out.println(key.getLocation().getLocationX()+" " + key.getLocation().getLocationY());
         gameMap[0][5].setIcon(playerIcon);
         powerUp = powerUpHandler.getRandomPowerUp();
 
@@ -115,5 +152,10 @@ public class GamePanel extends JPanel {
     
     public static JLabel[][] getGameMap() {
     	return gameMap;
-    }    
+    }
+    
+    public Player getPlayer() {
+    	return this.player;
+    }
+
 }
