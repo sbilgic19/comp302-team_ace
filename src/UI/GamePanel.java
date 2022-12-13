@@ -79,9 +79,9 @@ public class GamePanel extends JPanel {
 						if(!GameState.getInstance().isPaused() && key != null) {
 							int locX_key = key.getLocation().getLocationX();
                     		int locY_key =key.getLocation().getLocationY();
-                    		if(e.getSource() == gameMap[locX_key][locY_key] && key != null) {
+                    		Boolean b = roomKeyHandler.takeKey(key);
+                    		if(e.getSource() == gameMap[locX_key][locY_key] && key != null && b ) {
                     			System.out.println(locX_key+" " + locY_key);
-                            	Boolean b = roomKeyHandler.takeKey(key);
                             	gameFrame.updateKeyView(b);
                             	System.out.println(b);
                             	key = null;
