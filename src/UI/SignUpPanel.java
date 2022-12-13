@@ -36,13 +36,9 @@ public class SignUpPanel extends JPanel{
 		
 		backButton = new JButton("Back");
 		backButton.setFocusable(false);
-		backButton.setBackground(Color.GRAY);
-		backButton.setOpaque(false);
 		
 		signUpButton = new JButton("Sign Up");
 		signUpButton.setFocusable(false);
-		signUpButton.setBackground(Color.GRAY);
-		signUpButton.setOpaque(false);
 		
 		add(signUsernameLabel);
 		add(signUsername);

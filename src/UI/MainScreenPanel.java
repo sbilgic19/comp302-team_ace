@@ -1,7 +1,6 @@
-
-
 package UI;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
@@ -21,12 +20,13 @@ public class MainScreenPanel extends JPanel{
 		
 		mainScreenLabel = new JLabel();
 		loginButton = new JButton("Log In");
+		loginButton.setFocusable(false);
+		
 		signinButton = new JButton("Sign Up");
+		signinButton.setFocusable(false);
+	
 		loginButton.setBounds(650, 325, 200, 50);
 		signinButton.setBounds(650, 375, 200, 50);
-		
-		
-		
 		
 		add(loginButton);
 		add(signinButton);
@@ -41,5 +41,4 @@ public class MainScreenPanel extends JPanel{
 	public JLabel getMainLabel() {
 		return mainScreenLabel;
 	}
-
 }

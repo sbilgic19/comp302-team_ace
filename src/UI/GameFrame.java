@@ -19,11 +19,13 @@ public class GameFrame extends JFrame {
 	private IconFactory iconFactory;
 	private ImageIcon gameIcon;
 	private Image gameImage;
+	
 	private JLabel lives;
 	private JLabel key;
 	private LoginAuthorizationHandler buttonHandler;
 	private KeyHandler keyHandler;
 	private RoomKeyHandler roomKeyHandler;
+	private JPanel buttonPanel;
 	
 	private MainScreenPanel mainScreen;
 	private MainScreenPanelButtonsHandler mainButtonHandler;
@@ -56,8 +58,6 @@ public class GameFrame extends JFrame {
 		
 		loginButton = new JButton("Login");
 		loginButton.setFocusable(false);
-		loginButton.setBackground(Color.GRAY);
-		loginButton.setOpaque(false);
 	}
 	
 	public void switchLoginView() {
@@ -153,8 +153,14 @@ public class GameFrame extends JFrame {
 		buildPanel = new BuildPanel(this);
 		add(buildPanel, BorderLayout.CENTER);
 		BuildMode buildMode = new BuildMode(this, buildPanel);
+		buttonPanel = new JPanel();
+		add(buttonPanel,BorderLayout.SOUTH);
+		
 		buildModeSubmitButton = new JButton("Submit");
-		add(buildModeSubmitButton, BorderLayout.SOUTH);
+		buildModeSubmitButton.setFocusable(false);
+		buildModeSubmitButton.setPreferredSize(new Dimension(200,30));
+		
+		buttonPanel.add(buildModeSubmitButton);
 		BuildModeButtonHandler buildModeButtonHandler = new BuildModeButtonHandler(this, buildMode, buildPanel);
 		buildModeSubmitButton.addActionListener(buildModeButtonHandler);
 	}
@@ -163,6 +169,7 @@ public class GameFrame extends JFrame {
 		
 		remove(buildModeSubmitButton);
 		remove(buildPanel);
+		buttonPanel.remove(buildModeSubmitButton);
 	
 		pauseButton = new JButton("II");
 		pauseButton.setFocusable(false);
@@ -188,28 +195,41 @@ public class GameFrame extends JFrame {
 				pauseButton.setText("II");}
 		});
 
-		lives.setText("Remaining lives: 3");
-		lives.setVisible(true);
-		add(lives,BorderLayout.NORTH);
-		
-		key.setText("No Key");
-		key.setVisible(true);
-		add(key,BorderLayout.WEST);
-		
-		add(pauseButton,BorderLayout.EAST);
 		gamePanel = new GamePanel(this);
 		add(gamePanel,BorderLayout.CENTER);
-
+		
+		gamePanel.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
 		gamePanel.setGameMap(buildModeMap);
 		
 		gamePanel.requestFocus();
 		gamePanel.addKeyListener(keyHandler);
 		
+		JPanel livesPanel = new JPanel();
+		add(livesPanel, BorderLayout.NORTH);
+		livesPanel.add(lives, BorderLayout.CENTER);
+		lives.setText("Remaining lives: 3");
+		lives.setVisible(true);
+		
+		JPanel keyPanel = new JPanel();
+		add(keyPanel, BorderLayout.WEST);
+		keyPanel.setLayout(new BorderLayout());
+		JLabel bagLabel = new JLabel();
+		bagLabel.setIcon(gamePanel.getKeyPanelIcons()[1]);
+		keyPanel.add(bagLabel, BorderLayout.NORTH);
+		keyPanel.add(key, BorderLayout.CENTER);
+		
+		buttonPanel.add(pauseButton);
+		pauseButton.setPreferredSize(new Dimension(200,30));
+		
 		timerAsSecond = GameTime.getInstance().getTimerAsSecond();
-		timerAsSecond.setSize(50,50);
 
-		add(timerAsSecond,BorderLayout.SOUTH);
-
+		JPanel timerPanel = new JPanel();
+		JLabel timerLabel = new JLabel();
+		timerLabel.setIcon(gamePanel.getKeyPanelIcons()[2]);
+		add(timerPanel,BorderLayout.EAST);
+		timerPanel.setLayout(new BorderLayout());
+		timerPanel.add(timerLabel, BorderLayout.NORTH);
+		timerPanel.add(timerAsSecond, BorderLayout.CENTER);
 	}
 
 	public void showPopUpOnScreen(String message, String popUpType, int MessageType) {
@@ -223,7 +243,7 @@ public class GameFrame extends JFrame {
 	
 	public void updateKeyView(Boolean is_taken) {
 		if(is_taken) {
-			key.setText("Key taken");
+			key.setIcon(gamePanel.getKeyPanelIcons()[0]);
 		}
 	}
 	
@@ -243,9 +263,4 @@ public class GameFrame extends JFrame {
 	public void setRoomKeyHandler(RoomKeyHandler roomKeyHandler) {
 		this.roomKeyHandler = roomKeyHandler;
 	}
-	
-	
-
-	
-	
 }

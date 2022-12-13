@@ -5,10 +5,11 @@ import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 
 import Controllers.MouseHandler;
-import dataStructures.Location;
+import domain.Location;
 
 public class BuildMode {
 	
@@ -64,8 +65,9 @@ public class BuildMode {
 		rowStep = Math.round(frameHeight / numRow);
 		colStep = Math.round(frameWidth / numCol);
 		
-		previous = new Location(0, icons.length - 1);
-	
+		previous = new Location(14, 29);
+		buildModeMap[0][5].setIcon(buildPanel.getCrossIcon());
+		
 		mouseHandler = new MouseHandler(this);
 		buildPanel.addMouseListener(mouseHandler);
 	}
@@ -99,12 +101,18 @@ public class BuildMode {
 	}
 	
 	public void setRoomObject(Location location) {
+		if (location.getLocationX() == 0 & location.getLocationY() == 5) {
+			JOptionPane.showMessageDialog(null, "This location is reserved for the player!",  
+					"Alert", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
 		buildModeMap[location.getLocationX()][location.getLocationY()].setIcon(selectedIcon);
-		if(selectedIcon != null){
-			int count = buildPanel.getBuildingObjectCounter()+1;
+		if (selectedIcon != null) {
+			int count = buildPanel.getBuildingObjectCounter() + 1;
 			buildPanel.setBuildingObjectCounter(count);
-		}else {
-			int count = buildPanel.getBuildingObjectCounter()-1;
+		} 
+		else {
+			int count = buildPanel.getBuildingObjectCounter() - 1;
 			buildPanel.setBuildingObjectCounter(count);
 		}
 	}

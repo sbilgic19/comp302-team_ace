@@ -24,8 +24,20 @@ public class PlayerMoveLogic  {
 						&& newYPlayerPosition < numCol) {  
 				
 				if(GamePanel.getGameMap()[newXPlayerPosition][newYPlayerPosition].getIcon() == null) {
+					int playerLogoPosition = 0;
+					if (changeInX == 1 && changeInY == 0) {
+					}
+					else if (changeInX == -1 && changeInY == 0) {
+						playerLogoPosition = 1;
+					}
+					else if (changeInX == 0 && changeInY == -1) {
+						playerLogoPosition = 2;
+					}
+					else {
+						playerLogoPosition = 3;
+					}
 					GamePanel.updatePlayerView(xPlayerPosition, yPlayerPosition,
-							newXPlayerPosition, newYPlayerPosition);
+							newXPlayerPosition, newYPlayerPosition, playerLogoPosition);
 					player.getLocation().setLocationX(newXPlayerPosition);
 					player.getLocation().setLocationY(newYPlayerPosition);
 				}

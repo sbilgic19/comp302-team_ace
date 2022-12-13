@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 
 public class BuildPanel extends JPanel {
 
-	private ImageIcon barrelIcon;
 	private ImageIcon doorIcon;
+	private ImageIcon barrelIcon;
 	private ImageIcon jarIcon;
 	private ImageIcon vaultIcon;
 	private ImageIcon windowIcon;
@@ -19,8 +19,11 @@ public class BuildPanel extends JPanel {
 	private ImageIcon secondTreeIcon;
 	private ImageIcon thirdTreeIcon;
 	private ImageIcon woodIcon;
+	private ImageIcon crystalIcon;
+	private ImageIcon trophyIcon;
 	private ImageIcon eraserIcon;
-	
+	private ImageIcon crossIcon;
+
 	private IconFactory iconFactory;
 	
 	private int panelHeight;
@@ -42,8 +45,8 @@ public class BuildPanel extends JPanel {
 	
 	private void handleIcons() {
 		iconFactory = IconFactory.getInstance();
-		barrelIcon = iconFactory.generateIcon("../assets/barrelIcon.png", 50, 50);
 		doorIcon = iconFactory.generateIcon("../assets/doorIcon.png", 50, 50);
+		barrelIcon = iconFactory.generateIcon("../assets/barrelIcon.png", 50, 50);
 		jarIcon = iconFactory.generateIcon("../assets/jarIcon.png", 50, 50);
 		vaultIcon = iconFactory.generateIcon("../assets/vaultIcon.png", 50, 50);
 		windowIcon = iconFactory.generateIcon("../assets/windowIcon.png", 50, 50);
@@ -52,13 +55,20 @@ public class BuildPanel extends JPanel {
 		secondTreeIcon = iconFactory.generateIcon("../assets/treeIcon2.png", 50, 50);
 		thirdTreeIcon = iconFactory.generateIcon("../assets/treeIcon3.png", 50, 50);
 		woodIcon = iconFactory.generateIcon("../assets/woodIcon.png", 50, 50);
+		crystalIcon = iconFactory.generateIcon("../assets/crystalIcon.png", 50, 50);
+		trophyIcon = iconFactory.generateIcon("../assets/trophyIcon.png", 50, 50);
 		eraserIcon = iconFactory.generateIcon("../assets/eraserIcon.png", 50, 50);
+		crossIcon = iconFactory.generateIcon("../assets/crossIcon.png", 50, 50);
 	}
 
 	public ImageIcon[] getIcons() {
-		ImageIcon[] icons = {barrelIcon, doorIcon, jarIcon, vaultIcon, windowIcon, woodenBoxIcon, 
-				firstTreeIcon, secondTreeIcon, thirdTreeIcon, woodIcon, eraserIcon};
+		ImageIcon[] icons = {doorIcon, barrelIcon, jarIcon, vaultIcon, windowIcon, woodenBoxIcon, 
+				firstTreeIcon, secondTreeIcon, thirdTreeIcon, woodIcon, crystalIcon, trophyIcon, eraserIcon};
 		return icons;
+	}
+	
+	public ImageIcon getCrossIcon() {
+		return crossIcon;
 	}
 
 	public int getBuildingObjectCounter() {
