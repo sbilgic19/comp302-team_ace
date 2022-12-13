@@ -4,16 +4,13 @@ import java.util.Random;
 
 import UI.GameFrame;
 import UI.GamePanel;
-import dataStructures.Location;
 import domain.Key;
+import domain.Location;
 import domain.Player;
 
 public class KeyLogic {
 	GameFrame gameFrame;
 	private final Random r = new Random();
-	
-	
-	
 	
 	public KeyLogic(GameFrame gameFrame) {
 		super();
@@ -35,10 +32,7 @@ public class KeyLogic {
 			System.out.println("key taken");
 			return true;
 		}
-		
 		return false;
-		
-		
 	}
 	
 	
@@ -50,6 +44,9 @@ public class KeyLogic {
 		Boolean flag = false;
 		for (int i = 0; i < rowCount; i++) {
 			  for ( int j = 0; j < columnCount ; j++) {
+				  if (i == 0 && j == 5) {
+					  continue;
+				  }
 				  if (GamePanel.getGameMap()[i][j].getIcon() != null) {
 					  k = new Key(new Location(i,j));
 					  this.addKey(k);
@@ -61,13 +58,7 @@ public class KeyLogic {
 			  if (flag) {
 				  break;
 			  }
-			}
-		
-		
-		
-		
+			}	
 		return k;
 	}
-	
-
 }

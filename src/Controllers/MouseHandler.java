@@ -4,8 +4,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import UI.BuildMode;
-
-import dataStructures.Location;
+import domain.Location;
 
 public class MouseHandler extends MouseAdapter {
 
