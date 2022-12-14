@@ -22,7 +22,7 @@ public class SignUpPanel extends JPanel{
 	private JLabel signCheckPasswordLabel;
 	private JButton signUpButton;
 	private JButton backButton;
-	
+	private boolean isOn = false;
 	public SignUpPanel() {
 		//setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		setLayout(new FlowLayout());
@@ -68,5 +68,11 @@ public class SignUpPanel extends JPanel{
 	}
 	public JButton getBackButton() {
 		return backButton;
+	}
+	public boolean getIsOn() {
+		return isOn;
+	}
+	public void setIsOn(boolean newState) {
+		this.isOn = newState;
 	}
 }

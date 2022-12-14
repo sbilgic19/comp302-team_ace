@@ -29,8 +29,10 @@ public class GameFrame extends JFrame {
 	
 	private MainScreenPanel mainScreen;
 	private MainScreenPanelButtonsHandler mainButtonHandler;
+	
+	private InfoViewPanel infoPanel = new InfoViewPanel();
 
-	private SignUpPanel signupPanel;
+	private SignUpPanel signupPanel = new SignUpPanel();
 	private SignUpButtonHandler signupHandler;
 
 	private Timer timer;
@@ -81,8 +83,9 @@ public class GameFrame extends JFrame {
 		mainScreen.setEnabled(false);
 		remove(mainScreen);
 		
-		signupPanel = new SignUpPanel();
+		//signupPanel = new SignUpPanel();
 		signupHandler = new SignUpButtonHandler(this);
+		signupPanel.setIsOn(true);
 		add(signupPanel);
 		signupPanel.getSignupButton().addActionListener(signupHandler);
 		signupPanel.getBackButton().addActionListener(signupHandler);
@@ -90,7 +93,20 @@ public class GameFrame extends JFrame {
 		
 		requestFocus();
 	}
+	
+	public void showInfoView() {
+		mainScreen.setVisible(false);
+		mainScreen.setEnabled(false);
+		remove(mainScreen);
 		
+		
+		infoPanel.setIsOn(true);
+		add(infoPanel);
+		infoPanel.setVisible(true);
+		infoPanel.getInfoPanelBackButton().addActionListener((e) -> {
+			this.backToMainView();
+		});
+	}
 	public void showMainView() {
 		mainScreen = new MainScreenPanel();
 		add(mainScreen);
@@ -98,13 +114,26 @@ public class GameFrame extends JFrame {
 		mainScreen.setVisible(true);
 		mainScreen.getLoginButton().addActionListener(mainButtonHandler);
 		mainScreen.getSigninButton().addActionListener(mainButtonHandler);
+		mainScreen.getInfoButton().addActionListener(mainButtonHandler);
 		requestFocus();
 	}
 	
+	
 	public void backToMainView() {
-		signupPanel.setVisible(false);
-		signupPanel.setEnabled(false);
-		remove(signupPanel);
+		
+		if (infoPanel.getIsOn()) {
+			infoPanel.setIsOn(false);
+			infoPanel.setVisible(false);
+			infoPanel.setEnabled(false);
+			remove(infoPanel);
+		}
+		if (signupPanel.getIsOn()) {
+			signupPanel.setIsOn(false);
+			signupPanel.setVisible(false);
+			signupPanel.setEnabled(false);
+			remove(signupPanel);
+		}
+		
 
 		showMainView();
 	}
