@@ -24,6 +24,8 @@ public class MainScreenPanelButtonsHandler implements ActionListener{
 			gameFrame.switchLoginView();
 		}else if (event.getActionCommand().compareTo("Sign Up") == 0) {
 			gameFrame.switchSignUpView();
+		}else {
+			gameFrame.showInfoView();
 		}
 	}
 }
