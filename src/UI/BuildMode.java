@@ -25,7 +25,7 @@ public class BuildMode {
 	private Border border2;
 	
 	private Location previous;
-	
+	private Location newLoc;
 	private ImageIcon selectedIcon;
 	
 	private MouseHandler mouseHandler;
@@ -66,6 +66,7 @@ public class BuildMode {
 		colStep = Math.round(frameWidth / numCol);
 		
 		previous = new Location(14, 29);
+		newLoc = new Location(0,0);
 		buildModeMap[0][5].setIcon(buildPanel.getCrossIcon());
 		
 		mouseHandler = new MouseHandler(this);
@@ -106,7 +107,9 @@ public class BuildMode {
 					"Alert", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
+		
 		buildModeMap[location.getLocationX()][location.getLocationY()].setIcon(selectedIcon);
+		
 		if (selectedIcon != null) {
 			int count = buildPanel.getBuildingObjectCounter() + 1;
 			buildPanel.setBuildingObjectCounter(count);
@@ -121,11 +124,19 @@ public class BuildMode {
 		buildModeMap[previous.getLocationX()][previous.getLocationY()].setBorder(null);
 		previous = location;
 		if (flag) {
+			
 			selectedIcon = icons[location.getLocationX()];
 		}
 		else {
 			selectedIcon = null;
 		}
 		buildModeMap[location.getLocationX()][location.getLocationY()].setBorder(border2);
+		newLoc.setLocation(location.getLocationX(), location.getLocationY());
+	}
+	public Location getSelectedIconLocation() {
+		return newLoc;
+	}
+	public BuildPanel getBuildPanel() {
+		return this.buildPanel;
 	}
 }
