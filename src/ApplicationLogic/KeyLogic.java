@@ -1,5 +1,6 @@
 package ApplicationLogic;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import UI.GameFrame;
@@ -48,20 +49,25 @@ public class KeyLogic {
 		int rowCount = gameFrame.getNumRow();
 		int columnCount = gameFrame.getNumCol();
 		Boolean flag = false;
+		ArrayList<Location> object_loactions = new ArrayList<>(); 
 		for (int i = 0; i < rowCount; i++) {
 			  for ( int j = 0; j < columnCount ; j++) {
 				  if (GamePanel.getGameMap()[i][j].getIcon() != null) {
-					  k = new Key(new Location(i,j));
-					  this.addKey(k);
-					  flag = true;
-					  break;
+					  if (i == 0 && j == 5) {
+						  continue;
+					  }
+					  object_loactions.add(new Location(i,j));
+					  
 				  }
 			  }
 			  
-			  if (flag) {
-				  break;
-			  }
 			}
+		
+		int rand = r.nextInt(object_loactions.size());
+		
+		  k = new Key(object_loactions.get(rand));
+		  this.addKey(k);
+;
 		
 		
 		
