@@ -26,11 +26,12 @@ public class KeyLogic {
 	}
 	
 	public boolean takeKey(Player p , Key k) {
+		/*
 		System.out.println("p.getLocation().getLocationX() :"+ p.getLocation().getLocationX());
 		System.out.println("k.getLocation().getLocationX() :"+ k.getLocation().getLocationX());
 		System.out.println("Math.abs(p.getLocation().getLocationX()- k.getLocation().getLocationX())  :" + Math.abs(p.getLocation().getLocationX()- k.getLocation().getLocationX()));
 		System.out.println("Math.abs(p.getLocation().getLocationY()- k.getLocation().getLocationY())  :" + Math.abs(p.getLocation().getLocationY()- k.getLocation().getLocationY()));
-		
+		*/
 		if ( Math.abs(p.getLocation().getLocationX()- k.getLocation().getLocationX()) <= 1 && Math.abs(p.getLocation().getLocationY()- k.getLocation().getLocationY()) <= 1 ) {
 			k.taken(p);
 			System.out.println("key taken");
@@ -45,7 +46,7 @@ public class KeyLogic {
 	
 	public Key getKey() {
 		Key k = null;
-		System.out.println("getKey called");
+		//System.out.println("getKey called");
 		int rowCount = gameFrame.getNumRow();
 		int columnCount = gameFrame.getNumCol();
 		Boolean flag = false;
@@ -65,9 +66,8 @@ public class KeyLogic {
 		
 		int rand = r.nextInt(object_loactions.size());
 		
-		  k = new Key(object_loactions.get(rand));
-		  this.addKey(k);
-;
+		k = new Key(object_loactions.get(rand));
+		this.addKey(k);
 		
 		
 		
