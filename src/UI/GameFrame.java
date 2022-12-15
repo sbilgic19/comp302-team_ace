@@ -276,6 +276,9 @@ public class GameFrame extends JFrame {
 	public void updateKeyView(Boolean is_taken) {
 		if(is_taken) {
 			key.setIcon(gamePanel.getGamePanelIcons()[0]);
+			Location location = buildMode.getDoorLocation();
+			JLabel[][] gameMap = GamePanel.getGameMap();
+			gameMap[location.getLocationX()][location.getLocationY()].setIcon(gamePanel.getOpenDoorIcon());
 		}
 	}
 	
