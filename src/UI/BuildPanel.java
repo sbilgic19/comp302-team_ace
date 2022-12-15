@@ -45,7 +45,7 @@ public class BuildPanel extends JPanel {
 	
 	private void handleIcons() {
 		iconFactory = IconFactory.getInstance();
-		doorIcon = iconFactory.generateIcon("../assets/doorIcon.png", 50, 50);
+		doorIcon = iconFactory.generateIcon("../assets/doorIcon1.png", 50, 50);
 		barrelIcon = iconFactory.generateIcon("../assets/barrelIcon.png", 50, 50);
 		jarIcon = iconFactory.generateIcon("../assets/jarIcon.png", 50, 50);
 		vaultIcon = iconFactory.generateIcon("../assets/vaultIcon.png", 50, 50);

@@ -34,6 +34,8 @@ public class GamePanel extends JPanel {
     private Key key;
     private PowerUp powerUp;
     private Player player;
+    
+    private static ImageIcon openDoorIcon;
      
     RoomKeyHandler roomKeyHandler;
     PowerUpHandler powerUpHandler;
@@ -55,6 +57,8 @@ public class GamePanel extends JPanel {
         extraLifeIcon = iconFactory.generateIcon("../assets/extraLifeIcon.png", 50, 50);
         extraTimeIcon = iconFactory.generateIcon("../assets/extraTimeIcon.png", 50, 50);
 
+        openDoorIcon = iconFactory.generateIcon("../assets/doorIcon2.png", 50, 50);
+        
         this.gameFrame = gameFrame;
         
         this.setLayout(new GridLayout(numRow, numCol, 0, 0));
@@ -164,6 +168,10 @@ public class GamePanel extends JPanel {
      	return icons;
     }
     
+    public ImageIcon getOpenDoorIcon() {
+    	return openDoorIcon;
+    }
+     
     public static JLabel[][] getGameMap() {
     	return gameMap;
     }

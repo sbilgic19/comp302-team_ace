@@ -46,7 +46,7 @@ public class GameTime {
         this.seconds = seconds;
     }
 
-    public static JLabel getTimerAsSecond() {
+    public JLabel getTimerAsSecond() {
         return timerAsSecond;
     }
 
