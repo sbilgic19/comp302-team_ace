@@ -5,10 +5,10 @@ import javax.swing.*;
 
 import Controllers.PowerUpHandler;
 import Controllers.RoomKeyHandler;
+import dataStructures.Location;
 import domain.powerUps.PowerUp;
 import domain.Player;
 import domain.Key;
-import domain.Location;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -159,7 +159,7 @@ public class GamePanel extends JPanel {
     	}
     }
     
-    public ImageIcon[] getKeyPanelIcons() {
+    public ImageIcon[] getGamePanelIcons() {
     	ImageIcon[] icons = {keyIcon, bagIcon, timerIcon};
      	return icons;
     }

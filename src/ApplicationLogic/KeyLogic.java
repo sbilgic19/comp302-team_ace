@@ -5,8 +5,8 @@ import java.util.Random;
 
 import UI.GameFrame;
 import UI.GamePanel;
+import dataStructures.Location;
 import domain.Key;
-import domain.Location;
 import domain.Player;
 
 public class KeyLogic {
@@ -41,35 +41,34 @@ public class KeyLogic {
 	public Key getKey() {
 		Key k = null;
 		//System.out.println("getKey called");
+		Location doorLocation = gameFrame.getDoorLocation();
 		int rowCount = gameFrame.getNumRow();
 		int columnCount = gameFrame.getNumCol();
 		Boolean flag = false;
-		ArrayList<Location> object_loactions = new ArrayList<>(); 
+		ArrayList<Location> object_locations = new ArrayList<>(); 
 		for (int i = 0; i < rowCount; i++) {
 			  for ( int j = 0; j < columnCount ; j++) {
 				  if (i == 0 && j == 5) {
+					  continue;
+				  }
+				  else if (i == doorLocation.getLocationX() && j == doorLocation.getLocationY()) {
 					  continue;
 				  }
 				  if (GamePanel.getGameMap()[i][j].getIcon() != null) {
 					  if (i == 0 && j == 5) {
 						  continue;
 					  }
-					  object_loactions.add(new Location(i,j));
+					  object_locations.add(new Location(i,j));
 					  
 				  }
 			  }
-			  
-
 			}
 		
-		int rand = r.nextInt(object_loactions.size());
+		int rand = r.nextInt(object_locations.size());
 		
-		k = new Key(object_loactions.get(rand));
+		k = new Key(object_locations.get(rand));
 		this.addKey(k);
-		
-		
-		
-		
+			
 		return k;
 	}
 }

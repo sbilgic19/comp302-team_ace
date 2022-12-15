@@ -1,5 +1,7 @@
 package domain;
 
+import dataStructures.Location;
+
 public class Player {
 
 	private Location location;

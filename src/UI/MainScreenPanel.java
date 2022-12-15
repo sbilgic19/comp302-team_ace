@@ -28,7 +28,7 @@ public class MainScreenPanel extends JPanel{
 		loginButton.setFocusable(false);
 		
 		IconFactory iconFactory = IconFactory.getInstance();
-		infoIcon = iconFactory.generateIcon("../assets/info3.png",60,60);
+		infoIcon = iconFactory.generateIcon("../assets/infoIcon.png",60, 60);
 		infoButton = new JButton(infoIcon);
 		infoButton.setBorderPainted(false);
 		infoButton.setFocusable(false);

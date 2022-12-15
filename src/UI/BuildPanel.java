@@ -30,7 +30,6 @@ public class BuildPanel extends JPanel {
 	private int panelWidth;
 
 	private int buildingObjectCounter = 0;
-	private boolean doorFlag = false;
 	
 	public BuildPanel(GameFrame gameFrame) {
 	
@@ -75,12 +74,7 @@ public class BuildPanel extends JPanel {
 	public int getBuildingObjectCounter() {
 		return buildingObjectCounter;
 	}
-	public boolean getDoorFlag() {
-		return this.doorFlag;
-	}
-	public void setDoorFlag(boolean newState) {
-		this.doorFlag = newState;
-	}
+	
 	public void setBuildingObjectCounter(int buildingObjectCounter) {
 		this.buildingObjectCounter = buildingObjectCounter;
 	}

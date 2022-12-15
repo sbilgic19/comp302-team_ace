@@ -3,10 +3,8 @@ package Controllers;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JOptionPane;
-
 import UI.BuildMode;
-import domain.Location;
+import dataStructures.Location;
 
 public class MouseHandler extends MouseAdapter {
 
@@ -49,31 +47,9 @@ public class MouseHandler extends MouseAdapter {
 			}
 		}
 		else {
-			// if door is selected
-			if(buildMode.getSelectedIconLocation().getLocationX() == 0 && buildMode.getSelectedIconLocation().getLocationY() == 29) {
-				// if door is already placed
-				if(buildMode.getBuildPanel().getDoorFlag() == true) {
-					JOptionPane.showMessageDialog(null, "You already located a door you cannot place more than one door",  
-							"Alert", JOptionPane.ERROR_MESSAGE);
-					return;
-				} else {
-					buildMode.getBuildPanel().setDoorFlag(true);
-				}
-			}
 			Location location = new Location(xPosition, yPosition);
 			buildMode.setRoomObject(location);
 			
 		}
 	}
 }
-
-/*
-if(xPosition == 0 && buildMode.getBuildPanel().getDoorFlag() == true) {
-JOptionPane.showMessageDialog(null, "You already located a door you cannot place more than one door",  
-		"Alert", JOptionPane.ERROR_MESSAGE);
-return;
-}
-if(xPosition == 0) {
-buildMode.getBuildPanel().setDoorFlag(true);
-}
-*/

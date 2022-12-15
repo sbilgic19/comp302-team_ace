@@ -1,5 +1,7 @@
 package domain;
 
+import dataStructures.Location;
+
 public class Key {
 	private Location location;
 	private boolean isTaken = false;

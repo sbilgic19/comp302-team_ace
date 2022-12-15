@@ -25,16 +25,30 @@ public class BuildModeButtonHandler implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		
-		if (buildMode.getBuildPanel().getDoorFlag() == false) {
-			JOptionPane.showMessageDialog(null, "You cannot start the game without adding a door to game map",  
-					"Alert", JOptionPane.ERROR_MESSAGE);
-			return;
+		JLabel[][] buildModeMap = buildMode.getBuildModeMap();
+		int counter = 0;
+		
+		for (int ii = 0; ii < gameFrame.getNumRow(); ii++) {
+			for (int jj = 0; jj < gameFrame.getNumCol(); jj++) {
+				if (buildModeMap[ii][jj].getIcon() != null) {
+					counter++;
+				}
+			}
 		}
-			
-		if (buildPanel.getBuildingObjectCounter() > 0) {
-			JLabel[][] buildModeMap = buildMode.getBuildModeMap();
+		counter -= 2; 
+		buildPanel.setBuildingObjectCounter(counter);
+				
+		if (buildMode.getDoorLocation() == null) {
+			JOptionPane.showMessageDialog(null, "Room door is not placed!",  
+					"Alert", JOptionPane.ERROR_MESSAGE);
+		}
+		else if (buildPanel.getBuildingObjectCounter() > 0) {
 			gameFrame.switchGameView(buildModeMap);
 			buildMode.removeMouseHandler();
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "Required at least one room object except room door!",  
+					"Alert", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }

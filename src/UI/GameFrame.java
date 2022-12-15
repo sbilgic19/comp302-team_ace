@@ -3,6 +3,8 @@ import java.awt.*;
 
 import javax.swing.*;
 
+import dataStructures.Location;
+
 import Controllers.*;
 
 public class GameFrame extends JFrame {
@@ -41,6 +43,7 @@ public class GameFrame extends JFrame {
 
 	private JButton buildModeSubmitButton;
 	private BuildPanel buildPanel;
+	private BuildMode buildMode;
 	
 	public GameFrame() {
 		
@@ -181,7 +184,7 @@ public class GameFrame extends JFrame {
 		setLayout(new BorderLayout());
 		buildPanel = new BuildPanel(this);
 		add(buildPanel, BorderLayout.CENTER);
-		BuildMode buildMode = new BuildMode(this, buildPanel);
+		buildMode = new BuildMode(this, buildPanel);
 		buttonPanel = new JPanel();
 		add(buttonPanel,BorderLayout.SOUTH);
 		
@@ -243,7 +246,7 @@ public class GameFrame extends JFrame {
 		add(keyPanel, BorderLayout.WEST);
 		keyPanel.setLayout(new BorderLayout());
 		JLabel bagLabel = new JLabel();
-		bagLabel.setIcon(gamePanel.getKeyPanelIcons()[1]);
+		bagLabel.setIcon(gamePanel.getGamePanelIcons()[1]);
 		keyPanel.add(bagLabel, BorderLayout.NORTH);
 		keyPanel.add(key, BorderLayout.CENTER);
 		
@@ -254,7 +257,7 @@ public class GameFrame extends JFrame {
 
 		JPanel timerPanel = new JPanel();
 		JLabel timerLabel = new JLabel();
-		timerLabel.setIcon(gamePanel.getKeyPanelIcons()[2]);
+		timerLabel.setIcon(gamePanel.getGamePanelIcons()[2]);
 		add(timerPanel,BorderLayout.EAST);
 		timerPanel.setLayout(new BorderLayout());
 		timerPanel.add(timerLabel, BorderLayout.NORTH);
@@ -272,7 +275,7 @@ public class GameFrame extends JFrame {
 	
 	public void updateKeyView(Boolean is_taken) {
 		if(is_taken) {
-			key.setIcon(gamePanel.getKeyPanelIcons()[0]);
+			key.setIcon(gamePanel.getGamePanelIcons()[0]);
 		}
 	}
 	
@@ -289,6 +292,9 @@ public class GameFrame extends JFrame {
 		return roomKeyHandler;
 	}
 
+	public Location getDoorLocation() {
+		return buildMode.getDoorLocation();
+	}
 	public void setRoomKeyHandler(RoomKeyHandler roomKeyHandler) {
 		this.roomKeyHandler = roomKeyHandler;
 	}

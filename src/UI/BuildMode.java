@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 
 import Controllers.MouseHandler;
-import domain.Location;
+import dataStructures.Location;
 
 public class BuildMode {
 	
@@ -25,11 +25,12 @@ public class BuildMode {
 	private Border border2;
 	
 	private Location previous;
-	private Location newLoc;
 	private ImageIcon selectedIcon;
 	
 	private MouseHandler mouseHandler;
 	private BuildPanel buildPanel;
+	
+	private Location doorLocation; 
 	
 	public BuildMode(GameFrame gameFrame, BuildPanel buildPanel) {
 		
@@ -66,7 +67,6 @@ public class BuildMode {
 		colStep = Math.round(frameWidth / numCol);
 		
 		previous = new Location(14, 29);
-		newLoc = new Location(0,0);
 		buildModeMap[0][5].setIcon(buildPanel.getCrossIcon());
 		
 		mouseHandler = new MouseHandler(this);
@@ -93,6 +93,10 @@ public class BuildMode {
 		return numCol;
 	}
 	
+	public Location getDoorLocation() {
+		return doorLocation;
+	}
+	
 	public int getIconNumber() {
 		return icons.length;
 	}
@@ -102,41 +106,37 @@ public class BuildMode {
 	}
 	
 	public void setRoomObject(Location location) {
-		if (location.getLocationX() == 0 & location.getLocationY() == 5) {
+		if (location.getLocationX() == 0 && location.getLocationY() == 5) {
 			JOptionPane.showMessageDialog(null, "This location is reserved for the player!",  
 					"Alert", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		
-		buildModeMap[location.getLocationX()][location.getLocationY()].setIcon(selectedIcon);
-		
-		if (selectedIcon != null) {
-			int count = buildPanel.getBuildingObjectCounter() + 1;
-			buildPanel.setBuildingObjectCounter(count);
-		} 
-		else {
-			int count = buildPanel.getBuildingObjectCounter() - 1;
-			buildPanel.setBuildingObjectCounter(count);
+		else if (doorLocation != null && previous.getLocationX() == 0) {
+			JOptionPane.showMessageDialog(null, "Already placed the door!",  
+					"Alert", JOptionPane.ERROR_MESSAGE);
+			return;
 		}
+		else if (doorLocation == null && previous.getLocationX() == 0)  {
+			doorLocation = location;
+		}
+		else if (doorLocation != null && selectedIcon == null) {
+			if (location.getLocationX() == doorLocation.getLocationX()
+					&& location.getLocationY() == doorLocation.getLocationY()) {
+				doorLocation = null;	
+			}
+		}
+		buildModeMap[location.getLocationX()][location.getLocationY()].setIcon(selectedIcon);
 	}
 	
 	public void setSelectedIcon(Location location, boolean flag) {
 		buildModeMap[previous.getLocationX()][previous.getLocationY()].setBorder(null);
 		previous = location;
 		if (flag) {
-			
 			selectedIcon = icons[location.getLocationX()];
 		}
 		else {
 			selectedIcon = null;
 		}
 		buildModeMap[location.getLocationX()][location.getLocationY()].setBorder(border2);
-		newLoc.setLocation(location.getLocationX(), location.getLocationY());
-	}
-	public Location getSelectedIconLocation() {
-		return newLoc;
-	}
-	public BuildPanel getBuildPanel() {
-		return this.buildPanel;
 	}
 }

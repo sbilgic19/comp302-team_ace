@@ -1,4 +1,4 @@
-package domain;
+package dataStructures;
 
 public class Location { 
 	private int locationX;
