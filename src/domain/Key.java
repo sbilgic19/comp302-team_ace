@@ -1,12 +1,8 @@
 package domain;
-import dataStructures.*;
 
 public class Key {
 	private Location location;
 	private boolean isTaken = false;
-	
-	
-	
 	
 	public Key(Location location) {
 		super();
@@ -14,12 +10,10 @@ public class Key {
 		System.out.println("key is created on " + location.getLocationX() +" " + location.getLocationY() );
 	}
 
-
 	public void taken(Player p ) {
 		p.takeKey();
 		this.isTaken =true;
 	}
-	
 	
 	public boolean getIsTaken() {
 		return this.isTaken;
@@ -33,10 +27,4 @@ public class Key {
 	public Location getLocation() {
 		return location;
 	}
-	
-	
-	
-	
-	
-	
 }

@@ -29,7 +29,7 @@ public class GameTime {
             public void actionPerformed(ActionEvent e) {
                 if (seconds > 0) {
                     seconds--;
-                    timerAsSecond.setText("" + seconds);
+                    timerAsSecond.setText("      " + seconds);
                 }else {
                     GameState.getInstance().setPaused(true);
                     timer.stop();

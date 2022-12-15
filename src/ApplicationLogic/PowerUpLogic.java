@@ -4,7 +4,7 @@ import java.util.Random;
 
 import UI.GameFrame;
 import UI.GamePanel;
-import dataStructures.Location;
+import domain.Location;
 import domain.Player;
 import domain.powerUps.PowerUp;
 import domain.powerUps.PowerUpFactory;

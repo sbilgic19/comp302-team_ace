@@ -1,6 +1,6 @@
 package domain.powerUps;
 
-import dataStructures.Location;
+import domain.Location;
 
 public class ExtraLifePowerUp implements PowerUp{
 
