@@ -5,15 +5,15 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import ApplicationLogic.AuthorizationLogic;
 import domain.User;
 import UI.GameFrame;
-import authorization.Authorization;
 
 
 public class LoginAuthorizationHandler implements ActionListener {
 	
 	private GameFrame gameFrame;
-	private Authorization authLogic;
+	private AuthorizationLogic authLogic;
 	
 	public LoginAuthorizationHandler(GameFrame gameFrame) {
 		this.gameFrame = gameFrame;
@@ -24,7 +24,7 @@ public class LoginAuthorizationHandler implements ActionListener {
 		if (event.getActionCommand().compareTo("Login") == 0) {
 			String username = gameFrame.getUsernameMessage();
 			String password = gameFrame.getPasswordMessage();
-			authLogic = new Authorization();
+			authLogic = new AuthorizationLogic();
 			if(authLogic.loginAuthorization(username, password)) {
 				gameFrame.switchBuildView();
 			}else {

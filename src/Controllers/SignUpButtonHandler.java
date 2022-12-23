@@ -5,13 +5,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import ApplicationLogic.AuthorizationLogic;
 import UI.GameFrame;
-import authorization.Authorization;
 
 public class SignUpButtonHandler implements ActionListener{
 
 	private GameFrame gameFrame;
-	private Authorization authorization;
+	private AuthorizationLogic authorization;
 	
 	public SignUpButtonHandler(GameFrame gameFrame) {
 		//this.mainScreenPanel = mainScreenPanel;
@@ -25,7 +25,7 @@ public class SignUpButtonHandler implements ActionListener{
 			String username = gameFrame.getSignupUsername();
 			String password = gameFrame.getSignupPassword();
 			String checkPassword = gameFrame.getSignupCheckPassword();
-			authorization = new Authorization();
+			authorization = new AuthorizationLogic();
 			
 			if(authorization.signupAuthorization(username, password, checkPassword)) {
 				gameFrame.showPopUpOnScreen("The user has been created", "Dialog", JOptionPane.INFORMATION_MESSAGE);

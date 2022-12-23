@@ -1,4 +1,4 @@
-package authorization;
+package ApplicationLogic;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 
 import domain.User;
 
-public class Authorization {
+public class AuthorizationLogic {
 	
 	private ArrayList<User> recordedUsers = new ArrayList<User>(); // Temporary solution until database is constructed. It can be changed with text file. 
 	private User activeUser;
@@ -20,7 +20,7 @@ public class Authorization {
 	private FileReader freader;
 	
 	
-	public Authorization() {
+	public AuthorizationLogic() {
 		recordedUsers.add(new User("nsavran", "123456"));
 		try {
 			//this.fwriter = new FileWriter("signedUser.txt", true);

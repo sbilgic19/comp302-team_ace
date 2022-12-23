@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import domain.User;
 import UI.GameFrame;
 import UI.MainScreenPanel;
-import authorization.Authorization;
 
 public class MainScreenPanelButtonsHandler implements ActionListener{
 
