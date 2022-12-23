@@ -1,6 +1,7 @@
 package UI;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -10,6 +11,7 @@ import javax.swing.border.Border;
 
 import Controllers.MouseHandler;
 import dataStructures.Location;
+import domain.RoomObject;
 
 public class BuildMode {
 	
@@ -30,11 +32,13 @@ public class BuildMode {
 	private MouseHandler mouseHandler;
 	private BuildPanel buildPanel;
 	
-	private Location doorLocation; 
+	private ArrayList<RoomObject> objectList;
+	private Location doorLocation;
 	
 	public BuildMode(GameFrame gameFrame, BuildPanel buildPanel) {
 		
 		this.buildPanel = buildPanel;
+		objectList = new ArrayList<RoomObject>();
 		
 		border1 = BorderFactory.createDashedBorder(Color.BLUE);
 		border2 = BorderFactory.createLineBorder(Color.RED);
@@ -105,7 +109,12 @@ public class BuildMode {
 		return buildModeMap;
 	}
 	
+	public ArrayList<RoomObject> getObjectList() {
+		return objectList;
+	}
+	
 	public void setRoomObject(Location location) {
+
 		if (location.getLocationX() == 0 && location.getLocationY() == 5) {
 			JOptionPane.showMessageDialog(null, "This location is reserved for the player!",  
 					"Alert", JOptionPane.ERROR_MESSAGE);
@@ -116,15 +125,29 @@ public class BuildMode {
 					"Alert", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		else if (doorLocation == null && previous.getLocationX() == 0)  {
+		else if (doorLocation == null && previous.getLocationX() == 0) {
 			doorLocation = location;
 		}
-		else if (doorLocation != null && selectedIcon == null) {
-			if (location.getLocationX() == doorLocation.getLocationX()
-					&& location.getLocationY() == doorLocation.getLocationY()) {
-				doorLocation = null;	
+		
+		int index = objectListSearch(location);
+		
+		if (index == -1) {
+			RoomObject tempObject = new RoomObject(location, previous.getLocationX());
+			objectList.add(tempObject);
+		}
+		else {
+			if (selectedIcon == null) {
+				if (objectList.get(index).getTypeID() == 0) {
+					doorLocation = null;
+				}
+				objectList.remove(index);
+			}
+			else {
+				RoomObject tempObject = objectList.get(index);
+				tempObject.setTypeID(previous.getLocationX());
 			}
 		}
+
 		buildModeMap[location.getLocationX()][location.getLocationY()].setIcon(selectedIcon);
 	}
 	
@@ -138,5 +161,17 @@ public class BuildMode {
 			selectedIcon = null;
 		}
 		buildModeMap[location.getLocationX()][location.getLocationY()].setBorder(border2);
+	}
+	
+	private int objectListSearch(Location location) {
+		for (int ii = 0; ii < objectList.size(); ii++) {
+			RoomObject tempObject = objectList.get(ii);
+			Location tempLocation = tempObject.getLocation();
+			if (location.getLocationX() == tempLocation.getLocationX() && 
+				location.getLocationY() == tempLocation.getLocationY()) {
+					return ii;
+			}
+		}
+		return -1;
 	}
 }
