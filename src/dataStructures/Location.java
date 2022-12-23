@@ -13,6 +13,8 @@ public class Location {
 		this.locationX = locationX;
 		this.locationY = locationY;
 	}
+	
+	
 
 	public void moveLeft() {
 		this.locationX--;
