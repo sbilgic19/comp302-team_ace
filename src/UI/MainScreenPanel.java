@@ -15,7 +15,7 @@ public class MainScreenPanel extends JPanel{
 	private JButton loginButton;
 	private JButton signinButton;
 	private JLabel mainScreenLabel;
-	private MainScreenPanelButtonsHandler bHandler;
+
 	
 	private ImageIcon infoIcon;
 	private JButton infoButton;

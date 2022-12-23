@@ -11,11 +11,11 @@ public class GameFrame extends JFrame {
 	private int numRow = 15;
 	private int numCol = 29;
 	private GamePanel gamePanel;
-	private JTextField usernameField;
-	private JPasswordField passwordField;
-	private JLabel usernameLabel;
-	private JLabel passwordLabel;
-	private JButton loginButton;
+//	private JTextField usernameField;
+//	private JPasswordField passwordField;
+//	private JLabel usernameLabel;
+//	private JLabel passwordLabel;
+//	private JButton loginButton;
 	private JButton pauseButton;
 	private JButton resumeButton;
 	private IconFactory iconFactory;
@@ -24,13 +24,19 @@ public class GameFrame extends JFrame {
 	
 	private JLabel lives;
 	private JLabel key;
-	private LoginAuthorizationHandler buttonHandler;
+	
 	private KeyHandler keyHandler;
 	private RoomKeyHandler roomKeyHandler;
 	private JPanel buttonPanel;
 	
+	private LoginPanel loginPanel;
+	private LoginAuthorizationHandler buttonHandler;
+	
 	private MainScreenPanel mainScreen;
 	private MainScreenPanelButtonsHandler mainButtonHandler;
+	
+	private LoadOrNewGameSelectionScreen loadNewGameScreen;
+	private NewOrLoadGameSelectionHandler newLoadSelectionScreenHandler;
 	
 	private InfoViewPanel infoPanel = new InfoViewPanel();
 
@@ -45,24 +51,26 @@ public class GameFrame extends JFrame {
 	private BuildPanel buildPanel;
 	private BuildMode buildMode;
 	
+	
+	
 	public GameFrame() {
 		
 		super("Escape From Koc");
-		
+		loadNewGameScreen = new LoadOrNewGameSelectionScreen();
 		iconFactory = IconFactory.getInstance();
 		gameIcon = iconFactory.generateIcon("../assets/gameImage.jpg", 0, 0);
 		gameImage = gameIcon.getImage();
 		setIconImage(gameImage);
 		
-		usernameLabel = new JLabel("Username:");
-		passwordLabel = new JLabel("Password:");
-		usernameField = new JTextField(10);
-		passwordField = new JPasswordField(10);
+//		usernameLabel = new JLabel("Username:");
+//		passwordLabel = new JLabel("Password:");
+//		usernameField = new JTextField(10);
+//		passwordField = new JPasswordField(10);
 		lives = new JLabel();
 		key = new JLabel();
-		
-		loginButton = new JButton("Login");
-		loginButton.setFocusable(false);
+		loginPanel = new LoginPanel();
+//		loginButton = new JButton("Login");
+//		loginButton.setFocusable(false);
 	}
 	
 	public void switchLoginView() {
@@ -71,15 +79,11 @@ public class GameFrame extends JFrame {
 		remove(mainScreen);
 		
 		requestFocus();
-		setLayout(new FlowLayout());
 		
-		add(usernameLabel);
-		add(usernameField);
-		add(passwordLabel);
-		add(passwordField);
-		add(loginButton);
-		
-		loginButton.addActionListener(buttonHandler);
+		loginPanel.getLoginButton().addActionListener(buttonHandler);
+		add(loginPanel);
+		loginPanel.setVisible(true);
+		requestFocus();
 	}
 	public void switchSignUpView() {
 		mainScreen.setVisible(false);
@@ -121,7 +125,25 @@ public class GameFrame extends JFrame {
 		requestFocus();
 	}
 	
-	
+	public void showNewLoadGameSelectionView() {
+		loginPanel.setVisible(false);
+		loginPanel.setEnabled(false);
+		remove(loginPanel);
+		
+		
+		requestFocus();
+		
+		add(loadNewGameScreen);
+		
+		
+		newLoadSelectionScreenHandler = new NewOrLoadGameSelectionHandler(this);
+		loadNewGameScreen.paintComponent(getGraphics());
+		loadNewGameScreen.setVisible(true);
+		
+		loadNewGameScreen.getNewGameButton().addActionListener(newLoadSelectionScreenHandler);
+		loadNewGameScreen.getLoadGameButton().addActionListener(newLoadSelectionScreenHandler);
+		
+	}
 	public void backToMainView() {
 		
 		if (infoPanel.getIsOn()) {
@@ -162,24 +184,23 @@ public class GameFrame extends JFrame {
 	}
 	//
 	
-	public String getUsernameMessage() {
-		return usernameField.getText();
-	}
 	
-	public String getPasswordMessage() {
-		return new String(passwordField.getPassword());
-	}
 
 	public int getNumRow(){return numRow;}
 
 	public int getNumCol(){return numCol;}
 
 	public void switchBuildView() {
-		remove(usernameLabel);
-		remove(usernameField);
-		remove(passwordLabel);
-		remove(passwordField);
-		remove(loginButton);
+//		remove(usernameLabel);
+//		remove(usernameField);
+//		remove(passwordLabel);
+//		remove(passwordField);
+//		remove(loginButton);
+		loadNewGameScreen.setVisible(false);
+		loadNewGameScreen.setEnabled(false);
+		remove(loadNewGameScreen);
+		requestFocus();
+		
 		
 		setLayout(new BorderLayout());
 		buildPanel = new BuildPanel(this);
@@ -300,5 +321,8 @@ public class GameFrame extends JFrame {
 	}
 	public void setRoomKeyHandler(RoomKeyHandler roomKeyHandler) {
 		this.roomKeyHandler = roomKeyHandler;
+	}
+	public LoginPanel getLoginPanel() {
+		return loginPanel;
 	}
 }
