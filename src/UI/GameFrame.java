@@ -1,5 +1,7 @@
 package UI;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -51,7 +53,7 @@ public class GameFrame extends JFrame {
 	private BuildPanel buildPanel;
 	private BuildMode buildMode;
 	
-	
+	private PausedGameScreen pauseDialog;
 	
 	public GameFrame() {
 		
@@ -242,8 +244,39 @@ public class GameFrame extends JFrame {
 				GameState.getInstance().setPaused(true);
 				timer.stop();
 				pauseButton.setText(">");
+				// Pause Game Screen
+				pauseDialog = new PausedGameScreen();
+				//add(pauseDialog);
+				pauseDialog.setLocationRelativeTo(this);
+				pauseDialog.setBounds(750, 375, 400, 400);
+				pauseDialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+				pauseDialog.setModal(false);
+				pauseDialog.setVisible(true);
+				pauseDialog.setEnabled(true);
+				//pauseDialog.requestFocus();
+				pauseDialog.getReturnToGameButton().addActionListener((ActionListener) new ActionListener () {
+					public void actionPerformed(ActionEvent event) {
+						GameState.getInstance().setPaused(false);
+						pauseDialog.setVisible(false);
+						pauseDialog.setEnabled(false);		
+						pauseDialog.dispose();
+						remove(pauseDialog);
+						timer.start();
+						pauseButton.setText("II");
+					}
+				});
+
+				pauseDialog.getSaveGameButton().addActionListener((ActionListener) new ActionListener () {
+					public void actionPerformed(ActionEvent event) {
+						System.out.println("Game is Saving...");
+					}
+				});
+				
 			}else{
 				GameState.getInstance().setPaused(false);
+				pauseDialog.setVisible(false);
+				pauseDialog.setEnabled(false);
+				remove(pauseDialog);
 				timer.start();
 				pauseButton.setText("II");}
 		});
