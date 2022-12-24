@@ -29,4 +29,8 @@ public class Key {
 	public Location getLocation() {
 		return location;
 	}
+
+	public void setLocation(Location location2) {
+		this.location = location2;	
+	}
 }

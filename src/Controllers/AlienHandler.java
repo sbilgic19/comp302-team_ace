@@ -16,6 +16,17 @@ public class AlienHandler {
 		this.key = key;
 
 	}
+	public AlienHandler(GameFrame gameFrame) {
+		this.alienLogic = new AlienLogic(gameFrame);
+		this.gameFrame = gameFrame;
+		
+	}
+	
+	
+	
+	public void setKey(Key key) {
+		this.key = key;
+	}
 	
 	
 	public boolean ChangeLocationOfKey(Alien alien, Key key) {

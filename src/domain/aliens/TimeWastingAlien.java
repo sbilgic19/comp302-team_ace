@@ -14,7 +14,7 @@ public class TimeWastingAlien implements Alien{
 		super();
 		this.location = location;
 		this.alienType = "Time Wasting";
-		this.isActive = false;
+		this.isActive = true;
 	}
 	
 
