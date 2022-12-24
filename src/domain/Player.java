@@ -2,15 +2,14 @@ package domain;
 
 import dataStructures.Location;
 
-public class Player {
+import java.io.Serializable;
+
+public class Player implements Serializable {
 
 	private Location location;
 	private int lives;
 	private boolean isKeyTaken = false;
-	
-	
 
-	
 	public Player() {
 		super();
 	}

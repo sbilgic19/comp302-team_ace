@@ -5,6 +5,7 @@ import Controllers.LoginAuthorizationHandler;
 import Controllers.KeyHandler;
 import Controllers.PlayerHandler;
 import Controllers.RoomKeyHandler;
+import domain.GameInfo;
 import domain.Player;
 
 
@@ -33,6 +34,7 @@ public class Main {
 		PlayerHandler playerHandler = new PlayerHandler(player, gameFrame);
 		KeyHandler keyHandler = new KeyHandler(playerHandler);
 
+		GameInfo.getInstance().setPlayer(player);
 		
 		gameFrame.setButtonHandler(buttonHandler);
 		gameFrame.setKeyHandler(keyHandler);
@@ -46,4 +48,5 @@ public class Main {
 		gameFrame.setResizable(false);
 		gameFrame.setVisible(true);
 	}
+
 }

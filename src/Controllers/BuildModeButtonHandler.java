@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import UI.BuildMode;
 import UI.BuildPanel;
 import UI.GameFrame;
+import domain.GameInfo;
 
 public class BuildModeButtonHandler implements ActionListener {
 	
@@ -50,5 +51,6 @@ public class BuildModeButtonHandler implements ActionListener {
 			JOptionPane.showMessageDialog(null, "Required at least one room object except room door!",  
 					"Alert", JOptionPane.ERROR_MESSAGE);
 		}
+		GameInfo.getInstance().setListOfObjects(buildMode.getObjectList());
 	}
 }
