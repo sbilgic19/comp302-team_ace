@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import Database.Client;
 import dataStructures.Location;
 
 import Controllers.*;
@@ -54,10 +55,17 @@ public class GameFrame extends JFrame {
 	private BuildMode buildMode;
 	
 	private PausedGameScreen pauseDialog;
+	private Client client;
+	private String serviceUsed;
+
 	
 	public GameFrame() {
 		
 		super("Escape From Koc");
+
+		serviceUsed = "MongoDB";
+		client = new Client(serviceUsed);
+
 		loadNewGameScreen = new LoadOrNewGameSelectionScreen();
 		iconFactory = IconFactory.getInstance();
 		gameIcon = iconFactory.generateIcon("../assets/gameImage.jpg", 0, 0);
@@ -245,8 +253,7 @@ public class GameFrame extends JFrame {
 				timer.stop();
 				pauseButton.setText(">");
 				// Pause Game Screen
-				pauseDialog = new PausedGameScreen();
-				//add(pauseDialog);
+				pauseDialog = new PausedGameScreen(client);
 				pauseDialog.setLocationRelativeTo(this);
 				pauseDialog.setBounds(750, 375, 400, 400);
 				pauseDialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
