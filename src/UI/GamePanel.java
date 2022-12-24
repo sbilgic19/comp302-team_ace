@@ -2,12 +2,13 @@ package UI;
 
 import javax.swing.*;
 
-
+import Controllers.AlienHandler;
 import Controllers.PowerUpHandler;
 import Controllers.RoomKeyHandler;
 import dataStructures.Location;
 import domain.powerUps.PowerUp;
 import domain.Player;
+import domain.aliens.TimeWastingAlien;
 import domain.Key;
 
 import java.awt.*;
@@ -39,7 +40,7 @@ public class GamePanel extends JPanel {
      
     RoomKeyHandler roomKeyHandler;
     PowerUpHandler powerUpHandler;
-    
+    AlienHandler alienHandler;
     public GamePanel(GameFrame gameFrame) {
     	
     	numRow = gameFrame.getNumRow();
@@ -64,6 +65,7 @@ public class GamePanel extends JPanel {
         this.setLayout(new GridLayout(numRow, numCol, 0, 0));
         roomKeyHandler = gameFrame.getRoomKeyHandler();
         powerUpHandler = new PowerUpHandler(gameFrame);
+        alienHandler = new AlienHandler(gameFrame);
     }
 
     public void setGameMap(JLabel[][] buildModeMap) {
@@ -141,6 +143,12 @@ public class GamePanel extends JPanel {
         System.out.println(key.getLocation().getLocationX()+" " + key.getLocation().getLocationY());
         gameMap[0][5].setIcon(playerFrontIcon);
         powerUp = powerUpHandler.getRandomPowerUp();
+        
+        if (!key.getIsTaken()) {
+        	alienHandler.setKey(key);
+        	TimeWastingAlien timeWasting = alienHandler.getTimeWastingAlien();
+        	alienHandler.ChangeLocationOfKey(timeWasting, key);
+        }
 
     }
 

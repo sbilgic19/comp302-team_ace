@@ -2,26 +2,41 @@ package Controllers;
 
 import ApplicationLogic.AlienLogic;
 import UI.GameFrame;
-import domain.Player;
+import domain.Key;
 import domain.aliens.*;
 
 public class AlienHandler {
-	AlienLogic ailenLogic;
+	AlienLogic alienLogic;
 	GameFrame gameFrame;
-	Alien alien;
-	Player player;
-	public AlienHandler(AlienLogic ailenLogic, GameFrame gameFrame, Alien alien, Player player) {
+	Key key;
+	public AlienHandler(GameFrame gameFrame,Key key) {
 		super();
-		this.ailenLogic = ailenLogic;
+		this.alienLogic = new AlienLogic(gameFrame);
 		this.gameFrame = gameFrame;
-		this.alien = alien;
-		this.player = player;
+		this.key = key;
+
+	}
+	public AlienHandler(GameFrame gameFrame) {
+		this.alienLogic = new AlienLogic(gameFrame);
+		this.gameFrame = gameFrame;
+		
 	}
 	
 	
 	
+	public void setKey(Key key) {
+		this.key = key;
+	}
+	
+	
+	public boolean ChangeLocationOfKey(Alien alien, Key key) {
+		return alienLogic.ChangeLocationOfKey(alien , key);
+		
+	}
+	
+	
 	public TimeWastingAlien getTimeWastingAlien() {
-		return null;
+		return alienLogic.getTimeWastingAlien();
 		
 	}
 	
