@@ -1,7 +1,9 @@
 package domain;
 import dataStructures.Location;
 
-public class RoomObject {
+import java.io.Serializable;
+
+public class RoomObject implements Serializable {
 	
 	private Location location;
 	private int typeID;

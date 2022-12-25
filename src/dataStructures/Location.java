@@ -1,6 +1,8 @@
 package dataStructures;
 
-public class Location { 
+import java.io.Serializable;
+
+public class Location implements Serializable {
 	private int locationX;
 	private int locationY;
 	
