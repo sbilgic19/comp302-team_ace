@@ -23,12 +23,13 @@ public class RoomKeyHandler {
 	public Key getRandomKey() {
 		this.key = keyLogic.getKey();
 		return key;
-		}
+	}
 	
 	public boolean takeKey(Key k) {
 		return keyLogic.takeKey(player, k);
 	}
 	
-	
-
+	public Key getKeyInstance() {
+		return key;
+	}
 }

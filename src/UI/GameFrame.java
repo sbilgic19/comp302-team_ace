@@ -2,11 +2,12 @@ package UI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
 import dataStructures.Location;
-
+import domain.RoomObject;
 import Controllers.*;
 
 public class GameFrame extends JFrame {
@@ -54,6 +55,9 @@ public class GameFrame extends JFrame {
 	private BuildMode buildMode;
 	
 	private PausedGameScreen pauseDialog;
+	private int levelTime;
+	
+	private ArrayList<RoomObject> objectList;
 	
 	public GameFrame() {
 		
@@ -184,10 +188,7 @@ public class GameFrame extends JFrame {
 	public String getSignupCheckPassword() {
 		return signupPanel.getSignupCheckPassword();
 	}
-	//
 	
-	
-
 	public int getNumRow(){return numRow;}
 
 	public int getNumCol(){return numCol;}
@@ -208,6 +209,7 @@ public class GameFrame extends JFrame {
 		buildPanel = new BuildPanel(this);
 		add(buildPanel, BorderLayout.CENTER);
 		buildMode = new BuildMode(this, buildPanel);
+		objectList = buildMode.getObjectList();
 		buttonPanel = new JPanel();
 		add(buttonPanel,BorderLayout.SOUTH);
 		
@@ -235,7 +237,8 @@ public class GameFrame extends JFrame {
 		resumeButton.setVisible(false);
 		resumeButton.setSize(50,50);
 		
-		GameTime.getInstance().setSeconds(5*buildPanel.getBuildingObjectCounter());
+		levelTime = 5 * buildPanel.getBuildingObjectCounter();
+		GameTime.getInstance().setSeconds(levelTime);
 		timer = GameTime.getInstance().getTimer();
 		timer.start();
 
@@ -308,7 +311,7 @@ public class GameFrame extends JFrame {
 		pauseButton.setPreferredSize(new Dimension(200,30));
 		
 		timerAsSecond = GameTime.getInstance().getTimerAsSecond();
-
+		
 		JPanel timerPanel = new JPanel();
 		JLabel timerLabel = new JLabel();
 		timerLabel.setIcon(gamePanel.getGamePanelIcons()[2]);
@@ -330,9 +333,10 @@ public class GameFrame extends JFrame {
 	public void updateKeyView(Boolean is_taken) {
 		if(is_taken) {
 			key.setIcon(gamePanel.getGamePanelIcons()[0]);
-			Location location = buildMode.getDoorLocation();
+			Location doorLocation = buildMode.getDoorLocation();
 			JLabel[][] gameMap = GamePanel.getGameMap();
-			gameMap[location.getLocationX()][location.getLocationY()].setIcon(gamePanel.getOpenDoorIcon());
+			gameMap[doorLocation.getLocationX()][doorLocation.getLocationY()]
+					.setIcon(gamePanel.getOpenDoorIcon());
 		}
 	}
 	
@@ -352,10 +356,20 @@ public class GameFrame extends JFrame {
 	public Location getDoorLocation() {
 		return buildMode.getDoorLocation();
 	}
+	
 	public void setRoomKeyHandler(RoomKeyHandler roomKeyHandler) {
 		this.roomKeyHandler = roomKeyHandler;
 	}
+	
 	public LoginPanel getLoginPanel() {
 		return loginPanel;
+	}
+	
+	public ArrayList<RoomObject> getObjectList() {
+		return objectList;
+	}
+	
+	public int getLevelTime() {
+		return levelTime;
 	}
 }

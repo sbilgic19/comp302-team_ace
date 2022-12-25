@@ -2,7 +2,7 @@ package UI;
 
 import javax.swing.*;
 
-import Controllers.AlienHandler;
+import Controllers.TimeWastingAlienHandler;
 import Controllers.PowerUpHandler;
 import Controllers.RoomKeyHandler;
 import dataStructures.Location;
@@ -25,6 +25,7 @@ public class GamePanel extends JPanel {
     private static ImageIcon keyIcon;
     private static ImageIcon bagIcon;
     private static ImageIcon timerIcon;
+    private static ImageIcon timeWastingAlienIcon;
     
     private static Icon extraLifeIcon;
     private static Icon extraTimeIcon;
@@ -40,7 +41,7 @@ public class GamePanel extends JPanel {
      
     RoomKeyHandler roomKeyHandler;
     PowerUpHandler powerUpHandler;
-    AlienHandler alienHandler;
+    TimeWastingAlienHandler alienHandler;
     public GamePanel(GameFrame gameFrame) {
     	
     	numRow = gameFrame.getNumRow();
@@ -60,12 +61,13 @@ public class GamePanel extends JPanel {
 
         openDoorIcon = iconFactory.generateIcon("../assets/doorIcon2.png", 50, 50);
         
+        timeWastingAlienIcon = iconFactory.generateIcon("../assets/timeWastingAlienIcon.png", 50, 50);
+        
         this.gameFrame = gameFrame;
         
         this.setLayout(new GridLayout(numRow, numCol, 0, 0));
         roomKeyHandler = gameFrame.getRoomKeyHandler();
         powerUpHandler = new PowerUpHandler(gameFrame);
-        alienHandler = new AlienHandler(gameFrame);
     }
 
     public void setGameMap(JLabel[][] buildModeMap) {
@@ -143,11 +145,12 @@ public class GamePanel extends JPanel {
         System.out.println(key.getLocation().getLocationX()+" " + key.getLocation().getLocationY());
         gameMap[0][5].setIcon(playerFrontIcon);
         powerUp = powerUpHandler.getRandomPowerUp();
+        alienHandler = new TimeWastingAlienHandler(gameFrame, key);
         
         if (!key.getIsTaken()) {
-        	alienHandler.setKey(key);
-        	TimeWastingAlien timeWasting = alienHandler.getTimeWastingAlien();
-        	alienHandler.ChangeLocationOfKey(timeWasting, key);
+        	TimeWastingAlien alien = alienHandler.getTimeWastingAlien();
+        	alien.setLevelTime(gameFrame.getLevelTime());
+        	GameTime.getInstance().setTimeWastingAlien(alien);
         }
 
     }
@@ -186,5 +189,13 @@ public class GamePanel extends JPanel {
     
     public Player getPlayer() {
     	return this.player;
+    }
+    
+    public static ImageIcon getTimeWastingAlienIcon() {
+    	return timeWastingAlienIcon;
+    } 
+    
+    public static void setNullIcon(Location location) {
+    	gameMap[location.getLocationX()][location.getLocationY()].setIcon(null);
     }
 }
