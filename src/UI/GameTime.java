@@ -3,7 +3,7 @@ package UI;
 
 import javax.swing.*;
 
-import ApplicationLogic.AlienBehaviourStrategy;
+import ApplicationLogic.TimeWastingAlienBehaviourStrategy;
 import ApplicationLogic.TimeWastingAlienLogic;
 import domain.aliens.TimeWastingAlien;
 

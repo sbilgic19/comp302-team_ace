@@ -1,45 +1,32 @@
 package domain.aliens;
 
-import java.util.ArrayList;
-
-import ApplicationLogic.AlienBehaviourStrategy;
-import ApplicationLogic.AlienBehaviourStrategyA;
-import ApplicationLogic.AlienBehaviourStrategyB;
-import ApplicationLogic.AlienBehaviourStrategyC;
+import ApplicationLogic.TimeWastingAlienBehaviourStrategy;
+import ApplicationLogic.TimeWastingAlienBehaviourStrategyA;
+import ApplicationLogic.TimeWastingAlienBehaviourStrategyB;
+import ApplicationLogic.TimeWastingAlienBehaviourStrategyC;
 import dataStructures.Location;
-import domain.Key;
-import domain.RoomObject;
 
 public class TimeWastingAlien implements Alien{
-	private Key key;
-	private ArrayList<RoomObject> objectList;
 	private Location location;
 	private String alienType;
 	private Boolean isActive;
-	private Boolean isCalledBefore = false;
 	
-	private AlienBehaviourStrategy strategyA;
-	private AlienBehaviourStrategy strategyB;
-	private AlienBehaviourStrategy strategyC;
+	private TimeWastingAlienBehaviourStrategy behaviourA;
+	private TimeWastingAlienBehaviourStrategy behaviourB;
+	private TimeWastingAlienBehaviourStrategy behaviourC;
 	
-	private int initializeTime;
 	private int currentTime;
 	private int levelTime;
-	private Location doorLocation;
 	
-	public TimeWastingAlien(ArrayList<RoomObject> objectList, Location location, Key key, 
-			Location doorLocation) {
+	public TimeWastingAlien(Location location) {
 		super();
 		this.location = location;
-		this.key = key;
 		this.alienType = "Time Wasting";
 		this.isActive = true;
-		this.objectList = objectList;
-		this.doorLocation = doorLocation;
 		
-		strategyA = new AlienBehaviourStrategyA(objectList, key, doorLocation);
-		strategyB = new AlienBehaviourStrategyB(objectList, key, doorLocation);
-		strategyC = new AlienBehaviourStrategyC();
+		behaviourA = new TimeWastingAlienBehaviourStrategyA();
+		behaviourB = new TimeWastingAlienBehaviourStrategyB();
+		behaviourC = new TimeWastingAlienBehaviourStrategyC();
 	}
 
 	public void setLocation(Location location) {
@@ -68,20 +55,26 @@ public class TimeWastingAlien implements Alien{
 		return this.alienType;
 	}
 	
-	private AlienBehaviourStrategy determineBehaviourStrategy() {
+	public TimeWastingAlienBehaviourStrategy[] getBehaviours() {
+		TimeWastingAlienBehaviourStrategy[] behavioursArray = 
+			{behaviourA, behaviourB, behaviourC};
+		return behavioursArray;
+	}
+	
+	private TimeWastingAlienBehaviourStrategy determineBehaviourStrategy() {
 		if ((currentTime * 100) / (float) levelTime < 30) {
 			System.out.println("A");
-			return strategyA;	
+			return behaviourA;	
 		}
 		
 		else if ((currentTime * 100)/ (float) levelTime > 70) {
 			System.out.println("B");
-			return strategyB;
+			return behaviourB;
 		}
 		
 		else {
 			System.out.println("C");
-			return strategyC;
+			return behaviourC;
 		}
 	}	
 
@@ -90,10 +83,6 @@ public class TimeWastingAlien implements Alien{
 	}
 	
 	public void setCurrentTime(int currentTime) {
-		if (isCalledBefore == false) {
-			this.initializeTime = currentTime;
-		}
-		
 		this.currentTime = currentTime;
 		isActive = determineBehaviourStrategy().changeLocationOfTheKey();
 	}
