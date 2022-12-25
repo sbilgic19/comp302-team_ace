@@ -1,5 +1,8 @@
 package UI;
 
+import Database.Client;
+import domain.GameInfo;
+
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -22,8 +25,7 @@ public class LoadOrNewGameSelectionScreen extends JPanel {
 	private Image img;
 	
 	public LoadOrNewGameSelectionScreen() {
-		
-		
+
 		setLayout(null);
 		img = Toolkit.getDefaultToolkit().getImage("../assets/kocback.jpeg").getScaledInstance(1500, 750, Image.SCALE_SMOOTH);
 
@@ -35,6 +37,8 @@ public class LoadOrNewGameSelectionScreen extends JPanel {
 	
 		newGameButton.setBounds(650, 325, 200, 50);
 		loadGameButton.setBounds(650, 375, 200, 50);
+
+
 		
 		add(newGameButton);
 		add(loadGameButton);

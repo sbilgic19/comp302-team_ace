@@ -4,13 +4,13 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
+import domain.GameInfo;
 import org.bson.BsonBinary;
 import org.bson.BsonBinarySubType;
 import org.bson.Document;
+import org.bson.types.Binary;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 
 public class MongoDBStorageAdapter implements IDataStorageAdapter {
     private MongoCollection<Document> collection;
@@ -36,9 +36,33 @@ public class MongoDBStorageAdapter implements IDataStorageAdapter {
         BsonBinary binary = new BsonBinary(BsonBinarySubType.BINARY, bytes);
 
         // Create a new Document to store the object
-        Document doc = new Document(key, binary);
-
+        Document doc = new Document("name", key)
+                .append("GameInfo",binary);
         // Insert the Document into the collection
-        collection.insertOne(doc);
+        collection.replaceOne(new Document("name", key), doc);
     }
+
+    @Override
+    public GameInfo load(String key) {
+        // To retrieve the object, you can use the following code:
+        Document retrievedDoc = collection.find().first();
+        Binary retrievedBinary = retrievedDoc.get("GameInfo", Binary.class);
+        byte[] retrievedBytes = retrievedBinary.getData();
+
+        // Deserialize the object from the byte array
+        GameInfo retrievedGameInfo = null;
+        try (ByteArrayInputStream bais = new ByteArrayInputStream(retrievedBytes);
+             ObjectInputStream ois = new ObjectInputStream(bais)) {
+            retrievedGameInfo = (GameInfo) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+
+        return retrievedGameInfo;
+
+    }
+
+
 }

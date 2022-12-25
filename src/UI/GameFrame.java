@@ -52,7 +52,7 @@ public class GameFrame extends JFrame {
 	private int second;
 
 	private JButton buildModeSubmitButton;
-	private BuildPanel buildPanel;
+	private BuildPanel buildPanel = new BuildPanel(this);;
 	private BuildMode buildMode;
 	
 	private PausedGameScreen pauseDialog;
@@ -151,7 +151,7 @@ public class GameFrame extends JFrame {
 		add(loadNewGameScreen);
 		
 		
-		newLoadSelectionScreenHandler = new NewOrLoadGameSelectionHandler(this);
+		newLoadSelectionScreenHandler = new NewOrLoadGameSelectionHandler(this, client);
 		loadNewGameScreen.paintComponent(getGraphics());
 		loadNewGameScreen.setVisible(true);
 		
@@ -215,7 +215,7 @@ public class GameFrame extends JFrame {
 		
 		
 		setLayout(new BorderLayout());
-		buildPanel = new BuildPanel(this);
+		//buildPanel = new BuildPanel(this);
 		add(buildPanel, BorderLayout.CENTER);
 		buildMode = new BuildMode(this, buildPanel);
 		objectList = buildMode.getObjectList();
@@ -232,10 +232,11 @@ public class GameFrame extends JFrame {
 	}
 
 	public void switchGameView(JLabel[][] buildModeMap) {
-		
-		remove(buildModeSubmitButton);
-		remove(buildPanel);
-		buttonPanel.remove(buildModeSubmitButton);
+		if(buildModeSubmitButton != null){
+			remove(buildModeSubmitButton);
+			remove(buildPanel);
+			buttonPanel.remove(buildModeSubmitButton);
+		}
 	
 		pauseButton = new JButton("II");
 		pauseButton.setFocusable(false);
@@ -380,4 +381,6 @@ public class GameFrame extends JFrame {
 	public int getLevelTime() {
 		return levelTime;
 	}
+
+	public BuildPanel getBuildPanel() {return buildPanel;}
 }
