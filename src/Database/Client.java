@@ -1,5 +1,7 @@
 package Database;
 
+import domain.GameInfo;
+
 public class Client {
     IDataStorageAdapter storageAdapter;
 
@@ -11,8 +13,11 @@ public class Client {
             storageAdapter= null;
     }
     public void saveGame(String key, Object value) {
-
         storageAdapter.save(key, value);
+    }
+
+    public GameInfo loadGame(String key){
+       return storageAdapter.load(key);
     }
 
 
