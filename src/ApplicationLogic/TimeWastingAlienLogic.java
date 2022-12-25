@@ -1,10 +1,6 @@
 package ApplicationLogic;
-
 import java.util.ArrayList;
 import java.util.Random;
-
-import Controllers.RoomKeyHandler;
-import UI.BuildMode;
 import UI.GameFrame;
 import UI.GamePanel;
 import dataStructures.Location;
@@ -40,11 +36,26 @@ public class TimeWastingAlienLogic {
 			}
 		}
 		GamePanel.getGameMap()[randRow][randCol].setIcon(GamePanel.getTimeWastingAlienIcon());
-		TimeWastingAlien timeWastingAlien = new TimeWastingAlien(gameFrame.getObjectList(), 
-				new Location(randRow, randCol), key, gameFrame.getDoorLocation());
+		TimeWastingAlien timeWastingAlien = new TimeWastingAlien(new Location(randRow, randCol));
+		TimeWastingAlienBehaviourStrategy[] behavioursArray = timeWastingAlien.getBehaviours();
+		
+		behavioursArray[0].setFieldInstances(excludeDoorRoom(), key);
+		behavioursArray[1].setFieldInstances(excludeDoorRoom(), key);
+		
 		return timeWastingAlien;	
 	}
 	
-	
-	
+	private ArrayList<RoomObject> excludeDoorRoom() {
+		
+		Location doorLocation = gameFrame.getDoorLocation();
+		ArrayList<RoomObject> objectList = gameFrame.getObjectList();
+		for (int ii = 0; ii < objectList.size(); ii++) {
+			Location tempLocation = objectList.get(ii).getLocation();
+			if (tempLocation.getLocationX() == doorLocation.getLocationX() 
+					&& tempLocation.getLocationY() == tempLocation.getLocationY()) {
+				objectList.remove(ii);
+			}
+		}	
+		return objectList;
+	}
 }

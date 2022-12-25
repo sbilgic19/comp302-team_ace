@@ -3,24 +3,16 @@ package ApplicationLogic;
 import java.util.ArrayList;
 import java.util.Random;
 
-import Controllers.RoomKeyHandler;
 import dataStructures.Location;
 import domain.Key;
 import domain.RoomObject;
 
-public class AlienBehaviourStrategyB implements AlienBehaviourStrategy {
+public class TimeWastingAlienBehaviourStrategyB implements TimeWastingAlienBehaviourStrategy {
 
 	private ArrayList<RoomObject> objectList;
 	private Key key;
 	private int counter = 0;
-	private Location doorLocation;
-	
-	public AlienBehaviourStrategyB(ArrayList<RoomObject> objectList, Key key, Location doorLocation) {
-		this.objectList = objectList;
-		this.key = key;
-		this.doorLocation = doorLocation;
-	}
-	
+
 	@Override
 	public boolean changeLocationOfTheKey() {
 		counter++;
@@ -30,12 +22,17 @@ public class AlienBehaviourStrategyB implements AlienBehaviourStrategy {
 			do {
 				int randInt = random.nextInt(objectList.size());
 				location = objectList.get(randInt).getLocation();
-			} while (location.getLocationX() == doorLocation.getLocationX() && 
-				location.getLocationY() == doorLocation.getLocationY());
+			} while (location.getLocationX() == key.getLocation().getLocationX() && 
+					location.getLocationY() == key.getLocation().getLocationY());
 			key.setLocation(location);
 			System.out.printf("%d %d\n", location.getLocationX(), location.getLocationY());
 			counter = 0;
 		}
 		return true;
+	}
+	
+	public void setFieldInstances(ArrayList<RoomObject> objectList, Key key) {
+		this.objectList = objectList;
+		this.key = key;
 	}
 }
