@@ -2,16 +2,25 @@ package UI;
 
 
 import javax.swing.*;
+
+import ApplicationLogic.AlienBehaviourStrategy;
+import ApplicationLogic.TimeWastingAlienLogic;
+import domain.aliens.TimeWastingAlien;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GameTime {
+	
+	private TimeWastingAlien alien;
+	
     private static GameTime gameTime;
     private int seconds;
     private static JLabel timerAsSecond;
     private Timer timer = createTimer();
 
     public GameTime() {
+    
     }
 
     public static GameTime getInstance(){
@@ -30,14 +39,21 @@ public class GameTime {
                 if (seconds > 0) {
                     seconds--;
                     timerAsSecond.setText("      " + seconds);
-                }else {
+                    if (alien != null) {
+                    	alien.setCurrentTime(seconds);
+                    	if (alien.getIsActive() == false) {
+                    		GamePanel.setNullIcon(alien.getLocation());
+                    		alien = null;
+                    	}
+                    }
+                } else {
                     GameState.getInstance().setPaused(true);
                     timer.stop();
                 }
             }
         });
     }
-
+    
     public int getSeconds() {
         return seconds;
     }
@@ -53,5 +69,8 @@ public class GameTime {
     public Timer getTimer() {
         return timer;
     }
-
+    
+    public void setTimeWastingAlien(TimeWastingAlien alien) {
+    	this.alien = alien;
+    }
 }
