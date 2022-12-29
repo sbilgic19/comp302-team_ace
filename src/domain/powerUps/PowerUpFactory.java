@@ -1,9 +1,11 @@
 package domain.powerUps;
 
 import dataStructures.Location;
+import domain.Player;
 
 public class PowerUpFactory {
 	private static PowerUpFactory factory;
+	private Player player;
 	
 	/** 
 	 * Singleton pattern used to create PowerUpFactory.
@@ -17,15 +19,18 @@ public class PowerUpFactory {
         }
         return factory;
     }
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
     
     public PowerUp getPowerUp(String spellType, Location location)
     {
     	switch (spellType)
     	{
-    		case "ExtraLife":
-    			return new ExtraLifePowerUp(location);
-    		case "ExtraTime":
-    			return new ExtraTimePowerUp(location);
+			case "ExtraLife":
+				return new ExtraLifePowerUp(location, player);
+			case "ExtraTime":
+				return new ExtraTimePowerUp(location);
     			
     		default:
     			return null;

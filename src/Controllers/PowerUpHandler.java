@@ -21,9 +21,15 @@ public class PowerUpHandler {
 	{
 		return powerUpLogic.getPowerUp();
 	}
-	
-	
-	 
-	
-	
+
+	public void usePowerUp(PowerUp powerUp)
+	{
+		powerUpLogic.usePowerUp(powerUp);
+	}
+
+
+
+
+
+
 }
