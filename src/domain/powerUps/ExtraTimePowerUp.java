@@ -13,6 +13,10 @@ public class ExtraTimePowerUp implements PowerUp{
         this.powerUpType = "ExtraTime";
 		this.behaviour = new IncreaseTimeBehavior();
     }
+	public ExtraTimePowerUp(){
+		this.powerUpType = "ExtraTime";
+		this.behaviour = new IncreaseTimeBehavior();
+	}
 	
 	 @Override
 	 public void triggerEffect() {

@@ -11,10 +11,12 @@ public class Player implements Serializable {
 	private boolean isKeyTaken = false;
 
 	public Player() {
-		super();
+		this.lives = 3;
 	}
-	
-	
+
+	public Player(int lives) {
+		this.lives = lives;
+	}
 	public Player(int x, int y) {
 		super();
 		this.location = new Location(x,y);

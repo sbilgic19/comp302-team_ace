@@ -14,6 +14,10 @@ public class ExtraLifePowerUp implements PowerUp{
         this.powerUpType = "ExtraLife";
 		this.behavior = new IncreaseLifeBehavior(player);
     }
+	public ExtraLifePowerUp(Player player) {
+		this.powerUpType = "ExtraLife";
+		this.behavior = new IncreaseLifeBehavior(player);
+	}
 	
 	 @Override
 	 public void triggerEffect() {
