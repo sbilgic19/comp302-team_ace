@@ -6,14 +6,17 @@ public class ExtraTimePowerUp implements PowerUp{
 
 	Location location;
 	String powerUpType;
+	PowerUpBehavior behaviour;
 	
 	public ExtraTimePowerUp(Location location) {
         this.location = location;
         this.powerUpType = "ExtraTime";
+		this.behaviour = new IncreaseTimeBehavior();
     }
 	
 	 @Override
 	 public void triggerEffect() {
+		behaviour.performBehavior();
 	 }
 	 
 	 public String getPowerUpType() {

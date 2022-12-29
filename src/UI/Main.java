@@ -7,6 +7,7 @@ import Controllers.PlayerHandler;
 import Controllers.RoomKeyHandler;
 import domain.GameInfo;
 import domain.Player;
+import domain.powerUps.PowerUpFactory;
 
 
 public class Main {
@@ -35,12 +36,14 @@ public class Main {
 		KeyHandler keyHandler = new KeyHandler(playerHandler);
 
 		GameInfo.getInstance().setPlayer(player);
+		PowerUpFactory.getInstance().setPlayer(player);
 		
 		gameFrame.setButtonHandler(buttonHandler);
 		gameFrame.setKeyHandler(keyHandler);
 		gameFrame.setRoomKeyHandler(roomKeyHandler);
 		//gameFrame.switchLoginView();
 		gameFrame.showMainView();
+		GamePanel.setPlayer(player);
 		
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameFrame.setSize(frameWidth, frameHeight);

@@ -35,7 +35,7 @@ public class GamePanel extends JPanel {
     private GameFrame gameFrame;
     private Key key;
     private PowerUp powerUp;
-    private Player player;
+    private static Player player;
     
     private static ImageIcon openDoorIcon;
      
@@ -116,17 +116,8 @@ public class GamePanel extends JPanel {
                     		String powerUpType = powerUp.getPowerUpType();
                         if(e.getSource() == gameMap[locX][locY]) {
                         	//powerUp.triggerEffect();
-                        	switch(powerUpType) {
-	                        	case "ExtraLife":
-	                        		gameFrame.updatePlayerLivesView(4);
-	                        		System.out.println("ExtraLife Used");
-	                        		break;
-	                        	case "ExtraTime":
-	                        		gameFrame.increaseSecond(5);
-	                        		System.out.println("ExtraTime Used");
-	                        		break;
-	                        	default:
-                        	}
+                        	powerUpHandler.usePowerUp(powerUp);
+                            gameFrame.updatePlayerLivesView(player.getLives());
                         	gameMap[locX][locY].setIcon(null);
                         	powerUp = null;
                         	
@@ -190,7 +181,11 @@ public class GamePanel extends JPanel {
     public Player getPlayer() {
     	return this.player;
     }
-    
+    public static void setPlayer(Player player) {
+        GamePanel.player = player;
+    }
+
+
     public static ImageIcon getTimeWastingAlienIcon() {
     	return timeWastingAlienIcon;
     } 

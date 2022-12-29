@@ -24,13 +24,8 @@ public class PowerUpLogic {
 		GamePanel.placePowerUp(location, powerUpType);	
 			
 	}	
-	public void usePowerUp(Player player, String powerUpType) {
-		switch (powerUpType) {
-			case "ExtraLife":
-				player.increaseLives();
-			case "ExtraTime":
-				gameFrame.increaseSecond(5);
-		}
+	public void usePowerUp(PowerUp powerUp) {
+		powerUp.triggerEffect();
 	}
 	
 	public PowerUp getPowerUp() {
