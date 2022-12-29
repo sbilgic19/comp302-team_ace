@@ -12,4 +12,4 @@ jobs:
       with:
         java-version: 1.8
     - name: Compile and test
-      run: javac comp302-team_ace/src/**/**/*.java && java org.junit.runner.JUnitCore comp302-team_ace/test/**/*Test.java
+      run: javac src/**/**/*.java && javac src/**/*.java && java org.junit.runner.JUnitCore test/**/*Test.java
