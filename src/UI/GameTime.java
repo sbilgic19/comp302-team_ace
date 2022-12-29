@@ -15,7 +15,7 @@ public class GameTime {
 	private TimeWastingAlien alien;
 	
     private static GameTime gameTime;
-    private int seconds;
+    private int seconds = 0;
     private static JLabel timerAsSecond;
     private Timer timer = createTimer();
 
