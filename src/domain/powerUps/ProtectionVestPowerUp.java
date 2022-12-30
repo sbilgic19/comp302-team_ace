@@ -1,6 +1,7 @@
 package domain.powerUps;
 
 import dataStructures.Location;
+import domain.Player;
 
 public class ProtectionVestPowerUp {
 
@@ -8,9 +9,9 @@ public class ProtectionVestPowerUp {
     String powerUpType;
     PowerUpBehavior behavior;
 
-    public ProtectionVestPowerUp(Location location, PowerUpBehavior behavior) {
+    public ProtectionVestPowerUp(Location location, Player player) {
         this.location = location;
         this.powerUpType = "ProtectionVest";
-        this.behavior = behavior;
+        this.behavior = new WearVestBehavior(player);
     }
 }
