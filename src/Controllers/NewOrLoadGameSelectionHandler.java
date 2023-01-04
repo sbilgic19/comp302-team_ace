@@ -33,6 +33,10 @@ public class NewOrLoadGameSelectionHandler implements ActionListener {
 			GameInfo.getInstance().setPlayer(gameInfo.getPlayer());
 			GameInfo.getInstance().setListOfObjects(gameInfo.getListOfObjects());
 
+			System.out.println(gameInfo.getPlayer().getLives());
+			System.out.println(gameInfo.getTime());
+
+
 			ImageIcon[] images = gameFrame.getBuildPanel().getIcons();
 			ImageIcon icon;
 			int rowCount = gameFrame.getNumRow();
