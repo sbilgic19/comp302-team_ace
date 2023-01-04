@@ -1,4 +1,6 @@
 package Database;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCursor;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -45,7 +47,8 @@ public class MongoDBStorageAdapter implements IDataStorageAdapter {
     @Override
     public GameInfo load(String key) {
         // To retrieve the object, you can use the following code:
-        Document retrievedDoc = collection.find().first();
+        Document query = new Document("name", key);
+        Document retrievedDoc = collection.find(query).first();
         Binary retrievedBinary = retrievedDoc.get("GameInfo", Binary.class);
         byte[] retrievedBytes = retrievedBinary.getData();
 
