@@ -3,7 +3,7 @@ package domain.powerUps;
 import dataStructures.Location;
 import domain.Player;
 
-public class ProtectionVestPowerUp {
+public class ProtectionVestPowerUp implements PowerUp{
 
     Location location;
     String powerUpType;
@@ -13,5 +13,20 @@ public class ProtectionVestPowerUp {
         this.location = location;
         this.powerUpType = "ProtectionVest";
         this.behavior = new WearVestBehavior(player);
+    }
+
+    @Override
+    public void triggerEffect() {
+        behavior.performBehavior();
+    }
+
+    @Override
+    public String getPowerUpType() {
+        return "ProtectionVest";
+    }
+
+    @Override
+    public Location getLocation() {
+        return this.location;
     }
 }

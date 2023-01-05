@@ -3,6 +3,7 @@ package Controllers;
 
 import ApplicationLogic.PowerUpLogic;
 import UI.GameFrame;
+import domain.Player;
 import domain.powerUps.PowerUp;
 
 public class PowerUpHandler {
@@ -12,8 +13,8 @@ public class PowerUpHandler {
 	
 	
 	
-	public PowerUpHandler(GameFrame gameFrame) {
-		powerUpLogic = new PowerUpLogic(gameFrame);
+	public PowerUpHandler(GameFrame gameFrame, Player player) {
+		powerUpLogic = new PowerUpLogic(gameFrame, player);
 		this.gameFrame = gameFrame;
 	}
 	

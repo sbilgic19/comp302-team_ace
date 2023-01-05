@@ -1,7 +1,9 @@
 import UI.GameTime;
+import dataStructures.Location;
 import domain.Player;
 import domain.powerUps.ExtraLifePowerUp;
 import domain.powerUps.ExtraTimePowerUp;
+import domain.powerUps.ProtectionVestPowerUp;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -63,6 +65,18 @@ public class PowerUpTriggerEffectTest {
         Assert.assertEquals(gameTime + 5, GameTime.getInstance().getSeconds());
     }
 
+    @Test
+    public void testProtectionVestPowerUpBlackBox() {
+        // Set up the test scenario
+        Player player = new Player();
+        Location location = new Location(10,10);
+        ProtectionVestPowerUp powerup = new ProtectionVestPowerUp(location,player);
 
+        // Use the powerup
+        powerup.triggerEffect();
+
+        // Check that the player isProcted is true
+        Assert.assertTrue(player.isProtected());
+    }
 
 }
