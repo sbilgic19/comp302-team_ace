@@ -1,6 +1,7 @@
 package Controllers;
 
 import UI.GameState;
+import domain.powerUps.PowerUp;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -30,6 +31,11 @@ public class KeyHandler extends KeyAdapter {
 					playerHandler.updatePlayerPosition(0, -1);
 				} else if (event.getKeyCode() == KeyEvent.VK_RIGHT) {
 					playerHandler.updatePlayerPosition(0, 1);
+				}else if(event.getKeyCode() == KeyEvent.VK_P && playerHandler.getPlayer().isContains("ProtectionVest")){
+					PowerUp powerUp = playerHandler.getPlayer().getPowerUp("ProtectionVest");
+					if(powerUp != null){
+						powerUp.triggerEffect();
+					}
 				}
 				lastSavedTime = currentTime;
 			}

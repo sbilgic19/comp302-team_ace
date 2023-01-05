@@ -22,6 +22,10 @@ public class GamePanel extends JPanel {
     private static ImageIcon playerBackIcon;
     private static ImageIcon playerLeftIcon;
     private static ImageIcon playerRightIcon;
+    private static ImageIcon playerFrontWithVestIcon;
+    private static ImageIcon playerBackWithVestIcon;
+    private static ImageIcon playerLeftWithVestIcon;
+    private static ImageIcon playerRightWithVestIcon;
     private static ImageIcon keyIcon;
     private static ImageIcon bagIcon;
     private static ImageIcon timerIcon;
@@ -29,6 +33,7 @@ public class GamePanel extends JPanel {
     
     private static Icon extraLifeIcon;
     private static Icon extraTimeIcon;
+    private static Icon protectionVestIcon;
 
     private static int numRow;
     private static int numCol;
@@ -52,12 +57,19 @@ public class GamePanel extends JPanel {
         playerBackIcon = iconFactory.generateIcon("../assets/playerBackIcon.png", 50, 50);
         playerLeftIcon = iconFactory.generateIcon("../assets/playerLeftIcon.png", 50, 50);
         playerRightIcon = iconFactory.generateIcon("../assets/playerRightIcon.png", 50, 50);
+
+        playerFrontWithVestIcon = iconFactory.generateIcon("../assets/armoredFront.jpg", 50, 50);
+        playerBackWithVestIcon = iconFactory.generateIcon("../assets/armoredBack.jpg", 50, 50);
+        playerLeftWithVestIcon = iconFactory.generateIcon("../assets/armoredLeft.jpg", 50, 50);
+        playerRightWithVestIcon = iconFactory.generateIcon("../assets/armoredRight.jpg", 50, 50);
+
         keyIcon = iconFactory.generateIcon("../assets/keyIcon.png", 50, 50);
         bagIcon = iconFactory.generateIcon("../assets/bagIcon.png", 50, 50);
         timerIcon = iconFactory.generateIcon("../assets/timerIcon.png", 50, 50);
         
         extraLifeIcon = iconFactory.generateIcon("../assets/extraLifeIcon.png", 50, 50);
         extraTimeIcon = iconFactory.generateIcon("../assets/extraTimeIcon.png", 50, 50);
+        protectionVestIcon = iconFactory.generateIcon("../assets/protectionVest.png", 50, 50);
 
         openDoorIcon = iconFactory.generateIcon("../assets/doorIcon2.png", 50, 50);
         
@@ -67,7 +79,7 @@ public class GamePanel extends JPanel {
         
         this.setLayout(new GridLayout(numRow, numCol, 0, 0));
         roomKeyHandler = gameFrame.getRoomKeyHandler();
-        powerUpHandler = new PowerUpHandler(gameFrame);
+        powerUpHandler = new PowerUpHandler(gameFrame,player);
     }
 
     public void setGameMap(JLabel[][] buildModeMap) {
@@ -150,19 +162,28 @@ public class GamePanel extends JPanel {
                                  int newXPlayerPosition, int newYPlayerPosition, int playerLogoPosition) {
         gameMap[xPlayerPosition][yPlayerPosition].setIcon(null);
         ImageIcon[] playerIcons = {playerFrontIcon, playerBackIcon, playerLeftIcon, playerRightIcon};
-        gameMap[newXPlayerPosition][newYPlayerPosition].setIcon(playerIcons[playerLogoPosition]);
+        ImageIcon[] protectedPlayerIcons = {playerFrontWithVestIcon, playerBackWithVestIcon, playerLeftWithVestIcon, playerRightWithVestIcon};
+        if(player.isProtected() == true){
+            gameMap[newXPlayerPosition][newYPlayerPosition].setIcon(protectedPlayerIcons[playerLogoPosition]);
+        }else{
+            gameMap[newXPlayerPosition][newYPlayerPosition].setIcon(playerIcons[playerLogoPosition]);
+        }
     }
     
     public static void placePowerUp(Location location, String powerUpType)
     {
     	switch(powerUpType) {
-    	case "ExtraLife":
-    		gameMap[location.getLocationX()][location.getLocationY()].setIcon(extraLifeIcon);
-    		break;
-    	case "ExtraTime":
-    		gameMap[location.getLocationX()][location.getLocationY()].setIcon(extraTimeIcon);
-    		break;
-    	}
+    	    case "ExtraLife":
+    		    gameMap[location.getLocationX()][location.getLocationY()].setIcon(extraLifeIcon);
+    		    break;
+    	    case "ExtraTime":
+    		    gameMap[location.getLocationX()][location.getLocationY()].setIcon(extraTimeIcon);
+    		    break;
+            case "ProtectionVest":
+                gameMap[location.getLocationX()][location.getLocationY()].setIcon(protectionVestIcon);
+                break;
+        }
+
     }
     
     public ImageIcon[] getGamePanelIcons() {

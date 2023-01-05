@@ -12,9 +12,11 @@ import domain.powerUps.PowerUpFactory;
 public class PowerUpLogic {
 
 	GameFrame gameFrame;
+	private Player player;
 	private final Random r = new Random();
-	public PowerUpLogic(GameFrame gameFrame) {
+	public PowerUpLogic(GameFrame gameFrame, Player player) {
 		this.gameFrame = gameFrame;
+		this.player = player;
 	}
 	public void addPowerUp(PowerUp powerUp) 
 	{
@@ -25,7 +27,11 @@ public class PowerUpLogic {
 			
 	}	
 	public void usePowerUp(PowerUp powerUp) {
-		powerUp.triggerEffect();
+		if(powerUp.getPowerUpType().equalsIgnoreCase("ExtraLife") || powerUp.getPowerUpType().equalsIgnoreCase("ExtraTime"))
+			powerUp.triggerEffect();
+		else
+			player.addToBag(powerUp);
+
 	}
 	
 	public PowerUp getPowerUp() {
@@ -40,9 +46,8 @@ public class PowerUpLogic {
 				isOccupied = false;
 			}
 		}
-		int rand = r.nextInt(2);
+		int rand = r.nextInt(3);
 		PowerUp powerUp;
-		
 		//It will be random Location.
 		Location location = new Location(row,column);
 		
@@ -56,7 +61,11 @@ public class PowerUpLogic {
 			case 1:
 				powerUp = PowerUpFactory.getInstance().getPowerUp("ExtraTime", location);
 				this.addPowerUp(powerUp);
-	            break;
+				break;
+			case 2:
+				powerUp = PowerUpFactory.getInstance().getPowerUp("ProtectionVest", location);
+				this.addPowerUp(powerUp);
+				break;
 	        default:
 	            powerUp = null;
 		}
