@@ -10,7 +10,7 @@ public class GameInfo implements Serializable{
     private int time;
     private ArrayList<RoomObject> listOfObjects;
 
-    public GameInfo(){}
+    private GameInfo(){}
 
     public static GameInfo getInstance(){
         if(instance == null){

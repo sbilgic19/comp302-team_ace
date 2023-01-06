@@ -1,14 +1,16 @@
 import Database.Client;
-import UI.GameTime;
 import dataStructures.Location;
 import domain.GameInfo;
 import domain.Player;
 import domain.RoomObject;
-import domain.powerUps.ExtraTimePowerUp;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class LoadTest {
     @Test
@@ -122,6 +124,34 @@ public class LoadTest {
         Assert.assertEquals(GameInfo.getInstance().getPlayer().getLives(), gameInfo.getPlayer().getLives());
         Assert.assertTrue(GameInfo.getInstance().getListOfObjects().equals(gameInfo.getListOfObjects()));
 
+    }
+
+    @Test
+    public void testLoadBlackBox() {
+        // Set up the test scenario
+        Client client = new Client("MongoDB");
+        // Save the game and then load
+        client.saveGame("testLoadBlackBox",GameInfo.getInstance());
+        GameInfo gameInfo = client.loadGame("testLoadBlackBox");
+        // Check that the created game info same as the loaded one.
+        byte[] originalGameInfo = null;
+        byte[] retrievedGameInfo = null;
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
+             ObjectOutputStream oos = new ObjectOutputStream(baos)) {
+            oos.writeObject(GameInfo.getInstance());
+            originalGameInfo = baos.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
+             ObjectOutputStream oos = new ObjectOutputStream(baos)) {
+            oos.writeObject(gameInfo);
+            retrievedGameInfo = baos.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(Arrays.equals(originalGameInfo, retrievedGameInfo));
+        Assert.assertTrue(Arrays.equals(originalGameInfo, retrievedGameInfo));
     }
 
 
