@@ -23,6 +23,12 @@ public class MongoDBStorageAdapter implements IDataStorageAdapter {
         this.collection =db.getCollection("Save");
     }
 
+    /**
+     * Saves the given object as gameInfo an key as the name of the save..
+     *
+     * @param key name of the save.
+     * @param value GameInfo.
+     */
     @Override
     public void save(String key, Object value) {
         byte[] bytes = null;
@@ -44,13 +50,30 @@ public class MongoDBStorageAdapter implements IDataStorageAdapter {
         collection.replaceOne(new Document("name", key), doc);
     }
 
+    /**
+     * Loads data from a MongoDB server with the given key.
+     *
+     * @requires key != null
+     * @modifies this
+     * @effects Loads the data associated with the given key from the MongoDB server and stores it in this object.
+     *          If the key does not exist, this method does nothing.
+     * @param key The key of the data to load.
+     * @return GameInfo that loaded from the given key.
+     */
     @Override
     public GameInfo load(String key) {
         // To retrieve the object, you can use the following code:
-        Document query = new Document("name", key);
-        Document retrievedDoc = collection.find(query).first();
-        Binary retrievedBinary = retrievedDoc.get("GameInfo", Binary.class);
-        byte[] retrievedBytes = retrievedBinary.getData();
+        byte[] retrievedBytes = null;
+        try
+        {
+            Document query = new Document("name", key);
+            Document retrievedDoc = collection.find(query).first();
+            Binary retrievedBinary = retrievedDoc.get("GameInfo", Binary.class);
+            retrievedBytes = retrievedBinary.getData();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
         // Deserialize the object from the byte array
         GameInfo retrievedGameInfo = null;
