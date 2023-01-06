@@ -14,7 +14,7 @@ public class TimeWastingAlienBehaviourTest {
 	// Tests on the changeLocationOfTheKey method of the TimeWastingAlienBehaviourStrategy interface
 	@Test 
 	public void testBehaviourAGlassBox() {
-		
+		// Remaining Game Time < 30%
 		// REQUIRES: Room objects, key and time wasting alien are created.
 		
 		ArrayList<RoomObject> objectList = new ArrayList<RoomObject>();
@@ -44,12 +44,13 @@ public class TimeWastingAlienBehaviourTest {
 		
 		// EFFECTS: After one calls on the changeLocationOfTheKey method of 
 		// TimeWastingAlienBehaviourStrategyA by using triggerAction method of the alien, 
-		// it it guaranteed that the isActive instance field of the alien becomes false and 
+		// it is guaranteed that the isActive instance field of the alien becomes false and 
 		// the location of the key changes. 
 	}
 	
 	@Test
 	public void testBehaviourBGlassBox() {
+		// Remaining Game Time > 70%
 		// REQUIRES: Room objects, key and time wasting alien are created.
 		
 		ArrayList<RoomObject> objectList = new ArrayList<RoomObject>();
@@ -86,7 +87,7 @@ public class TimeWastingAlienBehaviourTest {
 	
 	@Test 
 	public void testBehaviourCGlassBox() {
-		
+		// 70% >= Remaining Game Time >= 30%
 		// REQUIRES: Room objects, key and time wasting alien are created.
 		
 		ArrayList<RoomObject> objectList = new ArrayList<RoomObject>();
