@@ -71,8 +71,8 @@ public class GamePanel extends JPanel {
     }
 
     public void setGameMap(JLabel[][] buildModeMap) {
-    	float frameWidth = 1468;
-		float frameHeight = 674;
+    	//float frameWidth = 1468;
+		//float frameHeight = 674;
         gameMap = new JLabel[numRow][numCol];
 
         for (int ii = 0; ii < numRow; ii++) {
@@ -140,8 +140,9 @@ public class GamePanel extends JPanel {
         
         if (!key.getIsTaken()) {
         	TimeWastingAlien alien = alienHandler.getTimeWastingAlien();
-        	alien.setLevelTime(gameFrame.getLevelTime());
+        	alien.setLevelTime(gameFrame.getLevelTime()); //no point
         	GameTime.getInstance().setTimeWastingAlien(alien);
+        	// gameController is good idea
         }
 
     }

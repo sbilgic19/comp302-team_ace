@@ -101,6 +101,10 @@ public class BuildMode {
 		return doorLocation;
 	}
 	
+	public void setDoorLocation(Location doorL) {
+		this.doorLocation = doorL;
+	}
+	
 	public int getIconNumber() {
 		return icons.length;
 	}

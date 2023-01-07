@@ -20,7 +20,7 @@ public class MongoDBStorageAdapter implements IDataStorageAdapter {
         MongoDatabase db = mongoClient.getDatabase("GameFiles");
         this.collection =db.getCollection("Save");
     }
-
+    
     @Override
     public void save(String key, Object value) {
         byte[] bytes = null;

@@ -381,6 +381,15 @@ public class GameFrame extends JFrame {
 	public int getLevelTime() {
 		return levelTime;
 	}
+	
+
+	public BuildMode getBuildMode() {
+		return buildMode;
+	}
+
+	public void setBuildMode(BuildMode buildMode) {
+		this.buildMode = buildMode;
+	}
 
 	public BuildPanel getBuildPanel() {return buildPanel;}
 }

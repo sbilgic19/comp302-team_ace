@@ -12,16 +12,28 @@ public class PlayerMoveLogic  {
 		this.gameFrame = gameFrame;
 	}
 	
-	public void updatePlayerPosition(Player player, int numRow, int numCol, int changeInX, int changeInY) {
-			
+	public void updatePlayerPosition(Player player, int changeInX, int changeInY) {
+		
+		/**
+		Modifies the position of a Player object in a game.
+		@param player The Player object whose position will be modified.
+		@param changeInX The change in the player's x position.
+		@param changeInY The change in the player's y position.
+		@requires changeInX and changeInY must be integers such that the absolute value of changeInX plus the absolute value of changeInY is less than or equal to 1.
+		@modifies the position of the player object.
+		@effects The player's position will be updated based on the change in x and y position. If the player's new position is not a valid position on the game map, the player's position will not be modified.
+		*/
+		
+		
+		if ( Math.abs(changeInX) +  Math.abs(changeInY) <= 1) {
 			int xPlayerPosition = player.getLocation().getLocationX();
 			int yPlayerPosition = player.getLocation().getLocationY();
-			
+
 			int newXPlayerPosition = xPlayerPosition + changeInX;
 			int newYPlayerPosition = yPlayerPosition + changeInY;
 			
-			if (newXPlayerPosition >= 0 && newXPlayerPosition < numRow && newYPlayerPosition >= 0 
-						&& newYPlayerPosition < numCol) {  
+			if (newXPlayerPosition >= 0 && newXPlayerPosition < gameFrame.getNumRow() && newYPlayerPosition >= 0 
+						&& newYPlayerPosition < gameFrame.getNumCol()) {  
 				
 				if(GamePanel.getGameMap()[newXPlayerPosition][newYPlayerPosition].getIcon() == null) {
 					int playerLogoPosition = 0;
@@ -43,5 +55,6 @@ public class PlayerMoveLogic  {
 				}
 			}
 		}
+	}
 
 }

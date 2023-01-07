@@ -21,7 +21,6 @@ public class TimeWastingAlien implements Alien{
 	public TimeWastingAlien(Location location) {
 		super();
 		this.location = location;
-		this.alienType = "Time Wasting";
 		this.isActive = true;
 		
 		behaviourA = new TimeWastingAlienBehaviourStrategyA();
