@@ -2,11 +2,7 @@ package UI;
 
 
 import javax.swing.*;
-
-import ApplicationLogic.TimeWastingAlienBehaviourStrategy;
-import ApplicationLogic.TimeWastingAlienLogic;
 import domain.aliens.TimeWastingAlien;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -19,7 +15,7 @@ public class GameTime {
     private static JLabel timerAsSecond;
     private Timer timer = createTimer();
 
-    public GameTime() {
+    private GameTime() {
     
     }
 
@@ -72,5 +68,23 @@ public class GameTime {
     
     public void setTimeWastingAlien(TimeWastingAlien alien) {
     	this.alien = alien;
+    }
+
+    /**
+     * Check the internal consistency of the GameTime class.
+     *
+     * @return whether timer has a valid time or not.
+     */
+    public boolean repOK() {
+        return seconds >= 0;
+    }
+
+    /**
+     * Getter for the timewasting alien.
+     *
+     * @return the timewasting alien.
+     */
+    public TimeWastingAlien getTimeWastingAlien() {
+        return this.alien;
     }
 }

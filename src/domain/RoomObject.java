@@ -27,5 +27,13 @@ public class RoomObject implements Serializable {
 	
 	public void setLocation(Location location) {
 		this.location = location;
-	}	
+	}
+
+	public boolean equals(Object o) {
+		if (o == this) return true;
+		if (!(o instanceof RoomObject)) return false;
+		RoomObject p = (RoomObject) o;
+		return p.typeID == typeID && p.location.getLocationX() == location.getLocationX()
+					&& p.location.getLocationY() == location.getLocationY();
+	}
 }

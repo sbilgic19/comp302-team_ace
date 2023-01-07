@@ -5,6 +5,7 @@ public class User {
 	private String username;
 	private String password;
 	private String mail;
+	private String checkPassword = null;
 	int maxLevelReached;
 
 	
@@ -17,11 +18,12 @@ public class User {
 	}
 	
 	
-	public User(String username, String password, String mail) { // the most common constructor
+	public User(String username, String password, String checkPassword) { // the most common constructor
 		super();
 		this.username = username;
 		this.password = password;
-		this.mail = mail;
+		this.checkPassword = checkPassword;
+		this.mail = "<default_mail>@nomail.com";
 		this.maxLevelReached = 1;
 	}
 	
@@ -72,7 +74,10 @@ public class User {
 		this.username = username;
 	}
 
-
+	public String getCheckPassword() {
+		return checkPassword;
+	}
+	
 	public String getPassword() {
 		return password;
 	}

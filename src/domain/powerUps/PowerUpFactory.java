@@ -31,7 +31,8 @@ public class PowerUpFactory {
 				return new ExtraLifePowerUp(location, player);
 			case "ExtraTime":
 				return new ExtraTimePowerUp(location);
-    			
+			case "ProtectionVest":
+				return new ProtectionVestPowerUp(location, player);
     		default:
     			return null;
     	}
