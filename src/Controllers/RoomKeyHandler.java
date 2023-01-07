@@ -32,4 +32,8 @@ public class RoomKeyHandler {
 	public Key getKeyInstance() {
 		return key;
 	}
+	
+	public Player getPlayer() {
+		return this.player;
+	}
 }

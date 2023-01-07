@@ -17,13 +17,11 @@ public class PlayerHandler {
 	public PlayerHandler(Player player, GameFrame gameFrame) {
 		this.player = player;
 		this.gameFrame = gameFrame;
-		numRow = gameFrame.getNumRow();
-		numCol = gameFrame.getNumCol();
 		playerMoveLogic = new PlayerMoveLogic(this.gameFrame);
 	}
 
 	public void updatePlayerPosition(int changeInX, int changeInY) {
-			playerMoveLogic.updatePlayerPosition(player, numRow, numCol, changeInX, changeInY);
+			playerMoveLogic.updatePlayerPosition(player, changeInX, changeInY);
 		}
 
 	public Player getPlayer() {

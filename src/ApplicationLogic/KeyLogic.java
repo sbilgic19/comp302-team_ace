@@ -1,6 +1,8 @@
 package ApplicationLogic;
 
 import java.util.ArrayList;
+
+
 import java.util.Random;
 
 import UI.GameFrame;
@@ -10,6 +12,22 @@ import domain.Key;
 import domain.Player;
 
 public class KeyLogic {
+	
+	/*
+The KeyLogic class handles the logic for adding, taking, and generating keys in the game. 
+It takes in a GameFrame object in its constructor and uses it to access information about the game 
+such as the door location and the number of rows and columns in the game map.
+
+The class has three public methods:
+
+addKey(Key k): adds the given Key object to the game.
+
+takeKey(Player p, Key k): attempts to have the given Player object take the given Key object. 
+It returns true if the Player is within one unit of the Key and the Key is successfully taken, and false otherwise.
+
+getKey(): generates and returns a new Key object with a randomly chosen location in the game map, 
+avoiding locations occupied by other objects and the door location.
+	 */
 	GameFrame gameFrame;
 	private final Random r = new Random();
 	
@@ -23,12 +41,7 @@ public class KeyLogic {
 	}
 	
 	public boolean takeKey(Player p , Key k) {
-		/*
-		System.out.println("p.getLocation().getLocationX() :"+ p.getLocation().getLocationX());
-		System.out.println("k.getLocation().getLocationX() :"+ k.getLocation().getLocationX());
-		System.out.println("Math.abs(p.getLocation().getLocationX()- k.getLocation().getLocationX())  :" + Math.abs(p.getLocation().getLocationX()- k.getLocation().getLocationX()));
-		System.out.println("Math.abs(p.getLocation().getLocationY()- k.getLocation().getLocationY())  :" + Math.abs(p.getLocation().getLocationY()- k.getLocation().getLocationY()));
-		*/
+
 		if ( Math.abs(p.getLocation().getLocationX()- k.getLocation().getLocationX()) <= 1 && Math.abs(p.getLocation().getLocationY()- k.getLocation().getLocationY()) <= 1 ) {
 			k.taken(p);
 			System.out.println("key taken");

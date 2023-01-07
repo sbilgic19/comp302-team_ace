@@ -23,12 +23,14 @@ public class MongoDBStorageAdapter implements IDataStorageAdapter {
         this.collection =db.getCollection("Save");
     }
 
+
     /**
      * Saves the given object as gameInfo an key as the name of the save..
      *
      * @param key name of the save.
      * @param value GameInfo.
      */
+
     @Override
     public void save(String key, Object value) {
         byte[] bytes = null;
