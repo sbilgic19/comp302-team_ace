@@ -83,6 +83,11 @@ public class TimeWastingAlien implements Alien{
 	
 	public void setCurrentTime(int currentTime) {
 		this.currentTime = currentTime;
-		isActive = determineBehaviourStrategy().changeLocationOfTheKey();
+		TimeWastingAlienBehaviourStrategy currentBehaviour = determineBehaviourStrategy();
+		triggerAction(currentBehaviour);
+	}
+	
+	public void triggerAction(TimeWastingAlienBehaviourStrategy currentBehaviour) {
+		isActive = currentBehaviour.changeLocationOfTheKey();
 	}
 }
