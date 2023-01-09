@@ -30,7 +30,9 @@ public class PowerUpLogic {
 		if(powerUp.getPowerUpType().equalsIgnoreCase("ExtraLife") || powerUp.getPowerUpType().equalsIgnoreCase("ExtraTime"))
 			powerUp.triggerEffect();
 		else
+			gameFrame.updateBagView(powerUp);
 			player.addToBag(powerUp);
+
 
 	}
 	

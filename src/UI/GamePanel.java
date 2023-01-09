@@ -31,9 +31,9 @@ public class GamePanel extends JPanel {
     private static ImageIcon timerIcon;
     private static ImageIcon timeWastingAlienIcon;
     
-    private static Icon extraLifeIcon;
-    private static Icon extraTimeIcon;
-    private static Icon protectionVestIcon;
+    private static ImageIcon extraLifeIcon;
+    private static ImageIcon extraTimeIcon;
+    private static ImageIcon protectionVestIcon;
 
     private static int numRow;
     private static int numCol;
@@ -174,21 +174,21 @@ public class GamePanel extends JPanel {
     public static void placePowerUp(Location location, String powerUpType)
     {
     	switch(powerUpType) {
-    	    case "ExtraLife":
-    		    gameMap[location.getLocationX()][location.getLocationY()].setIcon(extraLifeIcon);
-    		    break;
-    	    case "ExtraTime":
+          case "ExtraLife":
+            gameMap[location.getLocationX()][location.getLocationY()].setIcon(extraLifeIcon);
+            break;
+          case "ExtraTime":
     		    gameMap[location.getLocationX()][location.getLocationY()].setIcon(extraTimeIcon);
     		    break;
-            case "ProtectionVest":
-                gameMap[location.getLocationX()][location.getLocationY()].setIcon(protectionVestIcon);
-                break;
+          case "ProtectionVest":
+            gameMap[location.getLocationX()][location.getLocationY()].setIcon(protectionVestIcon);
+            break;
         }
 
     }
     
     public ImageIcon[] getGamePanelIcons() {
-    	ImageIcon[] icons = {keyIcon, bagIcon, timerIcon};
+    	ImageIcon[] icons = {keyIcon, bagIcon, timerIcon, protectionVestIcon};
      	return icons;
     }
     

@@ -10,6 +10,7 @@ import Database.Client;
 import dataStructures.Location;
 import domain.RoomObject;
 import Controllers.*;
+import domain.powerUps.PowerUp;
 
 public class GameFrame extends JFrame {
 	private int numRow = 15;
@@ -28,6 +29,7 @@ public class GameFrame extends JFrame {
 	
 	private JLabel lives;
 	private JLabel key;
+	private JLabel powerUp = new JLabel();
 	
 	private KeyHandler keyHandler;
 	private RoomKeyHandler roomKeyHandler;
@@ -315,6 +317,7 @@ public class GameFrame extends JFrame {
 		bagLabel.setIcon(gamePanel.getGamePanelIcons()[1]);
 		keyPanel.add(bagLabel, BorderLayout.NORTH);
 		keyPanel.add(key, BorderLayout.CENTER);
+		keyPanel.add(powerUp, BorderLayout.SOUTH);
 		
 		buttonPanel.add(pauseButton);
 		pauseButton.setPreferredSize(new Dimension(200,30));
@@ -346,6 +349,16 @@ public class GameFrame extends JFrame {
 			JLabel[][] gameMap = GamePanel.getGameMap();
 			gameMap[doorLocation.getLocationX()][doorLocation.getLocationY()]
 					.setIcon(gamePanel.getOpenDoorIcon());
+		}
+	}
+
+	public void updateBagView(PowerUp powerUp) {
+		switch (powerUp.getPowerUpType()){
+			case "ProtectionVest":
+				this.powerUp.setIcon(gamePanel.getGamePanelIcons()[3]);
+				break;
+			default:
+				break;
 		}
 	}
 	
