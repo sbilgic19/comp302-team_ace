@@ -34,6 +34,10 @@ public class GamePanel extends JPanel {
     private static Icon extraLifeIcon;
     private static Icon extraTimeIcon;
     private static Icon protectionVestIcon;
+    private static  Icon plasticBottleIcon;
+    private static Icon plasticBottleIconEast;
+    private static Icon plasticBottleIconWest;
+    private static Icon plasticBottleIconSouth;
 
     private static int numRow;
     private static int numCol;
@@ -70,6 +74,13 @@ public class GamePanel extends JPanel {
         extraLifeIcon = iconFactory.generateIcon("../assets/extraLifeIcon.png", 50, 50);
         extraTimeIcon = iconFactory.generateIcon("../assets/extraTimeIcon.png", 50, 50);
         protectionVestIcon = iconFactory.generateIcon("../assets/protectionVest.png", 50, 50);
+        plasticBottleIcon = iconFactory.generateIcon("../assets/plasticbottleNorth.png", 50, 50);
+
+        plasticBottleIconEast = iconFactory.generateIcon("../assets/plasticbottleEast.png", 50, 50);
+        plasticBottleIconWest = iconFactory.generateIcon("../assets/plasticbottleWest.png", 50, 50);
+        plasticBottleIconSouth = iconFactory.generateIcon("../assets/plasticbottleSouth.png", 50, 50);
+
+
 
         openDoorIcon = iconFactory.generateIcon("../assets/doorIcon2.png", 50, 50);
         
@@ -170,6 +181,26 @@ public class GamePanel extends JPanel {
             gameMap[newXPlayerPosition][newYPlayerPosition].setIcon(playerIcons[playerLogoPosition]);
         }
     }
+
+    public static boolean updateBottleView(int oldXLoc, int oldYLoc, int newXPlayerPosition, int newYPlayerPosition, int bottleIconPosition) {
+        //gameMap[xPlayerPosition][yPlayerPosition].setIcon(null);
+        System.out.println(newXPlayerPosition);
+        System.out.println(newYPlayerPosition);
+        System.out.println(player.getLocation().getLocationX());
+        System.out.println(player.getLocation().getLocationY());
+        if(oldXLoc != player.getLocation().getLocationX() && oldYLoc != player.getLocation().getLocationY()){
+            gameMap[oldXLoc][oldYLoc].setIcon(null);
+        }
+        Icon[] plasticBottleIcons = {plasticBottleIcon, plasticBottleIconEast, plasticBottleIconSouth, plasticBottleIconWest};
+        if(gameMap[newXPlayerPosition][newYPlayerPosition].getIcon() == null && newXPlayerPosition < numRow-1 && newYPlayerPosition < numCol-1
+                && newXPlayerPosition > 0 && newYPlayerPosition > 0){
+            gameMap[newXPlayerPosition][newYPlayerPosition].setIcon(plasticBottleIcons[bottleIconPosition % 4]);
+            return true;
+        }else {
+            gameMap[newXPlayerPosition][newYPlayerPosition].setIcon(null);
+            return false;
+        }
+    }
     
     public static void placePowerUp(Location location, String powerUpType)
     {
@@ -182,6 +213,9 @@ public class GamePanel extends JPanel {
     		    break;
             case "ProtectionVest":
                 gameMap[location.getLocationX()][location.getLocationY()].setIcon(protectionVestIcon);
+                break;
+            case "PlasticBottle":
+                gameMap[location.getLocationX()][location.getLocationY()].setIcon(plasticBottleIcon);
                 break;
         }
 

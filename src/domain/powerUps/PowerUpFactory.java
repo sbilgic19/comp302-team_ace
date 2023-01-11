@@ -33,6 +33,8 @@ public class PowerUpFactory {
 				return new ExtraTimePowerUp(location);
 			case "ProtectionVest":
 				return new ProtectionVestPowerUp(location, player);
+			case "PlasticBottle":
+				return new PlasticBottlePowerUp(location,player,null);
     		default:
     			return null;
     	}
