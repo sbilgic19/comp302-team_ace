@@ -20,7 +20,6 @@ public class KeyHandler extends KeyAdapter {
 	private boolean isAPressed = false;
 	private boolean isBPressed = false;
 
-
 	private PlayerHandler playerHandler;
 	
 	public KeyHandler(PlayerHandler playerHandler) {

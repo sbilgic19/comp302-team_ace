@@ -184,11 +184,13 @@ public class GamePanel extends JPanel {
 
     public static boolean updateBottleView(int oldXLoc, int oldYLoc, int newXPlayerPosition, int newYPlayerPosition, int bottleIconPosition) {
         //gameMap[xPlayerPosition][yPlayerPosition].setIcon(null);
-        System.out.println(newXPlayerPosition);
-        System.out.println(newYPlayerPosition);
-        System.out.println(player.getLocation().getLocationX());
-        System.out.println(player.getLocation().getLocationY());
-        if(oldXLoc != player.getLocation().getLocationX() && oldYLoc != player.getLocation().getLocationY()){
+      System.out.println("OldBottle:" + oldXLoc);
+      System.out.println("OldBottle " + oldYLoc);
+        System.out.println("Bottle:" + newXPlayerPosition);
+        System.out.println("Bottle " + newYPlayerPosition);
+        System.out.println("Player: " + player.getLocation().getLocationX());
+        System.out.println("Player: "+ player.getLocation().getLocationY());
+        if(oldXLoc != player.getLocation().getLocationX() || oldYLoc != player.getLocation().getLocationY()){
             gameMap[oldXLoc][oldYLoc].setIcon(null);
         }
         Icon[] plasticBottleIcons = {plasticBottleIcon, plasticBottleIconEast, plasticBottleIconSouth, plasticBottleIconWest};
@@ -197,7 +199,7 @@ public class GamePanel extends JPanel {
             gameMap[newXPlayerPosition][newYPlayerPosition].setIcon(plasticBottleIcons[bottleIconPosition % 4]);
             return true;
         }else {
-            gameMap[newXPlayerPosition][newYPlayerPosition].setIcon(null);
+            //gameMap[newXPlayerPosition][newYPlayerPosition].setIcon(null);
             return false;
         }
     }

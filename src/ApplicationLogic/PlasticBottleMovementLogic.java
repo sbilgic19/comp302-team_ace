@@ -25,10 +25,13 @@ public class PlasticBottleMovementLogic {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(isMoving) {
+
                     int oldXLoc = powerUp.getLocation().getLocationX();
                     int oldYLoc = powerUp.getLocation().getLocationY();
+                    System.out.println("OldX: " + oldXLoc + " OldY: " + oldYLoc);
                     powerUp.triggerEffect();
                     powerUp.setBottleIconPosition(powerUp.getBottleIconPosition()+1);
+                    System.out.println("OldX: " + oldXLoc + " OldY: " + oldYLoc);
                     isMoving = GamePanel.updateBottleView(oldXLoc,oldYLoc,powerUp.getLocation().getLocationX(), powerUp.getLocation().getLocationY(), powerUp.getBottleIconPosition());
                 }else
                     timer.stop();

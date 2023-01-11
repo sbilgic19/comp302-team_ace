@@ -21,4 +21,8 @@ public class PlasticBottleThrowBehavior implements PowerUpBehavior{
             plasticBottleLocation.setLocationX(plasticBottleLocation.getLocationX()+1);
         }
     }
+
+    public Location getNewLocation(){
+        return this.plasticBottleLocation;
+    }
 }

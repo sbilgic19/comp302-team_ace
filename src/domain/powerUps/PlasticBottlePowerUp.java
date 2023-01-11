@@ -17,12 +17,14 @@ public class PlasticBottlePowerUp implements PowerUp{
         this.player = player;
         this.powerUpType = "PlasticBottle";
         this.movementDirection = movementDirection;
-        this.behavior = new PlasticBottleThrowBehavior(player.getLocation(), movementDirection);
+        Location location1 = new Location(player.getLocation().getLocationX(), player.getLocation().getLocationY());
+        this.behavior = new PlasticBottleThrowBehavior(location1, movementDirection);
     }
 
     @Override
     public void triggerEffect() {
         behavior.performBehavior();
+        this.location = ((PlasticBottleThrowBehavior)behavior).getNewLocation();
     }
 
     @Override
