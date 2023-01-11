@@ -10,10 +10,12 @@ import domain.powerUps.PowerUp;
 import domain.Player;
 import domain.aliens.TimeWastingAlien;
 import domain.Key;
+import domain.powerUps.PowerUpFactory;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Random;
 
 public class GamePanel extends JPanel {
 
@@ -34,6 +36,7 @@ public class GamePanel extends JPanel {
     private static ImageIcon extraLifeIcon;
     private static ImageIcon extraTimeIcon;
     private static ImageIcon protectionVestIcon;
+    private static ImageIcon hintIcon;
 
     private static int numRow;
     private static int numCol;
@@ -41,6 +44,7 @@ public class GamePanel extends JPanel {
     private Key key;
     private PowerUp powerUp;
     private static Player player;
+    private boolean isPowerUpActive;
     
     private static ImageIcon openDoorIcon;
      
@@ -70,6 +74,7 @@ public class GamePanel extends JPanel {
         extraLifeIcon = iconFactory.generateIcon("../assets/extraLifeIcon.png", 50, 50);
         extraTimeIcon = iconFactory.generateIcon("../assets/extraTimeIcon.png", 50, 50);
         protectionVestIcon = iconFactory.generateIcon("../assets/protectionVest.png", 50, 50);
+        hintIcon = iconFactory.generateIcon("../assets/hintIcon.png", 50, 50);
 
         openDoorIcon = iconFactory.generateIcon("../assets/doorIcon2.png", 50, 50);
         
@@ -79,7 +84,7 @@ public class GamePanel extends JPanel {
         
         this.setLayout(new GridLayout(numRow, numCol, 0, 0));
         roomKeyHandler = gameFrame.getRoomKeyHandler();
-        powerUpHandler = new PowerUpHandler(gameFrame,player);
+        powerUpHandler = gameFrame.getPowerUpHandler();
     }
 
     public void setGameMap(JLabel[][] buildModeMap) {
@@ -145,6 +150,7 @@ public class GamePanel extends JPanel {
         }
 
         key = roomKeyHandler.getRandomKey();
+        PowerUpFactory.getInstance().setKey(key);
         System.out.println(key.getLocation().getLocationX()+" " + key.getLocation().getLocationY());
         gameMap[0][5].setIcon(playerFrontIcon);
         powerUp = powerUpHandler.getRandomPowerUp();
@@ -183,6 +189,9 @@ public class GamePanel extends JPanel {
           case "ProtectionVest":
             gameMap[location.getLocationX()][location.getLocationY()].setIcon(protectionVestIcon);
             break;
+          case "Hint":
+            gameMap[location.getLocationX()][location.getLocationY()].setIcon(hintIcon);
+            break;
         }
 
     }
@@ -215,4 +224,52 @@ public class GamePanel extends JPanel {
     public static void setNullIcon(Location location) {
     	gameMap[location.getLocationX()][location.getLocationY()].setIcon(null);
     }
+
+  /**
+   * remove borders in the gameMap.
+   */
+  public static void removeBorders() {
+      for (int row = 0; row < gameMap.length; row++) {
+        for (int col = 0; col < gameMap[0].length; col++) {
+          GamePanel.getGameMap()[row][col].setBorder(null);
+        }
+      }
+    }
+
+  /**
+   * Sets borders around the key
+   * @param keyRow row of the key
+   * @param keyCol column of the key
+   */
+  public void addBordersHint(int keyRow, int keyCol)
+    {
+      Random rand = new Random();
+      int offsetRow = rand.nextInt(3) - 1;
+      int offsetCol = rand.nextInt(3) - 1;
+
+      // Set the border of the labels within the rectangle to indicate the hint
+      for (int row = keyRow + offsetRow; row < keyRow + offsetRow + 4; row++) {
+        for (int col = keyCol + offsetCol; col < keyCol + offsetCol + 4; col++) {
+          // Make sure the label is within the bounds of the game map
+          if (row >= 0 && row < GamePanel.getGameMap().length && col >= 0 && col < GamePanel.getGameMap()[0].length) {
+            System.out.println("Border set");
+            gameMap[row][col].setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+          }
+        }
+      }
+    }
+
+    public Key getKey(){
+      return this.key;
+    }
+
+    public void setIsPowerUpActive(boolean bool) {
+      this.isPowerUpActive = bool;
+    }
+
+  public boolean getIsPowerUpActive() {
+    return isPowerUpActive;
+  }
+
+
 }

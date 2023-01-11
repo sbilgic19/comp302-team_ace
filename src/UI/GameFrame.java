@@ -11,6 +11,7 @@ import dataStructures.Location;
 import domain.RoomObject;
 import Controllers.*;
 import domain.powerUps.PowerUp;
+import domain.powerUps.ProtectionVestPowerUp;
 
 public class GameFrame extends JFrame {
 	private int numRow = 15;
@@ -33,6 +34,7 @@ public class GameFrame extends JFrame {
 	
 	private KeyHandler keyHandler;
 	private RoomKeyHandler roomKeyHandler;
+	private PowerUpHandler powerUpHandler;
 	private JPanel buttonPanel;
 	
 	private LoginPanel loginPanel;
@@ -353,12 +355,12 @@ public class GameFrame extends JFrame {
 	}
 
 	public void updateBagView(PowerUp powerUp) {
-		switch (powerUp.getPowerUpType()){
-			case "ProtectionVest":
-				this.powerUp.setIcon(gamePanel.getGamePanelIcons()[3]);
-				break;
-			default:
-				break;
+		if (powerUp instanceof ProtectionVestPowerUp) {
+			this.powerUp.setIcon(gamePanel.getGamePanelIcons()[3]);
+		}
+			else{
+				this.powerUp.setIcon(null);
+
 		}
 	}
 	
@@ -375,12 +377,19 @@ public class GameFrame extends JFrame {
 		return roomKeyHandler;
 	}
 
+	public PowerUpHandler getPowerUpHandler(){
+		return this.powerUpHandler;
+	}
+
 	public Location getDoorLocation() {
 		return buildMode.getDoorLocation();
 	}
 	
 	public void setRoomKeyHandler(RoomKeyHandler roomKeyHandler) {
 		this.roomKeyHandler = roomKeyHandler;
+	}
+	public void setPowerUpHandler(PowerUpHandler powerUpHandler) {
+		this.powerUpHandler = powerUpHandler;
 	}
 	
 	public LoginPanel getLoginPanel() {

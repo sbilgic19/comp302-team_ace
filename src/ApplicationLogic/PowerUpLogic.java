@@ -32,8 +32,7 @@ public class PowerUpLogic {
 		else
 			gameFrame.updateBagView(powerUp);
 			player.addToBag(powerUp);
-
-
+			System.out.println(powerUp.getPowerUpType() + " added to the bag");
 	}
 	
 	public PowerUp getPowerUp() {
@@ -48,7 +47,8 @@ public class PowerUpLogic {
 				isOccupied = false;
 			}
 		}
-		int rand = r.nextInt(3);
+		int rand = r.nextInt(4);
+		rand = 3;
 		PowerUp powerUp;
 		//It will be random Location.
 		Location location = new Location(row,column);
@@ -66,6 +66,10 @@ public class PowerUpLogic {
 				break;
 			case 2:
 				powerUp = PowerUpFactory.getInstance().getPowerUp("ProtectionVest", location);
+				this.addPowerUp(powerUp);
+				break;
+			case 3:
+				powerUp = PowerUpFactory.getInstance().getPowerUp("Hint", location);
 				this.addPowerUp(powerUp);
 				break;
 	        default:
