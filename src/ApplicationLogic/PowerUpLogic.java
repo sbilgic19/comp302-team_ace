@@ -46,7 +46,8 @@ public class PowerUpLogic {
 				isOccupied = false;
 			}
 		}
-		int rand = r.nextInt(3);
+		//int rand = r.nextInt(4);
+		int rand = 3;
 		PowerUp powerUp;
 		//It will be random Location.
 		Location location = new Location(row,column);
@@ -54,7 +55,6 @@ public class PowerUpLogic {
 		switch (rand) 
 		{
 			case 0:
-				
 				powerUp = PowerUpFactory.getInstance().getPowerUp("ExtraLife", location);
 				this.addPowerUp(powerUp);
 	            break;
@@ -64,6 +64,10 @@ public class PowerUpLogic {
 				break;
 			case 2:
 				powerUp = PowerUpFactory.getInstance().getPowerUp("ProtectionVest", location);
+				this.addPowerUp(powerUp);
+				break;
+			case 3:
+				powerUp = PowerUpFactory.getInstance().getPowerUp("PlasticBottle", location);
 				this.addPowerUp(powerUp);
 				break;
 	        default:
