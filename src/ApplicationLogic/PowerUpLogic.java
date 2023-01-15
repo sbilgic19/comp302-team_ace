@@ -55,7 +55,6 @@ public class PowerUpLogic {
 		switch (rand) 
 		{
 			case 0:
-				
 				powerUp = PowerUpFactory.getInstance().getPowerUp("ExtraLife", location);
 				this.addPowerUp(powerUp);
 	            break;
@@ -65,6 +64,10 @@ public class PowerUpLogic {
 				break;
 			case 2:
 				powerUp = PowerUpFactory.getInstance().getPowerUp("ProtectionVest", location);
+				this.addPowerUp(powerUp);
+				break;
+      case 3:
+				powerUp = PowerUpFactory.getInstance().getPowerUp("PlasticBottle", location);
 				this.addPowerUp(powerUp);
 				break;
 			case 4:

@@ -2,7 +2,10 @@ package Controllers;
 
 import UI.GameFrame;
 import UI.GamePanel;
+import ApplicationLogic.PlasticBottleMovementLogic;
 import UI.GameState;
+import dataStructures.Location;
+import domain.powerUps.PlasticBottlePowerUp;
 import domain.powerUps.PowerUp;
 import domain.Key;
 
@@ -11,11 +14,17 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.TimerTask;
 
+
 public class KeyHandler extends KeyAdapter {
 	
 	private long lastSavedTime;
 	private long currentTime;
-	
+	private boolean isWPressed = false;
+	private boolean isDPressed = false;
+	private boolean isSPressed = false;
+	private boolean isAPressed = false;
+	private boolean isBPressed = false;
+
 	private PlayerHandler playerHandler;
 	private PowerUpHandler powerUpHandler;
 	
@@ -67,8 +76,65 @@ public class KeyHandler extends KeyAdapter {
 
 					}
 				}
+				if(event.getKeyChar() == 'b'){
+					isBPressed = true;
+				}
+				if(event.getKeyChar() == 'w'){
+					isWPressed = true;
+				}
+				if(event.getKeyChar() == 'd'){
+					isDPressed = true;
+				}
+				if(event.getKeyChar() == 'a'){
+					isAPressed = true;
+				}
+				if(event.getKeyChar() == 's'){
+					isSPressed = true;
+				}
+				else if(isBPressed && playerHandler.getPlayer().isContains("PlasticBottle")){
+					System.out.println("Hi");
+					Location bottleStartPos = new Location(playerHandler.getPlayer().getLocation().getLocationX(),playerHandler.getPlayer().getLocation().getLocationY());
+					PlasticBottlePowerUp powerUp = null;
+					if(isWPressed){
+						System.out.println("HİW");
+						powerUp = new PlasticBottlePowerUp(bottleStartPos, playerHandler.getPlayer(),"North");
+						PlasticBottleMovementLogic plasticBottleMovementLogic = new PlasticBottleMovementLogic(powerUp);
+						plasticBottleMovementLogic.updateBottlePosition();
+					} else if (isAPressed) {
+						powerUp = new PlasticBottlePowerUp(bottleStartPos, playerHandler.getPlayer(),"West");
+						PlasticBottleMovementLogic plasticBottleMovementLogic = new PlasticBottleMovementLogic(powerUp);
+						plasticBottleMovementLogic.updateBottlePosition();
+					} else if (isDPressed) {
+						powerUp = new PlasticBottlePowerUp(bottleStartPos, playerHandler.getPlayer(),"East");
+						PlasticBottleMovementLogic plasticBottleMovementLogic = new PlasticBottleMovementLogic(powerUp);
+						plasticBottleMovementLogic.updateBottlePosition();
+					} else if (isSPressed) {
+						powerUp = new PlasticBottlePowerUp(bottleStartPos, playerHandler.getPlayer(),"South");
+						PlasticBottleMovementLogic plasticBottleMovementLogic = new PlasticBottleMovementLogic(powerUp);
+						plasticBottleMovementLogic.updateBottlePosition();
+					}
+				}
 				lastSavedTime = currentTime;
 			}
+		}
+	}
+
+	@Override
+	public synchronized void keyReleased(KeyEvent event) {
+		if(event.getKeyChar() == 'w'){
+			isWPressed = false;
+		}
+		if(event.getKeyChar() == 'd'){
+			isDPressed = false;
+		}
+		if(event.getKeyChar() == 'a'){
+			isAPressed = false;
+		}
+		if(event.getKeyChar() == 's'){
+			isSPressed = false;
+		}
+		if(event.getKeyChar() == 'b'){
+			isBPressed = false;
 		}
 	}
 }

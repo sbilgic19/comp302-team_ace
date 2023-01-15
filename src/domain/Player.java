@@ -12,6 +12,7 @@ public class Player implements Serializable {
 	private int lives;
 	private boolean isKeyTaken = false;
 	private boolean isProtected = false;
+	private boolean isThrowing = false;
 	private ArrayList<PowerUp> bag = new ArrayList<PowerUp>();
 
 	public Player() {
@@ -79,6 +80,8 @@ public class Player implements Serializable {
 	public boolean isProtected() {
 		return this.isProtected;
 	}
+	public boolean isThrowing(){return this.isThrowing;}
+	public void setIsThrowing(boolean isThrowing){ this.isThrowing = isThrowing; }
 
 	public void setIsProtected(boolean isProtected) {
 		this.isProtected = isProtected;

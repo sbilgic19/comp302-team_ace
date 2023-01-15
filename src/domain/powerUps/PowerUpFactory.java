@@ -39,6 +39,8 @@ public class PowerUpFactory {
 				return new ProtectionVestPowerUp(location, player);
 			case "Hint":
 				return new HintPowerUp(location, player, key);
+			case "PlasticBottle":
+				return new PlasticBottlePowerUp(location,player,null);
     		default:
     			return null;
     	}
