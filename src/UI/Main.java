@@ -39,7 +39,6 @@ public class Main {
 
 
 
-
 		GameInfo.getInstance().setPlayer(player);
 		PowerUpFactory.getInstance().setPlayer(player);
 		
