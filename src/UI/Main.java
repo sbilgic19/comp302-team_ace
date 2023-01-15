@@ -1,12 +1,8 @@
 package UI;
 import javax.swing.*;
 
-import Controllers.LoginAuthorizationHandler;
-import Controllers.BlindAlienHandler;
-import Controllers.KeyHandler;
-import Controllers.PlayerHandler;
-import Controllers.RoomKeyHandler;
-import Controllers.ShooterAlienHandler;
+
+import Controllers.*;
 import domain.GameInfo;
 import domain.Player;
 import domain.powerUps.PowerUpFactory;
@@ -35,11 +31,15 @@ public class Main {
 		RoomKeyHandler roomKeyHandler = new RoomKeyHandler(gameFrame, player);
 		LoginAuthorizationHandler buttonHandler = new LoginAuthorizationHandler(gameFrame);
 		PlayerHandler playerHandler = new PlayerHandler(player, gameFrame);
+
 		KeyHandler keyHandler = new KeyHandler(playerHandler);
 		ShooterAlienHandler shooterAlienHandler = new ShooterAlienHandler(player, gameFrame);
 		BlindAlienHandler blindAlienHandler = new BlindAlienHandler(player,gameFrame);
-		
-		
+		PowerUpHandler powerUpHandler = new PowerUpHandler(gameFrame, player);
+		KeyHandler keyHandler = new KeyHandler(playerHandler, powerUpHandler);
+
+
+
 		GameInfo.getInstance().setPlayer(player);
 		PowerUpFactory.getInstance().setPlayer(player);
 		
@@ -48,6 +48,7 @@ public class Main {
 		gameFrame.setBlindAlienHandler(blindAlienHandler);
 		gameFrame.setKeyHandler(keyHandler);
 		gameFrame.setRoomKeyHandler(roomKeyHandler);
+		gameFrame.setPowerUpHandler(powerUpHandler);
 		//gameFrame.switchLoginView();
 		gameFrame.showMainView();
 		GamePanel.setPlayer(player);

@@ -13,6 +13,7 @@ import domain.Player;
 import domain.aliens.ShooterAlien;
 import domain.aliens.TimeWastingAlien;
 import domain.Key;
+import domain.powerUps.PowerUpFactory;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -22,6 +23,7 @@ import java.awt.event.MouseEvent;
 import java.util.Random;
 import java.util.TimerTask;
 import java.util.Timer;
+
 
 public class GamePanel extends JPanel {
 
@@ -41,9 +43,14 @@ public class GamePanel extends JPanel {
     private static ImageIcon blindIcon;
     private static ImageIcon shooterIcon;
     
-    private static Icon extraLifeIcon;
-    private static Icon extraTimeIcon;
-    private static Icon protectionVestIcon;
+    private static ImageIcon extraLifeIcon;
+    private static ImageIcon extraTimeIcon;
+    private static ImageIcon protectionVestIcon;
+    private static ImageIcon hintIcon;
+    private static ImageIcon plasticBottleIcon;
+    private static ImageIcon plasticBottleIconEast;
+    private static ImageIcon plasticBottleIconWest;
+    private static ImageIcon plasticBottleIconSouth;
 
     private static int numRow;
     private static int numCol;
@@ -51,6 +58,7 @@ public class GamePanel extends JPanel {
     private Key key;
     private PowerUp powerUp;
     private static Player player;
+    private boolean isPowerUpActive;
     
     private static ImageIcon openDoorIcon;
      
@@ -86,6 +94,12 @@ public class GamePanel extends JPanel {
         extraLifeIcon = iconFactory.generateIcon("../assets/extraLifeIcon.png", 50, 50);
         extraTimeIcon = iconFactory.generateIcon("../assets/extraTimeIcon.png", 50, 50);
         protectionVestIcon = iconFactory.generateIcon("../assets/protectionVest.png", 50, 50);
+        hintIcon = iconFactory.generateIcon("../assets/hintIcon.png", 50, 50);
+        plasticBottleIcon = iconFactory.generateIcon("../assets/plasticbottleNorth.png", 50, 50);
+
+        plasticBottleIconEast = iconFactory.generateIcon("../assets/plasticbottleEast.png", 50, 50);
+        plasticBottleIconWest = iconFactory.generateIcon("../assets/plasticbottleWest.png", 50, 50);
+        plasticBottleIconSouth = iconFactory.generateIcon("../assets/plasticbottleSouth.png", 50, 50);
 
         openDoorIcon = iconFactory.generateIcon("../assets/doorIcon2.png", 50, 50);
         
@@ -95,9 +109,11 @@ public class GamePanel extends JPanel {
         
         this.setLayout(new GridLayout(numRow, numCol, 0, 0));
         roomKeyHandler = gameFrame.getRoomKeyHandler();
+
         shooterAlienHandler = gameFrame.getShooterAlienHandler();
         blindAlienHandler = gameFrame.getBlindAlienHandler();
-        powerUpHandler = new PowerUpHandler(gameFrame,player);
+        powerUpHandler = gameFrame.getPowerUpHandler();
+
     }
 
     public void setGameMap(JLabel[][] buildModeMap) {
@@ -163,6 +179,7 @@ public class GamePanel extends JPanel {
         }
 
         key = roomKeyHandler.getRandomKey();
+        PowerUpFactory.getInstance().setKey(key);
         System.out.println(key.getLocation().getLocationX()+" " + key.getLocation().getLocationY());
         gameMap[0][5].setIcon(playerFrontIcon);
         powerUp = powerUpHandler.getRandomPowerUp();
@@ -322,6 +339,7 @@ public class GamePanel extends JPanel {
             gameMap[newXPlayerPosition][newYPlayerPosition].setIcon(playerIcons[playerLogoPosition]);
         }
     }
+
 	
 	
 	public static void updateBlindAlienView(int xPosition, int yPosition,
@@ -331,19 +349,49 @@ public class GamePanel extends JPanel {
         gameMap[newXPosition][newYPosition].setIcon(blindIcon);
       
 	}
+
+
+    public static boolean updateBottleView(int oldXLoc, int oldYLoc, int newXPlayerPosition, int newYPlayerPosition, int bottleIconPosition) {
+        //gameMap[xPlayerPosition][yPlayerPosition].setIcon(null);
+      System.out.println("OldBottle:" + oldXLoc);
+      System.out.println("OldBottle " + oldYLoc);
+        System.out.println("Bottle:" + newXPlayerPosition);
+        System.out.println("Bottle " + newYPlayerPosition);
+        System.out.println("Player: " + player.getLocation().getLocationX());
+        System.out.println("Player: "+ player.getLocation().getLocationY());
+        if(oldXLoc != player.getLocation().getLocationX() || oldYLoc != player.getLocation().getLocationY()){
+            gameMap[oldXLoc][oldYLoc].setIcon(null);
+        }
+        ImageIcon[] plasticBottleIcons = {plasticBottleIcon, plasticBottleIconEast, plasticBottleIconSouth, plasticBottleIconWest};
+        if(gameMap[newXPlayerPosition][newYPlayerPosition].getIcon() == null && newXPlayerPosition < numRow-1 && newYPlayerPosition < numCol-1
+                && newXPlayerPosition > 0 && newYPlayerPosition > 0){
+            gameMap[newXPlayerPosition][newYPlayerPosition].setIcon(plasticBottleIcons[bottleIconPosition % 4]);
+            return true;
+        }else {
+            //gameMap[newXPlayerPosition][newYPlayerPosition].setIcon(null);
+            return false;
+        }
+    }
+
     
     public static void placePowerUp(Location location, String powerUpType)
     {
     	switch(powerUpType) {
-    	    case "ExtraLife":
-    		    gameMap[location.getLocationX()][location.getLocationY()].setIcon(extraLifeIcon);
-    		    break;
-    	    case "ExtraTime":
+          case "ExtraLife":
+            gameMap[location.getLocationX()][location.getLocationY()].setIcon(extraLifeIcon);
+            break;
+          case "ExtraTime":
     		    gameMap[location.getLocationX()][location.getLocationY()].setIcon(extraTimeIcon);
     		    break;
-            case "ProtectionVest":
-                gameMap[location.getLocationX()][location.getLocationY()].setIcon(protectionVestIcon);
-                break;
+          case "ProtectionVest":
+            gameMap[location.getLocationX()][location.getLocationY()].setIcon(protectionVestIcon);
+            break;
+          case "Hint":
+            gameMap[location.getLocationX()][location.getLocationY()].setIcon(hintIcon);
+            break;
+          case "PlasticBottle":
+            gameMap[location.getLocationX()][location.getLocationY()].setIcon(plasticBottleIcon);
+            break;
         }
 
     }
@@ -363,7 +411,7 @@ public class GamePanel extends JPanel {
     }
     
     public ImageIcon[] getGamePanelIcons() {
-    	ImageIcon[] icons = {keyIcon, bagIcon, timerIcon};
+    	ImageIcon[] icons = {keyIcon, bagIcon, timerIcon, protectionVestIcon};
      	return icons;
     }
     
@@ -390,4 +438,52 @@ public class GamePanel extends JPanel {
     public static void setNullIcon(Location location) {
     	gameMap[location.getLocationX()][location.getLocationY()].setIcon(null);
     }
+
+  /**
+   * remove borders in the gameMap.
+   */
+  public static void removeBorders() {
+      for (int row = 0; row < gameMap.length; row++) {
+        for (int col = 0; col < gameMap[0].length; col++) {
+          GamePanel.getGameMap()[row][col].setBorder(null);
+        }
+      }
+    }
+
+  /**
+   * Sets borders around the key
+   * @param keyRow row of the key
+   * @param keyCol column of the key
+   */
+  public void addBordersHint(int keyRow, int keyCol)
+    {
+      Random rand = new Random();
+      int offsetRow = rand.nextInt(3) - 1;
+      int offsetCol = rand.nextInt(3) - 1;
+
+      // Set the border of the labels within the rectangle to indicate the hint
+      for (int row = keyRow + offsetRow; row < keyRow + offsetRow + 4; row++) {
+        for (int col = keyCol + offsetCol; col < keyCol + offsetCol + 4; col++) {
+          // Make sure the label is within the bounds of the game map
+          if (row >= 0 && row < GamePanel.getGameMap().length && col >= 0 && col < GamePanel.getGameMap()[0].length) {
+            System.out.println("Border set");
+            gameMap[row][col].setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+          }
+        }
+      }
+    }
+
+    public Key getKey(){
+      return this.key;
+    }
+
+    public void setIsPowerUpActive(boolean bool) {
+      this.isPowerUpActive = bool;
+    }
+
+  public boolean getIsPowerUpActive() {
+    return isPowerUpActive;
+  }
+
+
 }

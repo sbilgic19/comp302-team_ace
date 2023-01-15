@@ -27,4 +27,8 @@ public class PlayerHandler {
 	public Player getPlayer() {
 		return player;
 	}
+
+	public GameFrame getGameFrame() {
+		return gameFrame;
+	}
 }
