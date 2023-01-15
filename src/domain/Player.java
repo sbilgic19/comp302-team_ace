@@ -87,10 +87,18 @@ public class Player implements Serializable {
 		this.isProtected = isProtected;
 	}
 
+	/**
+	 * Adds the given powerUp to the bag.
+	 * @param powerUp powerUp to add to the bag.
+	 */
 	public void addToBag(PowerUp powerUp){
 		bag.add(powerUp);
 	}
 
+	/**
+	 * Getter for bag.
+	 * @return the bag of the player.
+	 */
 	public ArrayList<PowerUp> getBag(){
 		return bag;
 	}

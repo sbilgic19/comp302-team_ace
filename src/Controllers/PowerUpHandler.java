@@ -17,7 +17,6 @@ public class PowerUpHandler {
 		powerUpLogic = new PowerUpLogic(gameFrame, player);
 		this.gameFrame = gameFrame;
 	}
-	
 	public PowerUp getRandomPowerUp() 
 	{
 		return powerUpLogic.getPowerUp();
@@ -27,6 +26,12 @@ public class PowerUpHandler {
 	{
 		powerUpLogic.usePowerUp(powerUp);
 	}
+
+	public GameFrame getGameFrame(){
+		return this.gameFrame;
+	}
+
+
 
 
 

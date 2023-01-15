@@ -1,13 +1,18 @@
 package Controllers;
 
+import UI.GameFrame;
+import UI.GamePanel;
 import ApplicationLogic.PlasticBottleMovementLogic;
 import UI.GameState;
 import dataStructures.Location;
 import domain.powerUps.PlasticBottlePowerUp;
 import domain.powerUps.PowerUp;
+import domain.Key;
 
+import java.util.Timer;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.TimerTask;
 
 
 public class KeyHandler extends KeyAdapter {
@@ -21,10 +26,16 @@ public class KeyHandler extends KeyAdapter {
 	private boolean isBPressed = false;
 
 	private PlayerHandler playerHandler;
+	private PowerUpHandler powerUpHandler;
 	
 	public KeyHandler(PlayerHandler playerHandler) {
 		this.playerHandler = playerHandler; 
 		currentTime = System.currentTimeMillis();
+	}
+	public KeyHandler(PlayerHandler playerHandler, PowerUpHandler powerUpHandler) {
+		this.playerHandler = playerHandler;
+		currentTime = System.currentTimeMillis();
+		this.powerUpHandler = powerUpHandler;
 	}
 	 
 	@Override
@@ -44,6 +55,25 @@ public class KeyHandler extends KeyAdapter {
 					PowerUp powerUp = playerHandler.getPlayer().getPowerUp("ProtectionVest");
 					if(powerUp != null){
 						powerUp.triggerEffect();
+						playerHandler.getGameFrame().updateBagView(null);
+					}
+				}else if(event.getKeyCode() == KeyEvent.VK_H && playerHandler.getPlayer().isContains("Hint")){
+					PowerUp powerUp = playerHandler.getPlayer().getPowerUp("Hint");
+					if(powerUp != null){
+						Key key = powerUpHandler.getGameFrame().getGamePanel().getKey();
+						powerUpHandler.getGameFrame().getGamePanel().addBordersHint(key.getLocation().getLocationX(), key.getLocation().getLocationY());
+						Timer timer = new Timer();
+						timer.schedule(new TimerTask() {
+							@Override
+							public void run() {
+								powerUpHandler.getGameFrame().getGamePanel().removeBorders();
+							}
+						}, 10 * 1000);
+
+						playerHandler.getGameFrame().updateBagView(null);
+						powerUp.triggerEffect();
+
+
 					}
 				}
 				if(event.getKeyChar() == 'b'){

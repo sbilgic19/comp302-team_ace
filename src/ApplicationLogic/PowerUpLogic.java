@@ -30,8 +30,9 @@ public class PowerUpLogic {
 		if(powerUp.getPowerUpType().equalsIgnoreCase("ExtraLife") || powerUp.getPowerUpType().equalsIgnoreCase("ExtraTime"))
 			powerUp.triggerEffect();
 		else
+			gameFrame.updateBagView(powerUp);
 			player.addToBag(powerUp);
-
+			System.out.println(powerUp.getPowerUpType() + " added to the bag");
 	}
 	
 	public PowerUp getPowerUp() {
@@ -46,8 +47,7 @@ public class PowerUpLogic {
 				isOccupied = false;
 			}
 		}
-		//int rand = r.nextInt(4);
-		int rand = 3;
+		int rand = r.nextInt(5);
 		PowerUp powerUp;
 		//It will be random Location.
 		Location location = new Location(row,column);
@@ -66,12 +66,16 @@ public class PowerUpLogic {
 				powerUp = PowerUpFactory.getInstance().getPowerUp("ProtectionVest", location);
 				this.addPowerUp(powerUp);
 				break;
-			case 3:
+      case 3:
 				powerUp = PowerUpFactory.getInstance().getPowerUp("PlasticBottle", location);
 				this.addPowerUp(powerUp);
 				break;
-	        default:
-	            powerUp = null;
+			case 4:
+				powerUp = PowerUpFactory.getInstance().getPowerUp("Hint", location);
+				this.addPowerUp(powerUp);
+				break;
+	    default:
+				powerUp = null;
 		}
 		return powerUp;
 		}
