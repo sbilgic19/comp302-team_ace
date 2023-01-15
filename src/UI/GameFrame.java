@@ -31,6 +31,8 @@ public class GameFrame extends JFrame {
 	
 	private KeyHandler keyHandler;
 	private RoomKeyHandler roomKeyHandler;
+	private ShooterAlienHandler shooterAlienHandler;
+	private BlindAlienHandler blindAlienHandler;
 	private JPanel buttonPanel;
 	
 	private LoginPanel loginPanel;
@@ -298,9 +300,9 @@ public class GameFrame extends JFrame {
 		
 		gamePanel.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
 		gamePanel.setGameMap(buildModeMap);
-		
 		gamePanel.requestFocus();
 		gamePanel.addKeyListener(keyHandler);
+		gamePanel.alienProducer();
 		
 		JPanel livesPanel = new JPanel();
 		add(livesPanel, BorderLayout.NORTH);
@@ -337,6 +339,11 @@ public class GameFrame extends JFrame {
 	
 	public void updatePlayerLivesView(int life) {
         lives.setText("Remaining lives: " + life);
+        if(life == 0) {
+        	GameState.getInstance().setGameOver(true);
+        	GameState.getInstance().setPaused(true);
+        	System.out.println("game over!");
+        }
     }
 	
 	public void updateKeyView(Boolean is_taken) {
@@ -381,6 +388,26 @@ public class GameFrame extends JFrame {
 	public int getLevelTime() {
 		return levelTime;
 	}
+	
+	public ShooterAlienHandler getShooterAlienHandler() {
+		return this.shooterAlienHandler;
+	}
+
+	
+	public void setShooterAlienHandler(ShooterAlienHandler shooterAlienHandler) {
+		this.shooterAlienHandler = shooterAlienHandler;
+	}
+	
+	
+	public BlindAlienHandler getBlindAlienHandler() {
+		return this.blindAlienHandler;
+	}
+
+	
+	public void setBlindAlienHandler(BlindAlienHandler blindAlienHandler) {
+		this.blindAlienHandler = blindAlienHandler;
+	}
+	
 	
 
 	public BuildMode getBuildMode() {

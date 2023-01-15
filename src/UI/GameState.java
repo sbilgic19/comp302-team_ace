@@ -2,6 +2,7 @@ package UI;
 
 public class GameState {
     private boolean isPaused = false;
+    private boolean isGameOver = false;
     private static GameState instance;
     public GameState(){}
 
@@ -11,6 +12,15 @@ public class GameState {
 
     public void setPaused(boolean paused) {
         isPaused = paused;
+    }
+    
+    public boolean isGameOver() {
+    	return isGameOver;
+    }
+    
+    
+    public void setGameOver(boolean b) {
+    	this.isGameOver = b;
     }
 
     public static GameState getInstance(){

@@ -3,17 +3,25 @@ package UI;
 import javax.swing.*;
 
 import Controllers.TimeWastingAlienHandler;
+import Controllers.BlindAlienHandler;
 import Controllers.PowerUpHandler;
 import Controllers.RoomKeyHandler;
+import Controllers.ShooterAlienHandler;
 import dataStructures.Location;
 import domain.powerUps.PowerUp;
 import domain.Player;
+import domain.aliens.ShooterAlien;
 import domain.aliens.TimeWastingAlien;
 import domain.Key;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Random;
+import java.util.TimerTask;
+import java.util.Timer;
 
 public class GamePanel extends JPanel {
 
@@ -30,6 +38,8 @@ public class GamePanel extends JPanel {
     private static ImageIcon bagIcon;
     private static ImageIcon timerIcon;
     private static ImageIcon timeWastingAlienIcon;
+    private static ImageIcon blindIcon;
+    private static ImageIcon shooterIcon;
     
     private static Icon extraLifeIcon;
     private static Icon extraTimeIcon;
@@ -47,6 +57,8 @@ public class GamePanel extends JPanel {
     RoomKeyHandler roomKeyHandler;
     PowerUpHandler powerUpHandler;
     TimeWastingAlienHandler alienHandler;
+    ShooterAlienHandler shooterAlienHandler;
+    BlindAlienHandler blindAlienHandler;
     public GamePanel(GameFrame gameFrame) {
     	
     	numRow = gameFrame.getNumRow();
@@ -62,6 +74,10 @@ public class GamePanel extends JPanel {
         playerBackWithVestIcon = iconFactory.generateIcon("../assets/armoredBack.jpg", 50, 50);
         playerLeftWithVestIcon = iconFactory.generateIcon("../assets/armoredLeft.jpg", 50, 50);
         playerRightWithVestIcon = iconFactory.generateIcon("../assets/armoredRight.jpg", 50, 50);
+        
+
+        blindIcon = iconFactory.generateIcon("../assets/blind.jpg", 50, 50);
+        shooterIcon = iconFactory.generateIcon("../assets/shooter.jpg", 50, 50);
 
         keyIcon = iconFactory.generateIcon("../assets/keyIcon.png", 50, 50);
         bagIcon = iconFactory.generateIcon("../assets/bagIcon.png", 50, 50);
@@ -79,6 +95,8 @@ public class GamePanel extends JPanel {
         
         this.setLayout(new GridLayout(numRow, numCol, 0, 0));
         roomKeyHandler = gameFrame.getRoomKeyHandler();
+        shooterAlienHandler = gameFrame.getShooterAlienHandler();
+        blindAlienHandler = gameFrame.getBlindAlienHandler();
         powerUpHandler = new PowerUpHandler(gameFrame,player);
     }
 
@@ -96,7 +114,7 @@ public class GamePanel extends JPanel {
 				gameMap[ii][jj].addMouseListener(new MouseAdapter() {
 					@Override
                     public void mouseClicked(MouseEvent e) {
-						if(!GameState.getInstance().isPaused() && key != null) {
+						if(!GameState.getInstance().isPaused() && key != null  && !GameState.getInstance().isGameOver()) {
 							int locX_key = key.getLocation().getLocationX();
                     		int locY_key =key.getLocation().getLocationY();
                     		Boolean b = roomKeyHandler.takeKey(key);
@@ -115,7 +133,7 @@ public class GamePanel extends JPanel {
                 gameMap[ii][jj].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                    	if(!GameState.getInstance().isPaused() && powerUp != null) {
+                    	if(!GameState.getInstance().isPaused() && powerUp != null && !GameState.getInstance().isGameOver()) {
                     		int locX = powerUp.getLocation().getLocationX();
                     		int locY = powerUp.getLocation().getLocationY();
                     		int locX_key = 0;
@@ -154,10 +172,144 @@ public class GamePanel extends JPanel {
         	TimeWastingAlien alien = alienHandler.getTimeWastingAlien();
         	alien.setLevelTime(gameFrame.getLevelTime()); //no point
         	GameTime.getInstance().setTimeWastingAlien(alien);
-        	// gameController is good idea
         }
 
     }
+    
+    
+    public void alienProducer() {
+
+    	
+    	Timer alienTimer = new Timer();
+    	TimerTask tt = new TimerTask() {
+    	    @Override
+    	    public void run() {
+    	    	int alienNumber = new Random().nextInt(2)+1;
+    	    	System.out.println(alienNumber);
+    	    	switch(alienNumber) {
+    	    	case 0:
+    	    		System.out.println("TimeWasting");
+    	    		break;
+    	    	case 1:
+    	    		shooterAlieanRandomizer();
+    	    		break;
+    	    	case 2:
+    	    		blindAlieanRandomizer();
+    	    		break;
+    	    }
+    	    	
+    	    	
+    	    if(GameState.getInstance().isGameOver()) {
+    	    	alienTimer.cancel();
+    	    	}
+    	    }
+    	};
+    	
+    	alienTimer.scheduleAtFixedRate(tt, 1000, 10000);
+    	
+    	Timer stopTimer = new Timer();
+    	stopTimer.scheduleAtFixedRate(new TimerTask() {
+    	    @Override
+    	    public void run() {
+    	    	
+    	    	if(GameState.getInstance().isGameOver()) {
+    	    		tt.cancel();
+    	    		stopTimer.cancel();
+    	    	}
+    	    }
+    	}, 250, 250);
+    	
+    			
+    }
+    
+    public void shooterAlieanRandomizer() {
+    	
+        int minDelay = 7000; // 5 seconds
+        int maxDelay = 10000; // 10 seconds
+        int randomDelay = new Random().nextInt(maxDelay - minDelay + 1) + minDelay;
+    	
+    	shooterAlienHandler.getShooterAlien();
+    	Timer shooterTimer = new Timer();
+    	shooterTimer.scheduleAtFixedRate(new TimerTask() {
+    	    @Override
+    	    public void run() {
+    	    	if (!GameState.getInstance().isPaused()) {
+	    	        if (shooterAlienHandler.shoot()) {
+	    	            System.out.println("Shooted");
+	    	        }
+    	    	}
+    	    	
+    	    	if(GameState.getInstance().isGameOver()) {
+    	    		shooterTimer.cancel();
+    	    		System.out.println("heyyo");
+    	    	}
+
+    	    }
+    	}, 1000, 1000);
+
+    	new Timer().schedule(new TimerTask() {
+    	    @Override
+    	    public void run() {
+    	        shooterTimer.cancel();
+    	    	if(!GameState.getInstance().isGameOver()) {
+    	    		shooterAlienHandler.deactivate();
+    	    	}
+    	    }
+    	}, randomDelay);
+
+    }
+    
+    public void blindAlieanRandomizer() {
+    	
+        int minDelay = 7000; // 5 seconds
+        int maxDelay = 10000; // 10 seconds
+        int randomDelay = new Random().nextInt(maxDelay - minDelay + 1) + minDelay;
+    	
+    	blindAlienHandler.getBlindAlien();
+    	Timer blindTimer = new Timer();
+    	Timer blindshootTimer = new Timer();
+    	blindTimer.scheduleAtFixedRate(new TimerTask() {
+    	    @Override
+    	    public void run() {
+    	    	if (!GameState.getInstance().isPaused()) {
+    	    		blindAlienHandler.move();
+    	    	}
+    	    	
+    	    	
+    	    	if(GameState.getInstance().isGameOver()) {
+    	    		blindTimer.cancel();
+    	    	}
+    	    }
+    	}, 500, 500);
+    	
+
+    	blindTimer.scheduleAtFixedRate(new TimerTask() {
+    	    @Override
+    	    public void run() {
+    	    	if (!GameState.getInstance().isPaused()) {
+    	    		blindAlienHandler.shoot();
+    	    	}
+    	    	
+    	    	if(GameState.getInstance().isGameOver()) {
+    	    		blindshootTimer.cancel();
+    	    	}
+    	    }
+    	}, 250, 250);
+
+    	new Timer().schedule(new TimerTask() {
+    	    @Override
+    	    public void run() {
+    	    	blindTimer.cancel();
+    	    	blindshootTimer.cancel();
+    	    	if(!GameState.getInstance().isGameOver()) {
+    	    		blindAlienHandler.deactivate();
+    	    	}
+    	    }
+    	}, randomDelay);
+
+    }
+    
+    
 
 	public static void updatePlayerView(int xPlayerPosition, int yPlayerPosition,
                                  int newXPlayerPosition, int newYPlayerPosition, int playerLogoPosition) {
@@ -170,6 +322,15 @@ public class GamePanel extends JPanel {
             gameMap[newXPlayerPosition][newYPlayerPosition].setIcon(playerIcons[playerLogoPosition]);
         }
     }
+	
+	
+	public static void updateBlindAlienView(int xPosition, int yPosition,
+                                 int newXPosition, int newYPosition) {
+		
+        gameMap[xPosition][yPosition].setIcon(null);
+        gameMap[newXPosition][newYPosition].setIcon(blindIcon);
+      
+	}
     
     public static void placePowerUp(Location location, String powerUpType)
     {
@@ -185,6 +346,20 @@ public class GamePanel extends JPanel {
                 break;
         }
 
+    }
+    
+    public static void placeAlien(Location location, String alienType) {
+    	switch(alienType) {
+    	case "TimeWasting":
+    		gameMap[location.getLocationX()][location.getLocationY()].setIcon(timeWastingAlienIcon);
+    		break;
+    	case "Shooter":
+    		gameMap[location.getLocationX()][location.getLocationY()].setIcon(shooterIcon);
+    		break;
+    	case "Blind":
+    		gameMap[location.getLocationX()][location.getLocationY()].setIcon(blindIcon);
+    		break;
+    	}
     }
     
     public ImageIcon[] getGamePanelIcons() {

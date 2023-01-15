@@ -32,18 +32,14 @@ public class GameTime {
         return new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (seconds > 0) {
+                if (seconds > 0 && !GameState.getInstance().isGameOver()) {
                     seconds--;
                     timerAsSecond.setText("      " + seconds);
-                    if (alien != null) {
-                    	alien.setCurrentTime(seconds);
-                    	if (alien.getIsActive() == false) {
-                    		GamePanel.setNullIcon(alien.getLocation());
-                    		alien = null;
-                    	}
-                    }
+
+                    
                 } else {
                     GameState.getInstance().setPaused(true);
+                    GameState.getInstance().setGameOver(true);
                     timer.stop();
                 }
             }

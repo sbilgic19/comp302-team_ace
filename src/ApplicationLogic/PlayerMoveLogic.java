@@ -1,6 +1,7 @@
 package ApplicationLogic;
 
 import UI.GamePanel;
+import UI.GameState;
 import domain.Player;
 import UI.GameFrame;
 
@@ -25,7 +26,7 @@ public class PlayerMoveLogic  {
 		*/
 		
 		
-		if ( Math.abs(changeInX) +  Math.abs(changeInY) <= 1) {
+		if ( Math.abs(changeInX) +  Math.abs(changeInY) <= 1 && !GameState.getInstance().isGameOver()) {
 			int xPlayerPosition = player.getLocation().getLocationX();
 			int yPlayerPosition = player.getLocation().getLocationY();
 

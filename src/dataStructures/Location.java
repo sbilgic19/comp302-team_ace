@@ -16,7 +16,21 @@ public class Location implements Serializable {
 		this.locationY = locationY;
 	}
 	
+	public static double distance(Location location1, Location location2) {
+		int x_dist = Math.abs(location1.getLocationX()- location2.getLocationX());
+		int y_dist = Math.abs(location1.getLocationY()- location2.getLocationY());
+		return Math.sqrt(Math.pow(x_dist, 2) + Math.pow(y_dist, 2));
+	}
 	
+	public static int x_distance(Location location1, Location location2) {
+		int x_dist = Math.abs(location1.getLocationX()- location2.getLocationX());
+		return x_dist;
+	}
+	
+	public static int y_distance(Location location1, Location location2) {
+		int y_dist = Math.abs(location1.getLocationY()- location2.getLocationY());
+		return y_dist;
+	}
 
 	public void moveLeft() {
 		this.locationX--;
