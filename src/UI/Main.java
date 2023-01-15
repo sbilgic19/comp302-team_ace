@@ -36,7 +36,6 @@ public class Main {
 		ShooterAlienHandler shooterAlienHandler = new ShooterAlienHandler(player, gameFrame);
 		BlindAlienHandler blindAlienHandler = new BlindAlienHandler(player,gameFrame);
 		PowerUpHandler powerUpHandler = new PowerUpHandler(gameFrame, player);
-		KeyHandler keyHandler = new KeyHandler(playerHandler, powerUpHandler);
 
 
 
