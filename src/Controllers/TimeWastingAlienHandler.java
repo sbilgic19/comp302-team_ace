@@ -2,6 +2,7 @@ package Controllers;
 
 import ApplicationLogic.TimeWastingAlienLogic;
 import UI.BuildMode;
+import UI.GameController;
 import UI.GameFrame;
 import domain.Key;
 import domain.aliens.*;
@@ -9,19 +10,19 @@ import domain.aliens.*;
 public class TimeWastingAlienHandler {
 	TimeWastingAlienLogic alienLogic;
 	BuildMode buildMode;
-	GameFrame gameFrame;
+	GameController gameController;
 	Key key;
-	public TimeWastingAlienHandler(GameFrame gameFrame, Key key) {
+	public TimeWastingAlienHandler(GameController gameController, Key key) {
 		super();
-		this.alienLogic = new TimeWastingAlienLogic(gameFrame, key);
-		this.gameFrame = gameFrame;
+		this.alienLogic = new TimeWastingAlienLogic(gameController, key);
+		this.gameController = gameController;
 		this.key = key;
 
 	}
 	
-	public TimeWastingAlienHandler(GameFrame gameFrame) {
-		this.alienLogic = new TimeWastingAlienLogic(gameFrame, key);
-		this.gameFrame = gameFrame;
+	public TimeWastingAlienHandler(GameController gameController) {
+		this.alienLogic = new TimeWastingAlienLogic(gameController, key);
+		this.gameController = gameController;
 		
 	}
 	

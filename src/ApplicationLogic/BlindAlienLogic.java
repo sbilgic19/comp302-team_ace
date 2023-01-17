@@ -32,7 +32,7 @@ public class BlindAlienLogic {
 				System.out.println("isProtected: "+ player.isProtected());
 
 					player.decreaseLives();
-					gameController.updatePlayerLivesView(player.getLives());
+					gameController.getGameFrame().updatePlayerLivesView(player.getLives());
 					return true;
 			
 				
@@ -75,8 +75,8 @@ public class BlindAlienLogic {
 			
 			if (newXPosition >= 0 && newXPosition < gameController.getGameFrame().getNumRow() && newYPosition >= 0 
 						&& newYPosition < gameController.getGameFrame().getNumCol()) {  
-				if(GamePanel.getGameMap()[newXPosition][newYPosition].getIcon() == null) {
-					GamePanel.updateBlindAlienView(xPosition, yPosition,
+				if(gameController.getGameFrame().getGamePanel().getGameMap()[newXPosition][newYPosition].getIcon() == null) {
+					gameController.getGameFrame().getGamePanel().updateBlindAlienView(xPosition, yPosition,
 							newXPosition, newYPosition);
 					blindAlien.getLocation().setLocationX(newXPosition);
 					blindAlien.getLocation().setLocationY(newYPosition);
@@ -90,13 +90,13 @@ public class BlindAlienLogic {
 	}
 	
 	public void placeBlindAlien() {
-		GamePanel.placeAlien(blindAlien.getLocation(), blindAlien.getAlienType());
+		gameController.getGameFrame().getGamePanel().placeAlien(blindAlien.getLocation(), blindAlien.getAlienType());
 	}
 	
 	
 	public void deactivate() {
 		blindAlien.setIsActive(false);
-		GamePanel.setNullIcon(blindAlien.getLocation());
+		gameController.getGameFrame().getGamePanel().setNullIcon(blindAlien.getLocation());
 	}
 	
 	
@@ -118,7 +118,7 @@ public class BlindAlienLogic {
 				  else if (i == doorLocation.getLocationX() && j == doorLocation.getLocationY()) {
 					  continue;
 				  }
-				  if (GamePanel.getGameMap()[i][j].getIcon() == null) {
+				  if (gameController.getGameFrame().getGamePanel().getGameMap()[i][j].getIcon() == null) {
 					  if (i == 0 && j == 5) {
 						  continue;
 					  }

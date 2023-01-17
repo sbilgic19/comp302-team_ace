@@ -25,14 +25,14 @@ public class PowerUpLogic {
 		String powerUpType = powerUp.getPowerUpType();
 		Location location = powerUp.getLocation();
 		
-		GamePanel.placePowerUp(location, powerUpType);	
+		gameController.getGameFrame().getGamePanel().placePowerUp(location, powerUpType);	
 			
 	}	
 	public void usePowerUp(PowerUp powerUp) {
 		if(powerUp.getPowerUpType().equalsIgnoreCase("ExtraLife") || powerUp.getPowerUpType().equalsIgnoreCase("ExtraTime"))
 			powerUp.triggerEffect();
 		else
-			gameController.updateBagView(powerUp);
+			gameController.getGameFrame().updateBagView(powerUp);
 			player.addToBag(powerUp);
 			System.out.println(powerUp.getPowerUpType() + " added to the bag");
 	}
@@ -45,7 +45,7 @@ public class PowerUpLogic {
 		while (isOccupied) {
 			row = r.nextInt(rowCount);
 			column = r.nextInt(columnCount);
-			if (GamePanel.getGameMap()[row][column].getIcon() == null) {
+			if (gameController.getGameFrame().getGamePanel().getGameMap()[row][column].getIcon() == null) {
 				isOccupied = false;
 			}
 		}

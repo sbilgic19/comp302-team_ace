@@ -28,8 +28,8 @@ public class PowerUpHandler {
 		powerUpLogic.usePowerUp(powerUp);
 	}
 
-	public GameFrame getGameFrame(){
-		return this.gameController.getGameFrame();
+	public GameController getGameController(){
+		return this.gameController;
 	}
 
 

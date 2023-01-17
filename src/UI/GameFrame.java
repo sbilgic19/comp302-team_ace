@@ -70,13 +70,16 @@ public class GameFrame extends JFrame {
 	private String serviceUsed;
 	
 	//Player player;
-	//PlayerHandler playerHandler;
+	BuildModeButtonHandler buildModeButtonHandler;
+	PlayerHandler playerHandler;
 
 	private GameController gameController;
 	public GameFrame(GameController gameController) {
 		
 		super("Escape From Koc");
 
+		
+		this.gamePanel = new GamePanel(this);
 		this.gameController = gameController;
 		serviceUsed = "MongoDB";
 		client = new Client(serviceUsed);
@@ -204,9 +207,157 @@ public class GameFrame extends JFrame {
 		return signupPanel.getSignupCheckPassword();
 	}
 	
+	
 	public int getNumRow(){return numRow;}
 
 	public int getNumCol(){return numCol;}
+	
+	public void setBuildModeButtonHandler(BuildModeButtonHandler handler) {
+		this.buildModeButtonHandler = handler;
+	}
+	public void setPlayerHandler(PlayerHandler handler) {
+		this.playerHandler = handler;
+	}
+	public GameController getGameController() {
+		return gameController;
+	}
+public void switchBuildView() {
+
+		
+		this.getLoadOrNewScreen().setVisible(false);
+		this.getLoadOrNewScreen().setEnabled(false);
+		this.remove(this.loadNewGameScreen);
+		this.requestFocus();
+		
+		
+		this.setLayout(new BorderLayout());
+		//buildPanel = new BuildPanel(this);
+		this.add(buildPanel, BorderLayout.CENTER);
+		this.setBuildMode(new BuildMode(this, buildPanel));
+		this.setObjectList(buildMode.getObjectList());
+		setButtonPanel(new JPanel());
+		add(buttonPanel,BorderLayout.SOUTH);
+		
+		setBuildModeSubmitButton(new JButton("Submit"));
+		buildModeSubmitButton.setFocusable(false);
+		buildModeSubmitButton.setPreferredSize(new Dimension(200,30));
+		
+		buttonPanel.add(buildModeSubmitButton);
+		BuildModeButtonHandler buildModeButtonHandler = new BuildModeButtonHandler(gameController,buildMode, buildPanel);
+		buildModeSubmitButton.addActionListener(buildModeButtonHandler);
+	}
+	public void switchGameView(JLabel[][] buildModeMap) {
+		if(this.getBuildModeSubmitButton() != null){
+			this.remove(buildModeSubmitButton);
+			this.remove(buildPanel);
+			this.getButtonPanel().remove(buildModeSubmitButton);
+		}
+		
+		
+		
+//		player = new Player();
+//		roomKeyHandler = new RoomKeyHandler(this, player);
+//		playerHandler = new PlayerHandler(player, this);
+//
+//		keyHandler = new KeyHandler(playerHandler);
+//		shooterAlienHandler = new ShooterAlienHandler(player, this);
+//		blindAlienHandler = new BlindAlienHandler(player, this);
+//		powerUpHandler = new PowerUpHandler(this, player);
+	
+		this.setPauseButton(new JButton("II"));
+		this.getPauseButton().setFocusable(false);
+		this.getPauseButton().setSize(50,50);
+
+		this.setResumeButton(new JButton(">"));
+		this.getResumeButton().setFocusable(false);
+		this.getResumeButton().setVisible(false);
+		this.getResumeButton().setSize(50,50);
+		
+		this.setLevelTime(5 * this.getBuildPanel().getBuildingObjectCounter());
+		//GameTime.getInstance().setSeconds(gameFrame.getLevelTime());
+		
+		GameTime.getInstance().setSeconds(10000000);
+		this.setTimer(GameTime.getInstance().getTimer());
+		this.getTimer().start();
+
+		this.getPauseButton().addActionListener(e -> {
+			if(!GameState.getInstance().isPaused()) {
+				GameState.getInstance().setPaused(true);
+				this.getTimer().stop();
+				this.getPauseButton().setText(">");
+				// Pause Game Screen
+				this.setPauseDialog(new PausedGameScreen(client));
+				this.getPauseDialog().setLocationRelativeTo(this);
+				this.getPauseDialog().setBounds(750, 375, 400, 400);
+				this.getPauseDialog().setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+				this.getPauseDialog().setModal(false);
+				this.getPauseDialog().setVisible(true);
+				this.getPauseDialog().setEnabled(true);
+				//pauseDialog.requestFocus();
+				this.getPauseDialog().getReturnToGameButton().addActionListener((ActionListener) new ActionListener () {
+					public void actionPerformed(ActionEvent event) {
+						GameState.getInstance().setPaused(false);
+						pauseDialog.setVisible(false);
+						pauseDialog.setEnabled(false);		
+						pauseDialog.dispose();
+						remove(pauseDialog);
+						getTimer().start();
+						pauseButton.setText("II");
+					}
+				});
+
+				this.getPauseDialog().getSaveGameButton().addActionListener((ActionListener) new ActionListener () {
+					public void actionPerformed(ActionEvent event) {
+						System.out.println("Game is Saving...");
+					}
+				});
+				
+			}else{
+				GameState.getInstance().setPaused(false);
+				this.getPauseDialog().setVisible(false);
+				this.getPauseDialog().setEnabled(false);
+				this.remove(pauseDialog);
+				this.getTimer().start();
+				this.getPauseButton().setText("II");}
+		});
+
+		this.setGamePanel(new GamePanel(this));
+		this.add(this.getGamePanel(),BorderLayout.CENTER);
+		
+		this.getGamePanel().setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+		this.getGamePanel().setGameMap(buildModeMap);
+		this.getGamePanel().requestFocus();
+		this.getGamePanel().addKeyListener(this.keyHandler);
+		this.getGamePanel().alienProducer();
+		
+		JPanel livesPanel = new JPanel();
+		this.add(livesPanel, BorderLayout.NORTH);
+		livesPanel.add(this.getLives(), BorderLayout.CENTER);
+		this.getLives().setText("Remaining lives: 3");
+		this.getLives().setVisible(true);
+		
+		JPanel keyPanel = new JPanel();
+		this.add(keyPanel, BorderLayout.WEST);
+		keyPanel.setLayout(new BorderLayout());
+		JLabel bagLabel = new JLabel();
+		bagLabel.setIcon(this.getGamePanel().getGamePanelIcons()[1]);
+		keyPanel.add(bagLabel, BorderLayout.NORTH);
+		keyPanel.add(this.getKey(), BorderLayout.CENTER);
+		keyPanel.add(this.getPowerUp(), BorderLayout.SOUTH);
+		
+		this.getButtonPanel().add(this.getPauseButton());
+		this.getPauseButton().setPreferredSize(new Dimension(200,30));
+		
+		this.setTimerAsSecond(GameTime.getInstance().getTimerAsSecond());
+		
+		JPanel timerPanel = new JPanel();
+		JLabel timerLabel = new JLabel();
+		timerLabel.setIcon(this.getGamePanel().getGamePanelIcons()[2]);
+		this.add(timerPanel,BorderLayout.EAST);
+		timerPanel.setLayout(new BorderLayout());
+		timerPanel.add(timerLabel, BorderLayout.NORTH);
+		timerPanel.add(this.getTimerAsSecond(), BorderLayout.CENTER);
+	}
 
 //	public void switchBuildView() {
 //
@@ -383,11 +534,44 @@ public class GameFrame extends JFrame {
 //		int newSecond = GameTime.getInstance().getSeconds() + second;
 //		GameTime.getInstance().setSeconds(newSecond);
 //	}
+	public void updatePlayerLivesView(int life) {
+        this.getLives().setText("Remaining lives: " + life);
+        if(life == 0) {
+        	GameState.getInstance().setGameOver(true);
+        	GameState.getInstance().setPaused(true);
+        	System.out.println("game over!");
+        }
+    }
+	
+	public void updateKeyView(Boolean is_taken) {
+		if(is_taken) {
+			this.getKey().setIcon(this.getGamePanel().getGamePanelIcons()[0]);
+			Location doorLocation = this.getBuildMode().getDoorLocation();
+			JLabel[][] gameMap = this.gamePanel.getGameMap();
+			gameMap[doorLocation.getLocationX()][doorLocation.getLocationY()]
+					.setIcon(this.getGamePanel().getOpenDoorIcon());
+		}
+	}
+
+	public void updateBagView(PowerUp powerUp) {
+		if (powerUp instanceof ProtectionVestPowerUp) {
+			this.getPowerUp().setIcon(this.getGamePanel().getGamePanelIcons()[3]);
+		}
+			else{
+				this.getPowerUp().setIcon(null);
+
+		}
+	}
+	
+	public void increaseSecond(int second) {
+		int newSecond = GameTime.getInstance().getSeconds() + second;
+		GameTime.getInstance().setSeconds(newSecond);
+	}
 	public LoadOrNewGameSelectionScreen getLoadOrNewScreen() {
 		return loadNewGameScreen;
 	}
 	public GamePanel getGamePanel() {
-		return gamePanel;
+		return this.gamePanel;
 	}
 	public void setGamePanel(GamePanel panel) {
 		this.gamePanel = panel;
@@ -507,5 +691,6 @@ public class GameFrame extends JFrame {
 	public void setButtonPanel(JPanel panel) {
 		this.buttonPanel = panel;
 	}
+	
 	
 }

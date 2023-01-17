@@ -68,7 +68,7 @@ avoiding locations occupied by other objects and the door location.
 				  else if (i == doorLocation.getLocationX() && j == doorLocation.getLocationY()) {
 					  continue;
 				  }
-				  if (GamePanel.getGameMap()[i][j].getIcon() != null) {
+				  if (gameController.getGameFrame().getGamePanel().getGameMap()[i][j].getIcon() != null) {
 					  if (i == 0 && j == 5) {
 						  continue;
 					  }

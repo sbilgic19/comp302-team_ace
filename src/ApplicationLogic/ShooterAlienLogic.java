@@ -30,7 +30,7 @@ public class ShooterAlienLogic {
 				System.out.println("isProtected: "+ player.isProtected());
 				if(!player.isProtected()) {
 					player.decreaseLives();
-					gameController.updatePlayerLivesView(player.getLives());
+					gameController.getGameFrame().updatePlayerLivesView(player.getLives());
 					return true;
 				}
 				
@@ -43,13 +43,13 @@ public class ShooterAlienLogic {
 	
 	
 	public void placeShooterAlien() {
-		GamePanel.placeAlien(shooterAlien.getLocation(), shooterAlien.getAlienType());
+		gameController.getGameFrame().getGamePanel().placeAlien(shooterAlien.getLocation(), shooterAlien.getAlienType());
 	}
 	
 	
 	public void deactivate() {
 		shooterAlien.setIsActive(false);
-		GamePanel.setNullIcon(shooterAlien.getLocation());
+		gameController.getGameFrame().getGamePanel().setNullIcon(shooterAlien.getLocation());
 	}
 	
 	
@@ -71,7 +71,7 @@ public class ShooterAlienLogic {
 				  else if (i == doorLocation.getLocationX() && j == doorLocation.getLocationY()) {
 					  continue;
 				  }
-				  if (GamePanel.getGameMap()[i][j].getIcon() == null) {
+				  if (gameController.getGameFrame().getGamePanel().getGameMap()[i][j].getIcon() == null) {
 					  if (i == 0 && j == 5) {
 						  continue;
 					  }

@@ -62,7 +62,7 @@ public class GameController {
 	public void createAndShowGUI(){
 		//Authorization.addUserToRecord(new User("nsavran", "123456"));
 
-		Player player = new Player();
+		
 		RoomKeyHandler roomKeyHandler = new RoomKeyHandler(this, this.player);
 		PlayerHandler playerHandler = new PlayerHandler(this.player, this);
 
@@ -81,8 +81,9 @@ public class GameController {
 		this.gameFrame.setKeyHandler(keyHandler);
 		this.gameFrame.setRoomKeyHandler(roomKeyHandler);
 		this.gameFrame.setPowerUpHandler(powerUpHandler);
+		this.gameFrame.setPlayerHandler(playerHandler);
 		this.gameFrame.showMainView();
-		GamePanel.setPlayer(player);
+		setPlayer(player);
 		
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameFrame.setSize(frameWidth, frameHeight);
@@ -94,7 +95,12 @@ public class GameController {
 	public GameFrame getGameFrame() {
 		return this.gameFrame;
 	}
-	
+	public Player getPlayer() {
+		return this.player;
+	}
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
 	public void switchBuildView() {
 
 		
@@ -129,7 +135,7 @@ public class GameController {
 		
 		
 		
-		player = new Player();
+		//player = new Player();
 		roomKeyHandler = new RoomKeyHandler(this, player);
 		playerHandler = new PlayerHandler(player, this);
 
@@ -193,7 +199,7 @@ public class GameController {
 				gameFrame.getPauseButton().setText("II");}
 		});
 
-		gameFrame.setGamePanel(new GamePanel(this));
+		gameFrame.setGamePanel(new GamePanel(gameFrame));
 		gameFrame.add(gameFrame.getGamePanel(),BorderLayout.CENTER);
 		
 		gameFrame.getGamePanel().setBorder(BorderFactory.createLineBorder(Color.RED, 2));
@@ -244,7 +250,7 @@ public class GameController {
 		if(is_taken) {
 			gameFrame.getKey().setIcon(gameFrame.getGamePanel().getGamePanelIcons()[0]);
 			Location doorLocation = gameFrame.getBuildMode().getDoorLocation();
-			JLabel[][] gameMap = GamePanel.getGameMap();
+			JLabel[][] gameMap = this.getGameFrame().getGamePanel().getGameMap();
 			gameMap[doorLocation.getLocationX()][doorLocation.getLocationY()]
 					.setIcon(gameFrame.getGamePanel().getOpenDoorIcon());
 		}
