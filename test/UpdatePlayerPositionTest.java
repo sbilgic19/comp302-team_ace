@@ -15,6 +15,7 @@ import Controllers.PlayerHandler;
 import Controllers.RoomKeyHandler;
 import UI.BuildMode;
 import UI.BuildPanel;
+import UI.GameController;
 import UI.GameFrame;
 import UI.GamePanel;
 import UI.IconFactory;
@@ -36,15 +37,15 @@ public class UpdatePlayerPositionTest {
 	
 	GameFrame gameFrame;
 	PlayerMoveLogic playerMoveLogic;
-	
+	GameController gameController;
 	
 	
 	public GameFrame init(Player player) {
 		// intilize gameFrame
 		IconFactory iconFactory = new IconFactory();
 		
-		GameFrame gameFrame = new GameFrame();
-		gameFrame.switchBuildView();
+		GameFrame gameFrame = new GameFrame(gameController);
+		gameController.switchBuildView();
 		BuildPanel buildPanel = new BuildPanel(gameFrame);
 		BuildMode buildMode = new BuildMode(gameFrame,buildPanel);
 		buildMode.setDoorLocation(new Location(5,5));
@@ -103,7 +104,7 @@ public class UpdatePlayerPositionTest {
 
 		int positionX = 3;
 		int positionY = 4;
-		Player player = new Player(positionX,positionY);
+		Player player = new Player();
 		
 		GameFrame gameFrame = init(player);
 		PlayerMoveLogic playerMoveLogic = new PlayerMoveLogic(gameFrame);
@@ -141,7 +142,7 @@ public class UpdatePlayerPositionTest {
 		int positionX2 = 0;
 		int positionY2 = 0;
 		
-		Player player2 = new Player(positionX2,positionY2);
+		Player player2 = new Player();
 		GameFrame gameFrame = init(player2);
 		PlayerMoveLogic playerMoveLogic = new PlayerMoveLogic(gameFrame);
 
@@ -172,7 +173,7 @@ public class UpdatePlayerPositionTest {
 		
 		int positionX = 3;
 		int positionY = 4;
-		Player player = new Player(positionX,positionY);
+		Player player = new Player();
 		
 		
 		playerMoveLogic.updatePlayerPosition(player, 2, 0);

@@ -43,7 +43,7 @@ public class User {
 	}
 	
 	public void createNewPlayer(int x , int y) { // with Location
-		Player player1 = new Player(x,y);
+		Player player1 = new Player();
 		this.player = player1;
 	}
 	
