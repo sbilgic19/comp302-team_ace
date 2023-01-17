@@ -437,7 +437,10 @@ public class GamePanel extends JPanel {
 
     public ImageIcon getTimeWastingAlienIcon() {
     	return timeWastingAlienIcon;
-    } 
+    }
+    public ImageIcon getPlayerFrontIcon() {
+    	return playerFrontIcon;
+    }
     
     public void setNullIcon(Location location) {
     	gameMap[location.getLocationX()][location.getLocationY()].setIcon(null);

@@ -11,11 +11,13 @@ import javax.swing.border.Border;
 
 import Controllers.MouseHandler;
 import dataStructures.Location;
+import domain.GameInfo;
 import domain.RoomObject;
 
 public class BuildMode {
 	
 	private JLabel[][] buildModeMap;
+	
 	private ImageIcon[] icons;
 	
 	private int rowStep;
@@ -131,6 +133,7 @@ public class BuildMode {
 		}
 		else if (doorLocation == null && previous.getLocationX() == 0) {
 			doorLocation = location;
+			
 		}
 		
 		int index = objectListSearch(location);
@@ -138,6 +141,7 @@ public class BuildMode {
 		if (index == -1) {
 			RoomObject tempObject = new RoomObject(location, previous.getLocationX());
 			objectList.add(tempObject);
+			//System.out.printf("RoomObject locX: %d, locY: %d \n", location.getLocationX(), location.getLocationY());
 		}
 		else {
 			if (selectedIcon == null) {
@@ -147,12 +151,16 @@ public class BuildMode {
 				objectList.remove(index);
 			}
 			else {
-				RoomObject tempObject = objectList.get(index);
-				tempObject.setTypeID(previous.getLocationX());
+				//RoomObject tempObject = objectList.get(index);
+				//tempObject.setTypeID(previous.getLocationX());
+				//System.out.println("Buraya girdi");
+				//System.out.println(previous.getLocationX());
 			}
 		}
-
+		
 		buildModeMap[location.getLocationX()][location.getLocationY()].setIcon(selectedIcon);
+		//System.out.printf("bUİLDmODEMAP locX: %d, locY: %d \n", location.getLocationX(), location.getLocationY());
+		
 	}
 	
 	public void setSelectedIcon(Location location, boolean flag) {

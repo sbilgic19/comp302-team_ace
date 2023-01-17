@@ -246,118 +246,118 @@ public void switchBuildView() {
 		BuildModeButtonHandler buildModeButtonHandler = new BuildModeButtonHandler(gameController,buildMode, buildPanel);
 		buildModeSubmitButton.addActionListener(buildModeButtonHandler);
 	}
-	public void switchGameView(JLabel[][] buildModeMap) {
-		if(this.getBuildModeSubmitButton() != null){
-			this.remove(buildModeSubmitButton);
-			this.remove(buildPanel);
-			this.getButtonPanel().remove(buildModeSubmitButton);
-		}
-		
-		
-		
-//		player = new Player();
-//		roomKeyHandler = new RoomKeyHandler(this, player);
-//		playerHandler = new PlayerHandler(player, this);
+//	public void switchGameView(JLabel[][] buildModeMap) {
+//		if(this.getBuildModeSubmitButton() != null){
+//			this.remove(buildModeSubmitButton);
+//			this.remove(buildPanel);
+//			this.getButtonPanel().remove(buildModeSubmitButton);
+//		}
+//		
+//		
+//		
+////		player = new Player();
+////		roomKeyHandler = new RoomKeyHandler(this, player);
+////		playerHandler = new PlayerHandler(player, this);
+////
+////		keyHandler = new KeyHandler(playerHandler);
+////		shooterAlienHandler = new ShooterAlienHandler(player, this);
+////		blindAlienHandler = new BlindAlienHandler(player, this);
+////		powerUpHandler = new PowerUpHandler(this, player);
+//	
+//		this.setPauseButton(new JButton("II"));
+//		this.getPauseButton().setFocusable(false);
+//		this.getPauseButton().setSize(50,50);
 //
-//		keyHandler = new KeyHandler(playerHandler);
-//		shooterAlienHandler = new ShooterAlienHandler(player, this);
-//		blindAlienHandler = new BlindAlienHandler(player, this);
-//		powerUpHandler = new PowerUpHandler(this, player);
-	
-		this.setPauseButton(new JButton("II"));
-		this.getPauseButton().setFocusable(false);
-		this.getPauseButton().setSize(50,50);
-
-		this.setResumeButton(new JButton(">"));
-		this.getResumeButton().setFocusable(false);
-		this.getResumeButton().setVisible(false);
-		this.getResumeButton().setSize(50,50);
-		
-		this.setLevelTime(5 * this.getBuildPanel().getBuildingObjectCounter());
-		//GameTime.getInstance().setSeconds(gameFrame.getLevelTime());
-		
-		GameTime.getInstance().setSeconds(10000000);
-		this.setTimer(GameTime.getInstance().getTimer());
-		this.getTimer().start();
-
-		this.getPauseButton().addActionListener(e -> {
-			if(!GameState.getInstance().isPaused()) {
-				GameState.getInstance().setPaused(true);
-				this.getTimer().stop();
-				this.getPauseButton().setText(">");
-				// Pause Game Screen
-				this.setPauseDialog(new PausedGameScreen(client));
-				this.getPauseDialog().setLocationRelativeTo(this);
-				this.getPauseDialog().setBounds(750, 375, 400, 400);
-				this.getPauseDialog().setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-				this.getPauseDialog().setModal(false);
-				this.getPauseDialog().setVisible(true);
-				this.getPauseDialog().setEnabled(true);
-				//pauseDialog.requestFocus();
-				this.getPauseDialog().getReturnToGameButton().addActionListener((ActionListener) new ActionListener () {
-					public void actionPerformed(ActionEvent event) {
-						GameState.getInstance().setPaused(false);
-						pauseDialog.setVisible(false);
-						pauseDialog.setEnabled(false);		
-						pauseDialog.dispose();
-						remove(pauseDialog);
-						getTimer().start();
-						pauseButton.setText("II");
-					}
-				});
-
-				this.getPauseDialog().getSaveGameButton().addActionListener((ActionListener) new ActionListener () {
-					public void actionPerformed(ActionEvent event) {
-						System.out.println("Game is Saving...");
-					}
-				});
-				
-			}else{
-				GameState.getInstance().setPaused(false);
-				this.getPauseDialog().setVisible(false);
-				this.getPauseDialog().setEnabled(false);
-				this.remove(pauseDialog);
-				this.getTimer().start();
-				this.getPauseButton().setText("II");}
-		});
-
-		this.setGamePanel(new GamePanel(this));
-		this.add(this.getGamePanel(),BorderLayout.CENTER);
-		
-		this.getGamePanel().setBorder(BorderFactory.createLineBorder(Color.RED, 2));
-		this.getGamePanel().setGameMap(buildModeMap);
-		this.getGamePanel().requestFocus();
-		this.getGamePanel().addKeyListener(this.keyHandler);
-		this.getGamePanel().alienProducer();
-		
-		JPanel livesPanel = new JPanel();
-		this.add(livesPanel, BorderLayout.NORTH);
-		livesPanel.add(this.getLives(), BorderLayout.CENTER);
-		this.getLives().setText("Remaining lives: 3");
-		this.getLives().setVisible(true);
-		
-		JPanel keyPanel = new JPanel();
-		this.add(keyPanel, BorderLayout.WEST);
-		keyPanel.setLayout(new BorderLayout());
-		JLabel bagLabel = new JLabel();
-		bagLabel.setIcon(this.getGamePanel().getGamePanelIcons()[1]);
-		keyPanel.add(bagLabel, BorderLayout.NORTH);
-		keyPanel.add(this.getKey(), BorderLayout.CENTER);
-		keyPanel.add(this.getPowerUp(), BorderLayout.SOUTH);
-		
-		this.getButtonPanel().add(this.getPauseButton());
-		this.getPauseButton().setPreferredSize(new Dimension(200,30));
-		
-		this.setTimerAsSecond(GameTime.getInstance().getTimerAsSecond());
-		
-		JPanel timerPanel = new JPanel();
-		JLabel timerLabel = new JLabel();
-		timerLabel.setIcon(this.getGamePanel().getGamePanelIcons()[2]);
-		this.add(timerPanel,BorderLayout.EAST);
-		timerPanel.setLayout(new BorderLayout());
-		timerPanel.add(timerLabel, BorderLayout.NORTH);
-		timerPanel.add(this.getTimerAsSecond(), BorderLayout.CENTER);
-	}
+//		this.setResumeButton(new JButton(">"));
+//		this.getResumeButton().setFocusable(false);
+//		this.getResumeButton().setVisible(false);
+//		this.getResumeButton().setSize(50,50);
+//		
+//		this.setLevelTime(5 * this.getBuildPanel().getBuildingObjectCounter());
+//		//GameTime.getInstance().setSeconds(gameFrame.getLevelTime());
+//		
+//		GameTime.getInstance().setSeconds(10000000);
+//		this.setTimer(GameTime.getInstance().getTimer());
+//		this.getTimer().start();
+//
+//		this.getPauseButton().addActionListener(e -> {
+//			if(!GameState.getInstance().isPaused()) {
+//				GameState.getInstance().setPaused(true);
+//				this.getTimer().stop();
+//				this.getPauseButton().setText(">");
+//				// Pause Game Screen
+//				this.setPauseDialog(new PausedGameScreen(client));
+//				this.getPauseDialog().setLocationRelativeTo(this);
+//				this.getPauseDialog().setBounds(750, 375, 400, 400);
+//				this.getPauseDialog().setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+//				this.getPauseDialog().setModal(false);
+//				this.getPauseDialog().setVisible(true);
+//				this.getPauseDialog().setEnabled(true);
+//				//pauseDialog.requestFocus();
+//				this.getPauseDialog().getReturnToGameButton().addActionListener((ActionListener) new ActionListener () {
+//					public void actionPerformed(ActionEvent event) {
+//						GameState.getInstance().setPaused(false);
+//						pauseDialog.setVisible(false);
+//						pauseDialog.setEnabled(false);		
+//						pauseDialog.dispose();
+//						remove(pauseDialog);
+//						getTimer().start();
+//						pauseButton.setText("II");
+//					}
+//				});
+//
+//				this.getPauseDialog().getSaveGameButton().addActionListener((ActionListener) new ActionListener () {
+//					public void actionPerformed(ActionEvent event) {
+//						System.out.println("Game is Saving...");
+//					}
+//				});
+//				
+//			}else{
+//				GameState.getInstance().setPaused(false);
+//				this.getPauseDialog().setVisible(false);
+//				this.getPauseDialog().setEnabled(false);
+//				this.remove(pauseDialog);
+//				this.getTimer().start();
+//				this.getPauseButton().setText("II");}
+//		});
+//
+//		this.setGamePanel(new GamePanel(this));
+//		this.add(this.getGamePanel(),BorderLayout.CENTER);
+//		
+//		this.getGamePanel().setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+//		this.getGamePanel().setGameMap(buildModeMap);
+//		this.getGamePanel().requestFocus();
+//		this.getGamePanel().addKeyListener(this.keyHandler);
+//		this.getGamePanel().alienProducer();
+//		
+//		JPanel livesPanel = new JPanel();
+//		this.add(livesPanel, BorderLayout.NORTH);
+//		livesPanel.add(this.getLives(), BorderLayout.CENTER);
+//		this.getLives().setText("Remaining lives: 3");
+//		this.getLives().setVisible(true);
+//		
+//		JPanel keyPanel = new JPanel();
+//		this.add(keyPanel, BorderLayout.WEST);
+//		keyPanel.setLayout(new BorderLayout());
+//		JLabel bagLabel = new JLabel();
+//		bagLabel.setIcon(this.getGamePanel().getGamePanelIcons()[1]);
+//		keyPanel.add(bagLabel, BorderLayout.NORTH);
+//		keyPanel.add(this.getKey(), BorderLayout.CENTER);
+//		keyPanel.add(this.getPowerUp(), BorderLayout.SOUTH);
+//		
+//		this.getButtonPanel().add(this.getPauseButton());
+//		this.getPauseButton().setPreferredSize(new Dimension(200,30));
+//		
+//		this.setTimerAsSecond(GameTime.getInstance().getTimerAsSecond());
+//		
+//		JPanel timerPanel = new JPanel();
+//		JLabel timerLabel = new JLabel();
+//		timerLabel.setIcon(this.getGamePanel().getGamePanelIcons()[2]);
+//		this.add(timerPanel,BorderLayout.EAST);
+//		timerPanel.setLayout(new BorderLayout());
+//		timerPanel.add(timerLabel, BorderLayout.NORTH);
+//		timerPanel.add(this.getTimerAsSecond(), BorderLayout.CENTER);
+//	}
 
 //	public void switchBuildView() {
 //

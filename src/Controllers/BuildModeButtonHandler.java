@@ -46,6 +46,7 @@ public class BuildModeButtonHandler implements ActionListener {
 					"Alert", JOptionPane.ERROR_MESSAGE);
 		}
 		else if (buildPanel.getBuildingObjectCounter() > 0) {
+			GameInfo.getInstance().setListOfObjects(buildMode.getObjectList());
 			gameController.switchGameView(buildModeMap);
 			buildMode.removeMouseHandler();
 		}
@@ -53,6 +54,9 @@ public class BuildModeButtonHandler implements ActionListener {
 			JOptionPane.showMessageDialog(null, "Required at least one room object except room door!",  
 					"Alert", JOptionPane.ERROR_MESSAGE);
 		}
-		GameInfo.getInstance().setListOfObjects(buildMode.getObjectList());
+		//GameInfo.getInstance().setListOfObjects(buildMode.getObjectList());
+//		for (int i=0; i<buildMode.getObjectList().size(); i++) {
+//			System.out.printf("Location of the object is x:%d, y:%d, \n", buildMode.getObjectList().get(i).getLocation().getLocationX(), buildMode.getObjectList().get(i).getLocation().getLocationY());
+//		}
 	}
 }

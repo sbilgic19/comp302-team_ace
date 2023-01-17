@@ -9,6 +9,7 @@ import ApplicationLogic.AuthorizationLogic;
 import Database.Client;
 import UI.GameController;
 import UI.GameFrame;
+import UI.IconFactory;
 import domain.GameInfo;
 import domain.RoomObject;
 
@@ -58,7 +59,10 @@ public class NewOrLoadGameSelectionHandler implements ActionListener {
 				icon = images[roomObject.getTypeID()];
 				gameMap[roomObject.getLocation().getLocationX()][roomObject.getLocation().getLocationY()].setIcon(icon);
 			}
-			//gameMap[gameInfo.getPlayer().getLocation().getLocationX()][gameInfo.getPlayer().getLocation().getLocationY()].setIcon();
+			gameMap[gameInfo.getPlayer().getLocation().getLocationX()][gameInfo.getPlayer().getLocation().getLocationY()].setIcon(gameController.getGameFrame().getGamePanel().getPlayerFrontIcon());
+			IconFactory iconFactory = IconFactory.getInstance();
+			ImageIcon doorIcon = iconFactory.generateIcon("../assets/doorIcon1.png", 50, 50);
+			gameMap[gameInfo.getDoorLocation().getLocationX()][gameInfo.getDoorLocation().getLocationY()].setIcon(doorIcon);
 			gameController.switchBuildView();
 			gameController.switchGameView(gameMap);
 

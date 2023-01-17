@@ -5,8 +5,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -20,11 +22,13 @@ import Controllers.LoginAuthorizationHandler;
 import Controllers.PlayerHandler;
 import Controllers.PowerUpHandler;
 import Controllers.RoomKeyHandler;
+import Controllers.SaveGameHandler;
 import Controllers.ShooterAlienHandler;
 import Database.Client;
 import dataStructures.Location;
 import domain.GameInfo;
 import domain.Player;
+import domain.RoomObject;
 import domain.powerUps.PowerUp;
 import domain.powerUps.PowerUpFactory;
 import domain.powerUps.ProtectionVestPowerUp;
@@ -164,7 +168,7 @@ public class GameController {
 				gameFrame.getTimer().stop();
 				gameFrame.getPauseButton().setText(">");
 				// Pause Game Screen
-				gameFrame.setPauseDialog(new PausedGameScreen(client));
+				gameFrame.setPauseDialog(new PausedGameScreen(new SaveGameHandler(this, client)));
 				gameFrame.getPauseDialog().setLocationRelativeTo(gameFrame);
 				gameFrame.getPauseDialog().setBounds(750, 375, 400, 400);
 				gameFrame.getPauseDialog().setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
@@ -203,7 +207,79 @@ public class GameController {
 		gameFrame.add(gameFrame.getGamePanel(),BorderLayout.CENTER);
 		
 		gameFrame.getGamePanel().setBorder(BorderFactory.createLineBorder(Color.RED, 2));
-		gameFrame.getGamePanel().setGameMap(buildModeMap);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//gameFrame.getGamePanel().setGameMap(buildModeMap);
+		
+		ArrayList<RoomObject> myList = GameInfo.getInstance().getListOfObjects();
+		
+		ImageIcon[] images = gameFrame.getBuildPanel().getIcons();
+		ImageIcon icon;
+		int rowCount = gameFrame.getNumRow();
+		int columnCount = gameFrame.getNumCol();
+
+		JLabel[][] gameMap = new JLabel[rowCount][columnCount];
+		for(int i = 0; i<rowCount; i++){
+			for(int j = 0; j<columnCount; j++){
+				gameMap[i][j] = new JLabel();
+			}
+		}
+
+		for (RoomObject roomObject : myList) {
+
+			icon = images[roomObject.getTypeID()];
+			gameMap[roomObject.getLocation().getLocationX()][roomObject.getLocation().getLocationY()].setIcon(icon);
+		}
+		//gameMap[gameInfo.getPlayer().getLocation().getLocationX()][gameInfo.getPlayer().getLocation().getLocationY()].setIcon();
+		
+		gameFrame.getGamePanel().setGameMap(gameMap);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		gameFrame.getGamePanel().requestFocus();
 		gameFrame.getGamePanel().addKeyListener(this.keyHandler);
 		gameFrame.getGamePanel().alienProducer();

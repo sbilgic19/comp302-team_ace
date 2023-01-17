@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 
+import Controllers.SaveGameHandler;
+
 
 
 
@@ -14,12 +16,13 @@ public class PausedGameScreen extends JDialog {
 
 	private JButton saveGameButton;
 	private JButton returnToGameButton;
-	private Client client;
 	
+	private SaveGameHandler saveGameHandler;
 	
-	public PausedGameScreen(Client client) {
+	public PausedGameScreen(SaveGameHandler saveGameHandler) {
 		
-		this.client = client;
+		
+		this.saveGameHandler = saveGameHandler;
 		setLayout(new FlowLayout());
 		setResizable(false);
 		this.requestFocus();
@@ -33,10 +36,12 @@ public class PausedGameScreen extends JDialog {
 		saveGameButton.setSize(100,100);
 		returnToGameButton.setSize(100, 100);
 
-		saveGameButton.addActionListener(e->{
-			GameInfo.getInstance().setTime(GameTime.getInstance().getSeconds());
-			client.saveGame("Game1",GameInfo.getInstance());
-		});
+//		saveGameButton.addActionListener(e->{
+//			GameInfo.getInstance().setTime(GameTime.getInstance().getSeconds());
+//			client.saveGame("Game1",GameInfo.getInstance());
+//			
+//		});
+		saveGameButton.addActionListener(saveGameHandler);
 		add(saveGameButton);
 		add(returnToGameButton);
 		
@@ -51,6 +56,11 @@ public class PausedGameScreen extends JDialog {
 	public JButton getReturnToGameButton() {
 		return returnToGameButton;
 	}
-	
+	public SaveGameHandler getSaveGameHandler() {
+		return saveGameHandler;
+	}
+	public void setSaveGameHandler(SaveGameHandler handler) {
+		this.saveGameHandler = handler;
+	}
 	
 }
