@@ -2,6 +2,7 @@ package ApplicationLogic;
 
 import java.util.Random;
 
+import UI.GameController;
 import UI.GameFrame;
 import UI.GamePanel;
 import dataStructures.Location;
@@ -11,11 +12,12 @@ import domain.powerUps.PowerUpFactory;
 
 public class PowerUpLogic {
 
-	GameFrame gameFrame;
+	private GameController gameController;
 	private Player player;
 	private final Random r = new Random();
-	public PowerUpLogic(GameFrame gameFrame, Player player) {
-		this.gameFrame = gameFrame;
+	
+	public PowerUpLogic(GameController gameController, Player player) {
+		this.gameController = gameController;
 		this.player = player;
 	}
 	public void addPowerUp(PowerUp powerUp) 
@@ -23,27 +25,27 @@ public class PowerUpLogic {
 		String powerUpType = powerUp.getPowerUpType();
 		Location location = powerUp.getLocation();
 		
-		GamePanel.placePowerUp(location, powerUpType);	
+		gameController.getGameFrame().getGamePanel().placePowerUp(location, powerUpType);	
 			
 	}	
 	public void usePowerUp(PowerUp powerUp) {
 		if(powerUp.getPowerUpType().equalsIgnoreCase("ExtraLife") || powerUp.getPowerUpType().equalsIgnoreCase("ExtraTime"))
 			powerUp.triggerEffect();
 		else
-			gameFrame.updateBagView(powerUp);
+			gameController.getGameFrame().updateBagView(powerUp);
 			player.addToBag(powerUp);
 			System.out.println(powerUp.getPowerUpType() + " added to the bag");
 	}
 	
 	public PowerUp getPowerUp() {
 		int row = 0, column = 0;
-		int rowCount = gameFrame.getNumRow();
-		int columnCount = gameFrame.getNumCol();
+		int rowCount = gameController.getGameFrame().getNumRow();
+		int columnCount = gameController.getGameFrame().getNumCol();
 		boolean isOccupied = true;
 		while (isOccupied) {
 			row = r.nextInt(rowCount);
 			column = r.nextInt(columnCount);
-			if (GamePanel.getGameMap()[row][column].getIcon() == null) {
+			if (gameController.getGameFrame().getGamePanel().getGameMap()[row][column].getIcon() == null) {
 				isOccupied = false;
 			}
 		}

@@ -1,6 +1,7 @@
 package Controllers;
 
 import ApplicationLogic.ShooterAlienLogic;
+import UI.GameController;
 import UI.GameFrame;
 import domain.Player;
 import domain.aliens.ShooterAlien;
@@ -8,12 +9,12 @@ import domain.aliens.ShooterAlien;
 public class ShooterAlienHandler {
 	ShooterAlienLogic shooterAlienLogic;
 	Player player;
-	GameFrame gameFrame;
-	public ShooterAlienHandler(Player player, GameFrame gameFrame) {
+	GameController gameController;
+	public ShooterAlienHandler(Player player, GameController gameController) {
 		super();
-		this.shooterAlienLogic = new ShooterAlienLogic(gameFrame,player);
+		this.shooterAlienLogic = new ShooterAlienLogic(gameController,player);
 		this.player = player;
-		this.gameFrame = gameFrame;
+		this.gameController = gameController;
 	}
 	
 	public boolean shoot() {

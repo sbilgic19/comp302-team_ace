@@ -3,17 +3,18 @@ package ApplicationLogic;
 import UI.GamePanel;
 import UI.GameState;
 import domain.Player;
+import UI.GameController;
 import UI.GameFrame;
 
 public class PlayerMoveLogic  {
 	
-	private GameFrame gameFrame;
+	private GameController gameController;
 	
-	public PlayerMoveLogic(GameFrame gameFrame) {
-		this.gameFrame = gameFrame;
+	public PlayerMoveLogic(GameController gameController) {
+		this.gameController = gameController;
 	}
 	
-	public void updatePlayerPosition(Player player, int changeInX, int changeInY) {
+	public void updatePlayerPosition(int changeInX, int changeInY) {
 		
 		/**
 		Modifies the position of a Player object in a game.
@@ -27,16 +28,16 @@ public class PlayerMoveLogic  {
 		
 		
 		if ( Math.abs(changeInX) +  Math.abs(changeInY) <= 1 && !GameState.getInstance().isGameOver()) {
-			int xPlayerPosition = player.getLocation().getLocationX();
-			int yPlayerPosition = player.getLocation().getLocationY();
+			int xPlayerPosition = gameController.getPlayer().getLocation().getLocationX();
+			int yPlayerPosition = gameController.getPlayer().getLocation().getLocationY();
 
 			int newXPlayerPosition = xPlayerPosition + changeInX;
 			int newYPlayerPosition = yPlayerPosition + changeInY;
 			
-			if (newXPlayerPosition >= 0 && newXPlayerPosition < gameFrame.getNumRow() && newYPlayerPosition >= 0 
-						&& newYPlayerPosition < gameFrame.getNumCol()) {  
+			if (newXPlayerPosition >= 0 && newXPlayerPosition < gameController.getGameFrame().getNumRow() && newYPlayerPosition >= 0 
+						&& newYPlayerPosition < gameController.getGameFrame().getNumCol()) {  
 				
-				if(GamePanel.getGameMap()[newXPlayerPosition][newYPlayerPosition].getIcon() == null) {
+				if(gameController.getGameFrame().getGamePanel().getGameMap()[newXPlayerPosition][newYPlayerPosition].getIcon() == null) {
 					int playerLogoPosition = 0;
 					if (changeInX == 1 && changeInY == 0) {
 					}
@@ -49,10 +50,11 @@ public class PlayerMoveLogic  {
 					else {
 						playerLogoPosition = 3;
 					}
-					GamePanel.updatePlayerView(xPlayerPosition, yPlayerPosition,
+					gameController.getGameFrame().getGamePanel().updatePlayerView(xPlayerPosition, yPlayerPosition,
 							newXPlayerPosition, newYPlayerPosition, playerLogoPosition);
-					player.getLocation().setLocationX(newXPlayerPosition);
-					player.getLocation().setLocationY(newYPlayerPosition);
+					//GamePanel.
+					gameController.getPlayer().getLocation().setLocationX(newXPlayerPosition);
+					gameController.getPlayer().getLocation().setLocationY(newYPlayerPosition);
 				}
 			}
 		}

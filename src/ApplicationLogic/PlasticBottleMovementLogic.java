@@ -1,5 +1,6 @@
 package ApplicationLogic;
 
+import UI.GameController;
 import UI.GamePanel;
 import domain.powerUps.PlasticBottlePowerUp;
 
@@ -10,10 +11,12 @@ import java.awt.event.ActionListener;
 public class PlasticBottleMovementLogic {
 
     private PlasticBottlePowerUp powerUp;
+    private GameController gameController;
     Timer timer;
     boolean isMoving = true;
-    public PlasticBottleMovementLogic(PlasticBottlePowerUp powerUp){
+    public PlasticBottleMovementLogic(GameController gameController, PlasticBottlePowerUp powerUp){
         this.powerUp = powerUp;
+        this.gameController = gameController;
     }
     public void updateBottlePosition(){
         timer = createTimer();
@@ -32,7 +35,8 @@ public class PlasticBottleMovementLogic {
                     powerUp.triggerEffect();
                     powerUp.setBottleIconPosition(powerUp.getBottleIconPosition()+1);
                     System.out.println("OldX: " + oldXLoc + " OldY: " + oldYLoc);
-                    isMoving = GamePanel.updateBottleView(oldXLoc,oldYLoc,powerUp.getLocation().getLocationX(), powerUp.getLocation().getLocationY(), powerUp.getBottleIconPosition());
+                    isMoving = gameController.getGameFrame().getGamePanel().updateBottleView(oldXLoc,oldYLoc,powerUp.getLocation().getLocationX(), powerUp.getLocation().getLocationY(), powerUp.getBottleIconPosition());
+                    
                 }else
                     timer.stop();
             }

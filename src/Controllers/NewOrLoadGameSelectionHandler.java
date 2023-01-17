@@ -7,17 +7,21 @@ import javax.swing.*;
 
 import ApplicationLogic.AuthorizationLogic;
 import Database.Client;
+import UI.GameController;
 import UI.GameFrame;
 import domain.GameInfo;
 import domain.RoomObject;
 
 public class NewOrLoadGameSelectionHandler implements ActionListener {
 
-	private GameFrame gameFrame;
+	//private GameFrame gameFrame;
 	private Client client;
+	private GameController gameController;
 	
-	public NewOrLoadGameSelectionHandler(GameFrame gameFrame, Client client) {
-		this.gameFrame = gameFrame;
+	
+	public NewOrLoadGameSelectionHandler(GameController gameController, Client client) {
+		
+		this.gameController = gameController;
 		this.client = client;
 	}
 	
@@ -26,7 +30,7 @@ public class NewOrLoadGameSelectionHandler implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 		// TODO Auto-generated method stub
 		if (event.getActionCommand().compareTo("New Game") == 0) {
-			gameFrame.switchBuildView();
+			gameController.switchBuildView();
 		}else if (event.getActionCommand().compareTo("Load Game") == 0) {
 			GameInfo gameInfo = client.loadGame("Game1");
 			GameInfo.getInstance().setTime(gameInfo.getTime());
@@ -37,10 +41,10 @@ public class NewOrLoadGameSelectionHandler implements ActionListener {
 			System.out.println(gameInfo.getTime());
 
 
-			ImageIcon[] images = gameFrame.getBuildPanel().getIcons();
+			ImageIcon[] images = gameController.getGameFrame().getBuildPanel().getIcons();
 			ImageIcon icon;
-			int rowCount = gameFrame.getNumRow();
-			int columnCount = gameFrame.getNumCol();
+			int rowCount = gameController.getGameFrame().getNumRow();
+			int columnCount = gameController.getGameFrame().getNumCol();
 
 			JLabel[][] gameMap = new JLabel[rowCount][columnCount];
 			for(int i = 0; i<rowCount; i++){
@@ -55,8 +59,8 @@ public class NewOrLoadGameSelectionHandler implements ActionListener {
 				gameMap[roomObject.getLocation().getLocationX()][roomObject.getLocation().getLocationY()].setIcon(icon);
 			}
 			//gameMap[gameInfo.getPlayer().getLocation().getLocationX()][gameInfo.getPlayer().getLocation().getLocationY()].setIcon();
-			gameFrame.switchBuildView();
-			gameFrame.switchGameView(gameMap);
+			gameController.switchBuildView();
+			gameController.switchGameView(gameMap);
 
 
 		}

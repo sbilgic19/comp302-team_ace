@@ -1,7 +1,9 @@
 
 import java.util.ArrayList;
 
+import ApplicationLogic.KeyLogic;
 import ApplicationLogic.TimeWastingAlienBehaviourStrategy;
+import UI.GameFrame;
 import dataStructures.Location;
 import domain.Key;
 import domain.RoomObject;
@@ -121,4 +123,5 @@ public class TimeWastingAlienBehaviourTest {
 		// it is guaranteed that the isActive instance field of the alien becomes false and 
 		// the location of the key does not change. 
 	}
+	
 }

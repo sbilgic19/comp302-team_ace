@@ -3,6 +3,7 @@ package ApplicationLogic;
 import java.util.ArrayList;
 import java.util.Random;
 
+import UI.GameController;
 import UI.GameFrame;
 import UI.GamePanel;
 import dataStructures.Location;
@@ -13,11 +14,11 @@ import domain.aliens.TimeWastingAlien;
 
 public class ShooterAlienLogic {
 	ShooterAlien shooterAlien;
-	private GameFrame gameFrame;
+	private GameController gameController;
 	private final Random random = new Random();
 	
-	public ShooterAlienLogic(GameFrame gameFrame, Player player) {
-		this.gameFrame = gameFrame;
+	public ShooterAlienLogic(GameController gameController, Player player) {
+		this.gameController = gameController;
 	}
 	
 	
@@ -29,7 +30,7 @@ public class ShooterAlienLogic {
 				System.out.println("isProtected: "+ player.isProtected());
 				if(!player.isProtected()) {
 					player.decreaseLives();
-					gameFrame.updatePlayerLivesView(player.getLives());
+					gameController.getGameFrame().updatePlayerLivesView(player.getLives());
 					return true;
 				}
 				
@@ -42,13 +43,13 @@ public class ShooterAlienLogic {
 	
 	
 	public void placeShooterAlien() {
-		GamePanel.placeAlien(shooterAlien.getLocation(), shooterAlien.getAlienType());
+		gameController.getGameFrame().getGamePanel().placeAlien(shooterAlien.getLocation(), shooterAlien.getAlienType());
 	}
 	
 	
 	public void deactivate() {
 		shooterAlien.setIsActive(false);
-		GamePanel.setNullIcon(shooterAlien.getLocation());
+		gameController.getGameFrame().getGamePanel().setNullIcon(shooterAlien.getLocation());
 	}
 	
 	
@@ -57,9 +58,9 @@ public class ShooterAlienLogic {
 		if(this.shooterAlien != null) {
 			this.deactivate();
 		}
-		Location doorLocation = gameFrame.getDoorLocation();
-		int rowCount = gameFrame.getNumRow();
-		int columnCount = gameFrame.getNumCol();
+		Location doorLocation = gameController.getGameFrame().getDoorLocation();
+		int rowCount = gameController.getGameFrame().getNumRow();
+		int columnCount = gameController.getGameFrame().getNumCol();
 		Boolean flag = false;
 		ArrayList<Location> object_locations = new ArrayList<>(); 
 		for (int i = 0; i < rowCount; i++) {
@@ -70,7 +71,7 @@ public class ShooterAlienLogic {
 				  else if (i == doorLocation.getLocationX() && j == doorLocation.getLocationY()) {
 					  continue;
 				  }
-				  if (GamePanel.getGameMap()[i][j].getIcon() == null) {
+				  if (gameController.getGameFrame().getGamePanel().getGameMap()[i][j].getIcon() == null) {
 					  if (i == 0 && j == 5) {
 						  continue;
 					  }

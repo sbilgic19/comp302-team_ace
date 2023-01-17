@@ -27,14 +27,14 @@ import java.util.Timer;
 
 public class GamePanel extends JPanel {
 
-    private static JLabel[][] gameMap;
-    private static ImageIcon playerFrontIcon;
-    private static ImageIcon playerBackIcon;
-    private static ImageIcon playerLeftIcon;
-    private static ImageIcon playerRightIcon;
-    private static ImageIcon playerFrontWithVestIcon;
-    private static ImageIcon playerBackWithVestIcon;
-    private static ImageIcon playerLeftWithVestIcon;
+    private JLabel[][] gameMap;
+    private ImageIcon playerFrontIcon;
+    private ImageIcon playerBackIcon;
+    private ImageIcon playerLeftIcon;
+    private ImageIcon playerRightIcon;
+    private ImageIcon playerFrontWithVestIcon;
+    private ImageIcon playerBackWithVestIcon;
+    private ImageIcon playerLeftWithVestIcon;
     private static ImageIcon playerRightWithVestIcon;
     private static ImageIcon keyIcon;
     private static ImageIcon bagIcon;
@@ -43,34 +43,38 @@ public class GamePanel extends JPanel {
     private static ImageIcon blindIcon;
     private static ImageIcon shooterIcon;
     
-    private static ImageIcon extraLifeIcon;
-    private static ImageIcon extraTimeIcon;
-    private static ImageIcon protectionVestIcon;
-    private static ImageIcon hintIcon;
-    private static ImageIcon plasticBottleIcon;
-    private static ImageIcon plasticBottleIconEast;
-    private static ImageIcon plasticBottleIconWest;
-    private static ImageIcon plasticBottleIconSouth;
+    private ImageIcon extraLifeIcon;
+    private ImageIcon extraTimeIcon;
+    private ImageIcon protectionVestIcon;
+    private ImageIcon hintIcon;
+    private ImageIcon plasticBottleIcon;
+    private ImageIcon plasticBottleIconEast;
+    private ImageIcon plasticBottleIconWest;
+    private ImageIcon plasticBottleIconSouth;
 
-    private static int numRow;
-    private static int numCol;
+    private int numRow;
+    private int numCol;
     private GameFrame gameFrame;
     private Key key;
     private PowerUp powerUp;
-    private static Player player;
+    //private Player player;
     private boolean isPowerUpActive;
     
-    private static ImageIcon openDoorIcon;
+    private ImageIcon openDoorIcon;
      
     RoomKeyHandler roomKeyHandler;
     PowerUpHandler powerUpHandler;
     TimeWastingAlienHandler alienHandler;
     ShooterAlienHandler shooterAlienHandler;
     BlindAlienHandler blindAlienHandler;
+    
+    //private GameController gameController;
     public GamePanel(GameFrame gameFrame) {
     	
-    	numRow = gameFrame.getNumRow();
-    	numCol = gameFrame.getNumCol();
+    	//this.gameController = gameController;
+    	this.gameFrame = gameFrame;
+    	numRow = this.gameFrame.getNumRow();
+    	numCol = this.gameFrame.getNumCol();
 
     	IconFactory iconFactory = IconFactory.getInstance();
         playerFrontIcon = iconFactory.generateIcon("../assets/playerFrontIcon.png", 50, 50);
@@ -105,14 +109,14 @@ public class GamePanel extends JPanel {
         
         timeWastingAlienIcon = iconFactory.generateIcon("../assets/timeWastingAlienIcon.png", 50, 50);
         
-        this.gameFrame = gameFrame;
+    
         
         this.setLayout(new GridLayout(numRow, numCol, 0, 0));
-        roomKeyHandler = gameFrame.getRoomKeyHandler();
+        roomKeyHandler = this.gameFrame.getRoomKeyHandler();
 
-        shooterAlienHandler = gameFrame.getShooterAlienHandler();
-        blindAlienHandler = gameFrame.getBlindAlienHandler();
-        powerUpHandler = gameFrame.getPowerUpHandler();
+        shooterAlienHandler = this.gameFrame.getShooterAlienHandler();
+        blindAlienHandler = this.gameFrame.getBlindAlienHandler();
+        powerUpHandler = this.gameFrame.getPowerUpHandler();
 
     }
 
@@ -136,7 +140,7 @@ public class GamePanel extends JPanel {
                     		Boolean b = roomKeyHandler.takeKey(key);
                     		if(e.getSource() == gameMap[locX_key][locY_key] && key != null && b ) {
                     			System.out.println(locX_key+" " + locY_key);
-                            	gameFrame.updateKeyView(b);
+                    			gameFrame.updateKeyView(b);
                             	System.out.println(b);
                             	key = null;
                     		}
@@ -163,7 +167,7 @@ public class GamePanel extends JPanel {
                         if(e.getSource() == gameMap[locX][locY]) {
                         	//powerUp.triggerEffect();
                         	powerUpHandler.usePowerUp(powerUp);
-                            gameFrame.updatePlayerLivesView(player.getLives());
+                        	gameFrame.updatePlayerLivesView(gameFrame.getGameController().getPlayer().getLives());
                         	gameMap[locX][locY].setIcon(null);
                         	powerUp = null;
                         	
@@ -183,11 +187,11 @@ public class GamePanel extends JPanel {
         System.out.println(key.getLocation().getLocationX()+" " + key.getLocation().getLocationY());
         gameMap[0][5].setIcon(playerFrontIcon);
         powerUp = powerUpHandler.getRandomPowerUp();
-        alienHandler = new TimeWastingAlienHandler(gameFrame, key);
+        alienHandler = new TimeWastingAlienHandler(gameFrame.getGameController(), key);
         
         if (!key.getIsTaken()) {
         	TimeWastingAlien alien = alienHandler.getTimeWastingAlien();
-        	alien.setLevelTime(gameFrame.getLevelTime()); //no point
+        	alien.setLevelTime(this.gameFrame.getLevelTime()); //no point
         	GameTime.getInstance().setTimeWastingAlien(alien);
         }
 
@@ -328,12 +332,12 @@ public class GamePanel extends JPanel {
     
     
 
-	public static void updatePlayerView(int xPlayerPosition, int yPlayerPosition,
+	public void updatePlayerView(int xPlayerPosition, int yPlayerPosition,
                                  int newXPlayerPosition, int newYPlayerPosition, int playerLogoPosition) {
         gameMap[xPlayerPosition][yPlayerPosition].setIcon(null);
         ImageIcon[] playerIcons = {playerFrontIcon, playerBackIcon, playerLeftIcon, playerRightIcon};
         ImageIcon[] protectedPlayerIcons = {playerFrontWithVestIcon, playerBackWithVestIcon, playerLeftWithVestIcon, playerRightWithVestIcon};
-        if(player.isProtected() == true){
+        if(gameFrame.getGameController().getPlayer().isProtected() == true){
             gameMap[newXPlayerPosition][newYPlayerPosition].setIcon(protectedPlayerIcons[playerLogoPosition]);
         }else{
             gameMap[newXPlayerPosition][newYPlayerPosition].setIcon(playerIcons[playerLogoPosition]);
@@ -342,7 +346,7 @@ public class GamePanel extends JPanel {
 
 	
 	
-	public static void updateBlindAlienView(int xPosition, int yPosition,
+	public void updateBlindAlienView(int xPosition, int yPosition,
                                  int newXPosition, int newYPosition) {
 		
         gameMap[xPosition][yPosition].setIcon(null);
@@ -351,15 +355,15 @@ public class GamePanel extends JPanel {
 	}
 
 
-    public static boolean updateBottleView(int oldXLoc, int oldYLoc, int newXPlayerPosition, int newYPlayerPosition, int bottleIconPosition) {
+    public boolean updateBottleView(int oldXLoc, int oldYLoc, int newXPlayerPosition, int newYPlayerPosition, int bottleIconPosition) {
         //gameMap[xPlayerPosition][yPlayerPosition].setIcon(null);
       System.out.println("OldBottle:" + oldXLoc);
       System.out.println("OldBottle " + oldYLoc);
         System.out.println("Bottle:" + newXPlayerPosition);
         System.out.println("Bottle " + newYPlayerPosition);
-        System.out.println("Player: " + player.getLocation().getLocationX());
-        System.out.println("Player: "+ player.getLocation().getLocationY());
-        if(oldXLoc != player.getLocation().getLocationX() || oldYLoc != player.getLocation().getLocationY()){
+        System.out.println("Player: " +gameFrame.getGameController().getPlayer().getLocation().getLocationX());
+        System.out.println("Player: "+ gameFrame.getGameController().getPlayer().getLocation().getLocationY());
+        if(oldXLoc != gameFrame.getGameController().getPlayer().getLocation().getLocationX() || oldYLoc != gameFrame.getGameController().getPlayer().getLocation().getLocationY()){
             gameMap[oldXLoc][oldYLoc].setIcon(null);
         }
         ImageIcon[] plasticBottleIcons = {plasticBottleIcon, plasticBottleIconEast, plasticBottleIconSouth, plasticBottleIconWest};
@@ -374,7 +378,7 @@ public class GamePanel extends JPanel {
     }
 
     
-    public static void placePowerUp(Location location, String powerUpType)
+    public void placePowerUp(Location location, String powerUpType)
     {
     	switch(powerUpType) {
           case "ExtraLife":
@@ -396,7 +400,7 @@ public class GamePanel extends JPanel {
 
     }
     
-    public static void placeAlien(Location location, String alienType) {
+    public void placeAlien(Location location, String alienType) {
     	switch(alienType) {
     	case "TimeWasting":
     		gameMap[location.getLocationX()][location.getLocationY()].setIcon(timeWastingAlienIcon);
@@ -419,33 +423,33 @@ public class GamePanel extends JPanel {
     	return openDoorIcon;
     }
      
-    public static JLabel[][] getGameMap() {
-    	return gameMap;
+    public JLabel[][] getGameMap() {
+    	return this.gameMap;
     }
     
-    public Player getPlayer() {
-    	return this.player;
-    }
-    public static void setPlayer(Player player) {
-        GamePanel.player = player;
-    }
+//    public Player getPlayer() {
+//    	return this.player;
+//    }
+//    public void setPlayer(Player player) {
+//        this.player = player;
+//    }
 
 
-    public static ImageIcon getTimeWastingAlienIcon() {
+    public ImageIcon getTimeWastingAlienIcon() {
     	return timeWastingAlienIcon;
     } 
     
-    public static void setNullIcon(Location location) {
+    public void setNullIcon(Location location) {
     	gameMap[location.getLocationX()][location.getLocationY()].setIcon(null);
     }
 
   /**
    * remove borders in the gameMap.
    */
-  public static void removeBorders() {
+  public void removeBorders() {
       for (int row = 0; row < gameMap.length; row++) {
         for (int col = 0; col < gameMap[0].length; col++) {
-          GamePanel.getGameMap()[row][col].setBorder(null);
+          this.gameMap[row][col].setBorder(null);
         }
       }
     }
@@ -465,7 +469,7 @@ public class GamePanel extends JPanel {
       for (int row = keyRow + offsetRow; row < keyRow + offsetRow + 4; row++) {
         for (int col = keyCol + offsetCol; col < keyCol + offsetCol + 4; col++) {
           // Make sure the label is within the bounds of the game map
-          if (row >= 0 && row < GamePanel.getGameMap().length && col >= 0 && col < GamePanel.getGameMap()[0].length) {
+          if (row >= 0 && row < this.gameMap.length && col >= 0 && col < this.gameMap[0].length) {
             System.out.println("Border set");
             gameMap[row][col].setBorder(BorderFactory.createLineBorder(Color.RED, 2));
           }

@@ -3,19 +3,20 @@ package Controllers;
 
 import ApplicationLogic.KeyLogic;
 import ApplicationLogic.PowerUpLogic;
+import UI.GameController;
 import UI.GameFrame;
 import domain.Key;
 import domain.Player;
 
 public class RoomKeyHandler {
 	KeyLogic keyLogic;
-	GameFrame gameFrame;
+	GameController gameController;
 	Player player;
 	Key key;
 	
-	public RoomKeyHandler(GameFrame gameFrame, Player p) {
-		keyLogic = new KeyLogic(gameFrame);
-		this.gameFrame = gameFrame;
+	public RoomKeyHandler(GameController gameController, Player p) {
+		keyLogic = new KeyLogic(gameController);
+		this.gameController = gameController;
 		this.player = p;
 
 	}

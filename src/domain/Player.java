@@ -17,16 +17,18 @@ public class Player implements Serializable {
 
 	public Player() {
 		this.lives = 3;
+		this.location = new Location(0,5);
 	}
 
 	public Player(int lives) {
 		this.lives = lives;
+		this.location = new Location(0,5);
 	}
-	public Player(int x, int y) {
-		super();
-		this.location = new Location(x,y);
-    this.lives = 3;
-	}
+//	public Player(int x, int y) {
+//		super();
+//		this.location = new Location(x,y);
+//		this.lives = 3;
+//	}
 	
 	public void takeKey() {
 		this.isKeyTaken = true;

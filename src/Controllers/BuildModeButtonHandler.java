@@ -8,17 +8,19 @@ import javax.swing.JOptionPane;
 
 import UI.BuildMode;
 import UI.BuildPanel;
+import UI.GameController;
 import UI.GameFrame;
 import domain.GameInfo;
 
 public class BuildModeButtonHandler implements ActionListener {
 	
-	private GameFrame gameFrame;
+	//private GameFrame gameFrame;
 	private BuildMode buildMode;
 	private BuildPanel buildPanel;
+	private GameController gameController;
 	
-	public BuildModeButtonHandler(GameFrame gameFrame, BuildMode buildMode, BuildPanel buildPanel) {
-		this.gameFrame = gameFrame;
+	public BuildModeButtonHandler(GameController gameController, BuildMode buildMode, BuildPanel buildPanel) {
+		this.gameController = gameController;
 		this.buildMode = buildMode;
 		this.buildPanel = buildPanel;
 	}
@@ -29,8 +31,8 @@ public class BuildModeButtonHandler implements ActionListener {
 		JLabel[][] buildModeMap = buildMode.getBuildModeMap();
 		int counter = 0;
 		
-		for (int ii = 0; ii < gameFrame.getNumRow(); ii++) {
-			for (int jj = 0; jj < gameFrame.getNumCol(); jj++) {
+		for (int ii = 0; ii < gameController.getGameFrame().getNumRow(); ii++) {
+			for (int jj = 0; jj < gameController.getGameFrame().getNumCol(); jj++) {
 				if (buildModeMap[ii][jj].getIcon() != null) {
 					counter++;
 				}
@@ -44,7 +46,7 @@ public class BuildModeButtonHandler implements ActionListener {
 					"Alert", JOptionPane.ERROR_MESSAGE);
 		}
 		else if (buildPanel.getBuildingObjectCounter() > 0) {
-			gameFrame.switchGameView(buildModeMap);
+			gameController.switchGameView(buildModeMap);
 			buildMode.removeMouseHandler();
 		}
 		else {

@@ -1,6 +1,8 @@
 package ApplicationLogic;
 import java.util.ArrayList;
 import java.util.Random;
+
+import UI.GameController;
 import UI.GameFrame;
 import UI.GamePanel;
 import dataStructures.Location;
@@ -10,20 +12,20 @@ import domain.aliens.*;
 
 public class TimeWastingAlienLogic {
 	
-	private GameFrame gameFrame;
+	private GameController gameController;
 	private Key key;
 	private Random random = new Random();
 	
 	
-	public TimeWastingAlienLogic(GameFrame gameFrame, Key key) {
-		this.gameFrame = gameFrame;
+	public TimeWastingAlienLogic(GameController gameController, Key key) {
+		this.gameController = gameController;
 		this.key = key;
 	}
 
 	public TimeWastingAlien getTimeWastingAlien() {
 		
-		int numRow = gameFrame.getNumRow();
-		int numCol = gameFrame.getNumCol();
+		int numRow = gameController.getGameFrame().getNumRow();
+		int numCol = gameController.getGameFrame().getNumCol();
 		
 		int randRow;
 		int randCol;
@@ -31,11 +33,11 @@ public class TimeWastingAlienLogic {
 		while (true) {
 			randRow = random.nextInt(numRow);
 			randCol = random.nextInt(numCol);
-			if (GamePanel.getGameMap()[randRow][randCol].getIcon() == null) {
+			if (gameController.getGameFrame().getGamePanel().getGameMap()[randRow][randCol].getIcon() == null) {
 				break;
 			}
 		}
-		GamePanel.getGameMap()[randRow][randCol].setIcon(GamePanel.getTimeWastingAlienIcon());
+		gameController.getGameFrame().getGamePanel().getGameMap()[randRow][randCol].setIcon(gameController.getGameFrame().getGamePanel().getTimeWastingAlienIcon());
 		TimeWastingAlien timeWastingAlien = new TimeWastingAlien(new Location(randRow, randCol));
 		TimeWastingAlienBehaviourStrategy[] behavioursArray = timeWastingAlien.getBehaviours();
 		
@@ -47,8 +49,8 @@ public class TimeWastingAlienLogic {
 	
 	private ArrayList<RoomObject> excludeDoorRoom() {
 		
-		Location doorLocation = gameFrame.getDoorLocation();
-		ArrayList<RoomObject> objectList = gameFrame.getObjectList();
+		Location doorLocation = gameController.getGameFrame().getDoorLocation();
+		ArrayList<RoomObject> objectList = gameController.getGameFrame().getObjectList();
 		for (int ii = 0; ii < objectList.size(); ii++) {
 			Location tempLocation = objectList.get(ii).getLocation();
 			if (tempLocation.getLocationX() == doorLocation.getLocationX() 

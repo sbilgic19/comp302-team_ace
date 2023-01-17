@@ -55,22 +55,24 @@ public class KeyHandler extends KeyAdapter {
 					PowerUp powerUp = playerHandler.getPlayer().getPowerUp("ProtectionVest");
 					if(powerUp != null){
 						powerUp.triggerEffect();
-						playerHandler.getGameFrame().updateBagView(null);
+						playerHandler.getGameController().getGameFrame().updateBagView(null);
 					}
 				}else if(event.getKeyCode() == KeyEvent.VK_H && playerHandler.getPlayer().isContains("Hint")){
 					PowerUp powerUp = playerHandler.getPlayer().getPowerUp("Hint");
 					if(powerUp != null){
-						Key key = powerUpHandler.getGameFrame().getGamePanel().getKey();
-						powerUpHandler.getGameFrame().getGamePanel().addBordersHint(key.getLocation().getLocationX(), key.getLocation().getLocationY());
+						Key key = powerUpHandler.getGameController().getGameFrame().getGamePanel().getKey();
+						powerUpHandler.getGameController().getGameFrame().getGamePanel().addBordersHint(key.getLocation().getLocationX(), key.getLocation().getLocationY());
 						Timer timer = new Timer();
 						timer.schedule(new TimerTask() {
 							@Override
 							public void run() {
-								powerUpHandler.getGameFrame().getGamePanel().removeBorders();
+								
+								//GamePanel.removeBorders();
+								powerUpHandler.getGameController().getGameFrame().getGamePanel().removeBorders();
 							}
 						}, 10 * 1000);
 
-						playerHandler.getGameFrame().updateBagView(null);
+						playerHandler.getGameController().getGameFrame().updateBagView(null);
 						powerUp.triggerEffect();
 
 
@@ -98,19 +100,19 @@ public class KeyHandler extends KeyAdapter {
 					if(isWPressed){
 						System.out.println("HİW");
 						powerUp = new PlasticBottlePowerUp(bottleStartPos, playerHandler.getPlayer(),"North");
-						PlasticBottleMovementLogic plasticBottleMovementLogic = new PlasticBottleMovementLogic(powerUp);
+						PlasticBottleMovementLogic plasticBottleMovementLogic = new PlasticBottleMovementLogic(playerHandler.getGameController(), powerUp);
 						plasticBottleMovementLogic.updateBottlePosition();
 					} else if (isAPressed) {
 						powerUp = new PlasticBottlePowerUp(bottleStartPos, playerHandler.getPlayer(),"West");
-						PlasticBottleMovementLogic plasticBottleMovementLogic = new PlasticBottleMovementLogic(powerUp);
+						PlasticBottleMovementLogic plasticBottleMovementLogic = new PlasticBottleMovementLogic(playerHandler.getGameController(), powerUp);
 						plasticBottleMovementLogic.updateBottlePosition();
 					} else if (isDPressed) {
 						powerUp = new PlasticBottlePowerUp(bottleStartPos, playerHandler.getPlayer(),"East");
-						PlasticBottleMovementLogic plasticBottleMovementLogic = new PlasticBottleMovementLogic(powerUp);
+						PlasticBottleMovementLogic plasticBottleMovementLogic = new PlasticBottleMovementLogic(playerHandler.getGameController(),powerUp);
 						plasticBottleMovementLogic.updateBottlePosition();
 					} else if (isSPressed) {
 						powerUp = new PlasticBottlePowerUp(bottleStartPos, playerHandler.getPlayer(),"South");
-						PlasticBottleMovementLogic plasticBottleMovementLogic = new PlasticBottleMovementLogic(powerUp);
+						PlasticBottleMovementLogic plasticBottleMovementLogic = new PlasticBottleMovementLogic(playerHandler.getGameController(), powerUp);
 						plasticBottleMovementLogic.updateBottlePosition();
 					}
 				}

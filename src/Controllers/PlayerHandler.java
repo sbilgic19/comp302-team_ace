@@ -2,33 +2,34 @@ package Controllers;
 
 import domain.Player;
 import ApplicationLogic.PlayerMoveLogic;
+import UI.GameController;
 import UI.GameFrame;
 
 public class PlayerHandler {
 	
 	private Player player;
-	private GameFrame gameFrame;
+	private GameController gameController;
 	private int numRow;
 	private int numCol;
 	PlayerMoveLogic playerMoveLogic;
 	
 	
 
-	public PlayerHandler(Player player, GameFrame gameFrame) {
+	public PlayerHandler(Player player, GameController gameController) {
 		this.player = player;
-		this.gameFrame = gameFrame;
-		playerMoveLogic = new PlayerMoveLogic(this.gameFrame);
+		this.gameController = gameController;
+		playerMoveLogic = new PlayerMoveLogic(this.gameController);
 	}
 
 	public void updatePlayerPosition(int changeInX, int changeInY) {
-			playerMoveLogic.updatePlayerPosition(player, changeInX, changeInY);
+			playerMoveLogic.updatePlayerPosition(changeInX, changeInY);
 		}
 
 	public Player getPlayer() {
 		return player;
 	}
 
-	public GameFrame getGameFrame() {
-		return gameFrame;
+	public GameController getGameController() {
+		return this.gameController;
 	}
 }
