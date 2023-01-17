@@ -12,6 +12,7 @@ import domain.powerUps.PowerUp;
 import domain.Player;
 import domain.aliens.ShooterAlien;
 import domain.aliens.TimeWastingAlien;
+import domain.GameInfo;
 import domain.Key;
 import domain.powerUps.PowerUpFactory;
 
@@ -68,7 +69,9 @@ public class GamePanel extends JPanel {
     ShooterAlienHandler shooterAlienHandler;
     BlindAlienHandler blindAlienHandler;
     public GamePanel(GameFrame gameFrame) {
-    	
+    	player = new Player(0,5);
+		GameInfo.getInstance().setPlayer(player);
+		PowerUpFactory.getInstance().setPlayer(player);
     	numRow = gameFrame.getNumRow();
     	numCol = gameFrame.getNumCol();
 
@@ -108,11 +111,10 @@ public class GamePanel extends JPanel {
         this.gameFrame = gameFrame;
         
         this.setLayout(new GridLayout(numRow, numCol, 0, 0));
-        roomKeyHandler = gameFrame.getRoomKeyHandler();
-
-        shooterAlienHandler = gameFrame.getShooterAlienHandler();
-        blindAlienHandler = gameFrame.getBlindAlienHandler();
-        powerUpHandler = gameFrame.getPowerUpHandler();
+		roomKeyHandler = new RoomKeyHandler(gameFrame, player);
+		shooterAlienHandler = new ShooterAlienHandler(player, gameFrame);
+		blindAlienHandler = new BlindAlienHandler(player,gameFrame);
+		powerUpHandler = new PowerUpHandler(gameFrame, player);
 
     }
 
@@ -423,8 +425,8 @@ public class GamePanel extends JPanel {
     	return gameMap;
     }
     
-    public Player getPlayer() {
-    	return this.player;
+    public static Player getPlayer() {
+    	return player;
     }
     public static void setPlayer(Player player) {
         GamePanel.player = player;

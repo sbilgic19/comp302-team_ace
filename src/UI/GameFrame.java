@@ -95,6 +95,7 @@ public class GameFrame extends JFrame {
 		loginPanel = new LoginPanel();
 //		loginButton = new JButton("Login");
 //		loginButton.setFocusable(false);
+		buttonHandler = new LoginAuthorizationHandler(this);
 	}
 	
 	public void switchLoginView() {
@@ -308,6 +309,8 @@ public class GameFrame extends JFrame {
 		gamePanel.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
 		gamePanel.setGameMap(buildModeMap);
 		gamePanel.requestFocus();
+		PlayerHandler playerHandler = new PlayerHandler(GamePanel.getPlayer(),this);
+		KeyHandler keyHandler = new KeyHandler(playerHandler);
 		gamePanel.addKeyListener(keyHandler);
 		gamePanel.alienProducer();
 		
