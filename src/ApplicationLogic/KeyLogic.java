@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import java.util.Random;
 
+import UI.GameController;
 import UI.GameFrame;
 import UI.GamePanel;
 import dataStructures.Location;
@@ -28,12 +29,12 @@ It returns true if the Player is within one unit of the Key and the Key is succe
 getKey(): generates and returns a new Key object with a randomly chosen location in the game map, 
 avoiding locations occupied by other objects and the door location.
 	 */
-	GameFrame gameFrame;
+	GameController gameController;
 	private final Random r = new Random();
 	
-	public KeyLogic(GameFrame gameFrame) {
+	public KeyLogic(GameController gameController) {
 		super();
-		this.gameFrame = gameFrame;
+		this.gameController = gameController;
 	}
 
 	public void addKey(Key k) {
@@ -54,9 +55,9 @@ avoiding locations occupied by other objects and the door location.
 	public Key getKey() {
 		Key k = null;
 		//System.out.println("getKey called");
-		Location doorLocation = gameFrame.getDoorLocation();
-		int rowCount = gameFrame.getNumRow();
-		int columnCount = gameFrame.getNumCol();
+		Location doorLocation = gameController.getGameFrame().getDoorLocation();
+		int rowCount = gameController.getGameFrame().getNumRow();
+		int columnCount = gameController.getGameFrame().getNumCol();
 		Boolean flag = false;
 		ArrayList<Location> object_locations = new ArrayList<>(); 
 		for (int i = 0; i < rowCount; i++) {

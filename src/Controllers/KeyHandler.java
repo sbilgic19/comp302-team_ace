@@ -55,7 +55,7 @@ public class KeyHandler extends KeyAdapter {
 					PowerUp powerUp = playerHandler.getPlayer().getPowerUp("ProtectionVest");
 					if(powerUp != null){
 						powerUp.triggerEffect();
-						playerHandler.getGameFrame().updateBagView(null);
+						playerHandler.getGameController().updateBagView(null);
 					}
 				}else if(event.getKeyCode() == KeyEvent.VK_H && playerHandler.getPlayer().isContains("Hint")){
 					PowerUp powerUp = playerHandler.getPlayer().getPowerUp("Hint");
@@ -70,7 +70,7 @@ public class KeyHandler extends KeyAdapter {
 							}
 						}, 10 * 1000);
 
-						playerHandler.getGameFrame().updateBagView(null);
+						playerHandler.getGameController().updateBagView(null);
 						powerUp.triggerEffect();
 
 

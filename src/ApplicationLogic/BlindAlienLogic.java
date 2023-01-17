@@ -3,6 +3,7 @@ package ApplicationLogic;
 import java.util.ArrayList;
 import java.util.Random;
 
+import UI.GameController;
 import UI.GameFrame;
 import UI.GamePanel;
 import dataStructures.Location;
@@ -12,11 +13,11 @@ import domain.aliens.BlindAlien;
 
 public class BlindAlienLogic {
 	BlindAlien blindAlien;
-	private GameFrame gameFrame;
+	private GameController gameController;
 	private final Random random = new Random();
 	
-	public BlindAlienLogic(GameFrame gameFrame, Player player) {
-		this.gameFrame = gameFrame;
+	public BlindAlienLogic(GameController gameController, Player player) {
+		this.gameController = gameController;
 	}
 	
 	
@@ -31,7 +32,7 @@ public class BlindAlienLogic {
 				System.out.println("isProtected: "+ player.isProtected());
 
 					player.decreaseLives();
-					gameFrame.updatePlayerLivesView(player.getLives());
+					gameController.updatePlayerLivesView(player.getLives());
 					return true;
 			
 				
@@ -72,8 +73,8 @@ public class BlindAlienLogic {
 			int newXPosition = xPosition + changeInX;
 			int newYPosition = yPosition + changeInY;
 			
-			if (newXPosition >= 0 && newXPosition < gameFrame.getNumRow() && newYPosition >= 0 
-						&& newYPosition < gameFrame.getNumCol()) {  
+			if (newXPosition >= 0 && newXPosition < gameController.getGameFrame().getNumRow() && newYPosition >= 0 
+						&& newYPosition < gameController.getGameFrame().getNumCol()) {  
 				if(GamePanel.getGameMap()[newXPosition][newYPosition].getIcon() == null) {
 					GamePanel.updateBlindAlienView(xPosition, yPosition,
 							newXPosition, newYPosition);
@@ -104,9 +105,9 @@ public class BlindAlienLogic {
 		if(this.blindAlien != null) {
 			this.deactivate();
 		}
-		Location doorLocation = gameFrame.getDoorLocation();
-		int rowCount = gameFrame.getNumRow();
-		int columnCount = gameFrame.getNumCol();
+		Location doorLocation = gameController.getGameFrame().getDoorLocation();
+		int rowCount = gameController.getGameFrame().getNumRow();
+		int columnCount = gameController.getGameFrame().getNumCol();
 		Boolean flag = false;
 		ArrayList<Location> object_locations = new ArrayList<>(); 
 		for (int i = 0; i < rowCount; i++) {

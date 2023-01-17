@@ -54,7 +54,7 @@ public class GamePanel extends JPanel {
 
     private static int numRow;
     private static int numCol;
-    private GameFrame gameFrame;
+    //private GameFrame gameFrame;
     private Key key;
     private PowerUp powerUp;
     private static Player player;
@@ -67,10 +67,13 @@ public class GamePanel extends JPanel {
     TimeWastingAlienHandler alienHandler;
     ShooterAlienHandler shooterAlienHandler;
     BlindAlienHandler blindAlienHandler;
-    public GamePanel(GameFrame gameFrame) {
+    
+    private GameController gameController;
+    public GamePanel(GameController gameController) {
     	
-    	numRow = gameFrame.getNumRow();
-    	numCol = gameFrame.getNumCol();
+    	this.gameController = gameController;
+    	numRow = gameController.getGameFrame().getNumRow();
+    	numCol = gameController.getGameFrame().getNumCol();
 
     	IconFactory iconFactory = IconFactory.getInstance();
         playerFrontIcon = iconFactory.generateIcon("../assets/playerFrontIcon.png", 50, 50);
@@ -105,14 +108,14 @@ public class GamePanel extends JPanel {
         
         timeWastingAlienIcon = iconFactory.generateIcon("../assets/timeWastingAlienIcon.png", 50, 50);
         
-        this.gameFrame = gameFrame;
+        //this.gameFrame = gameFrame;
         
         this.setLayout(new GridLayout(numRow, numCol, 0, 0));
-        roomKeyHandler = gameFrame.getRoomKeyHandler();
+        roomKeyHandler = gameController.getGameFrame().getRoomKeyHandler();
 
-        shooterAlienHandler = gameFrame.getShooterAlienHandler();
-        blindAlienHandler = gameFrame.getBlindAlienHandler();
-        powerUpHandler = gameFrame.getPowerUpHandler();
+        shooterAlienHandler = gameController.getGameFrame().getShooterAlienHandler();
+        blindAlienHandler = gameController.getGameFrame().getBlindAlienHandler();
+        powerUpHandler = gameController.getGameFrame().getPowerUpHandler();
 
     }
 
@@ -136,7 +139,7 @@ public class GamePanel extends JPanel {
                     		Boolean b = roomKeyHandler.takeKey(key);
                     		if(e.getSource() == gameMap[locX_key][locY_key] && key != null && b ) {
                     			System.out.println(locX_key+" " + locY_key);
-                            	gameFrame.updateKeyView(b);
+                    			gameController.updateKeyView(b);
                             	System.out.println(b);
                             	key = null;
                     		}
@@ -163,7 +166,7 @@ public class GamePanel extends JPanel {
                         if(e.getSource() == gameMap[locX][locY]) {
                         	//powerUp.triggerEffect();
                         	powerUpHandler.usePowerUp(powerUp);
-                            gameFrame.updatePlayerLivesView(player.getLives());
+                            gameController.updatePlayerLivesView(player.getLives());
                         	gameMap[locX][locY].setIcon(null);
                         	powerUp = null;
                         	
@@ -183,11 +186,11 @@ public class GamePanel extends JPanel {
         System.out.println(key.getLocation().getLocationX()+" " + key.getLocation().getLocationY());
         gameMap[0][5].setIcon(playerFrontIcon);
         powerUp = powerUpHandler.getRandomPowerUp();
-        alienHandler = new TimeWastingAlienHandler(gameFrame, key);
+        alienHandler = new TimeWastingAlienHandler(gameController.getGameFrame(), key);
         
         if (!key.getIsTaken()) {
         	TimeWastingAlien alien = alienHandler.getTimeWastingAlien();
-        	alien.setLevelTime(gameFrame.getLevelTime()); //no point
+        	alien.setLevelTime(gameController.getGameFrame().getLevelTime()); //no point
         	GameTime.getInstance().setTimeWastingAlien(alien);
         }
 

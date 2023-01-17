@@ -2,6 +2,7 @@ package Controllers;
 
 
 import ApplicationLogic.PowerUpLogic;
+import UI.GameController;
 import UI.GameFrame;
 import domain.Player;
 import domain.powerUps.PowerUp;
@@ -9,13 +10,13 @@ import domain.powerUps.PowerUp;
 public class PowerUpHandler {
 	
 	PowerUpLogic powerUpLogic;
-	GameFrame gameFrame;
+	GameController gameController;
 	
 	
 	
-	public PowerUpHandler(GameFrame gameFrame, Player player) {
-		powerUpLogic = new PowerUpLogic(gameFrame, player);
-		this.gameFrame = gameFrame;
+	public PowerUpHandler(GameController gameController, Player player) {
+		powerUpLogic = new PowerUpLogic(gameController, player);
+		this.gameController = gameController;
 	}
 	public PowerUp getRandomPowerUp() 
 	{
@@ -28,7 +29,7 @@ public class PowerUpHandler {
 	}
 
 	public GameFrame getGameFrame(){
-		return this.gameFrame;
+		return this.gameController.getGameFrame();
 	}
 
 

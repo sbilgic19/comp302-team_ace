@@ -3,14 +3,15 @@ package ApplicationLogic;
 import UI.GamePanel;
 import UI.GameState;
 import domain.Player;
+import UI.GameController;
 import UI.GameFrame;
 
 public class PlayerMoveLogic  {
 	
-	private GameFrame gameFrame;
+	private GameController gameController;
 	
-	public PlayerMoveLogic(GameFrame gameFrame) {
-		this.gameFrame = gameFrame;
+	public PlayerMoveLogic(GameController gameController) {
+		this.gameController = gameController;
 	}
 	
 	public void updatePlayerPosition(Player player, int changeInX, int changeInY) {
@@ -33,8 +34,8 @@ public class PlayerMoveLogic  {
 			int newXPlayerPosition = xPlayerPosition + changeInX;
 			int newYPlayerPosition = yPlayerPosition + changeInY;
 			
-			if (newXPlayerPosition >= 0 && newXPlayerPosition < gameFrame.getNumRow() && newYPlayerPosition >= 0 
-						&& newYPlayerPosition < gameFrame.getNumCol()) {  
+			if (newXPlayerPosition >= 0 && newXPlayerPosition < gameController.getGameFrame().getNumRow() && newYPlayerPosition >= 0 
+						&& newYPlayerPosition < gameController.getGameFrame().getNumCol()) {  
 				
 				if(GamePanel.getGameMap()[newXPlayerPosition][newYPlayerPosition].getIcon() == null) {
 					int playerLogoPosition = 0;
