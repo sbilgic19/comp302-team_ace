@@ -26,8 +26,8 @@ public class ShooterAlienLogic {
 		
 		if(shooterAlien.getIsActive()) {
 			if(Location.distance(player.getLocation(), shooterAlien.getLocation()) <= 3) {
-				System.out.println("X: "+player.getLocation().getLocationX()+" Y: "+player.getLocation().getLocationY());
-				System.out.println("isProtected: "+ player.isProtected());
+				//System.out.println("X: "+player.getLocation().getLocationX()+" Y: "+player.getLocation().getLocationY());
+				//System.out.println("isProtected: "+ player.isProtected());
 				if(!player.isProtected()) {
 					player.decreaseLives();
 					gameController.getGameFrame().updatePlayerLivesView(player.getLives());

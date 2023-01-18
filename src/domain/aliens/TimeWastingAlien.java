@@ -8,15 +8,13 @@ import dataStructures.Location;
 
 public class TimeWastingAlien implements Alien{
 	private Location location;
-	private String alienType;
+	private String alienType = "TimeWasting";
 	private Boolean isActive;
 	
 	private TimeWastingAlienBehaviourStrategy behaviourA;
 	private TimeWastingAlienBehaviourStrategy behaviourB;
 	private TimeWastingAlienBehaviourStrategy behaviourC;
-	
-	private int currentTime;
-	private int levelTime;
+
 	
 	public TimeWastingAlien(Location location) {
 		super();
@@ -60,32 +58,7 @@ public class TimeWastingAlien implements Alien{
 		return behavioursArray;
 	}
 	
-	private TimeWastingAlienBehaviourStrategy determineBehaviourStrategy() {
-		if ((currentTime * 100) / (float) levelTime < 30) {
-			System.out.println("A");
-			return behaviourA;	
-		}
-		
-		else if ((currentTime * 100)/ (float) levelTime > 70) {
-			System.out.println("B");
-			return behaviourB;
-		}
-		
-		else {
-			System.out.println("C");
-			return behaviourC;
-		}
-	}	
 
-	public void setLevelTime(int levelTime) {
-		this.levelTime = levelTime;
-	}
-	
-	public void setCurrentTime(int currentTime) {
-		this.currentTime = currentTime;
-		TimeWastingAlienBehaviourStrategy currentBehaviour = determineBehaviourStrategy();
-		triggerAction(currentBehaviour);
-	}
 	
 	public void triggerAction(TimeWastingAlienBehaviourStrategy currentBehaviour) {
 		isActive = currentBehaviour.changeLocationOfTheKey();

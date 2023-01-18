@@ -61,26 +61,10 @@ public class GameTime {
     public Timer getTimer() {
         return timer;
     }
-    
-    public void setTimeWastingAlien(TimeWastingAlien alien) {
-    	this.alien = alien;
-    }
 
-    /**
-     * Check the internal consistency of the GameTime class.
-     *
-     * @return whether timer has a valid time or not.
-     */
     public boolean repOK() {
         return seconds >= 0;
     }
 
-    /**
-     * Getter for the timewasting alien.
-     *
-     * @return the timewasting alien.
-     */
-    public TimeWastingAlien getTimeWastingAlien() {
-        return this.alien;
-    }
+
 }

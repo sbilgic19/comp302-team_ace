@@ -3,6 +3,8 @@ import java.util.ArrayList;
 
 import ApplicationLogic.KeyLogic;
 import ApplicationLogic.TimeWastingAlienBehaviourStrategy;
+import Controllers.TimeWastingAlienHandler;
+import UI.GameController;
 import UI.GameFrame;
 import dataStructures.Location;
 import domain.Key;
@@ -25,13 +27,14 @@ public class TimeWastingAlienBehaviourTest {
 		objectList.add(new RoomObject(new Location(3, 20), 1));
 		objectList.add(new RoomObject(new Location(3, 21), 1));
 		objectList.add(new RoomObject(new Location(3, 22), 1));
-		  
+		
 		Location initialLocation = new Location(3, 18);
 		Key key = new Key(initialLocation);
-		
-		TimeWastingAlien alien = new TimeWastingAlien(new Location(1, 1));
+		GameController gameController = new GameController();
+		TimeWastingAlienHandler alienHandler = new TimeWastingAlienHandler(gameController);
+		TimeWastingAlien alien = alienHandler.getTimeWastingAlien();
 		TimeWastingAlienBehaviourStrategy behaviourA = alien.getBehaviours()[0];
-		behaviourA.setFieldInstances(objectList, key);
+		behaviourA.setFieldInstances(objectList, key,alienHandler.getAlienLogic());
 		
 		// MODIFIES: isActive instance field of the time wasting alien and 
 		// location instance field of the key
@@ -65,9 +68,12 @@ public class TimeWastingAlienBehaviourTest {
 		Location initialLocation = new Location(3, 18);
 		Key key = new Key(initialLocation);
 		
-		TimeWastingAlien alien = new TimeWastingAlien(new Location(1, 1));
+
+		GameController gameController = new GameController();
+		TimeWastingAlienHandler alienHandler = new TimeWastingAlienHandler(gameController);
+		TimeWastingAlien alien = alienHandler.getTimeWastingAlien();
 		TimeWastingAlienBehaviourStrategy behaviourB = alien.getBehaviours()[1];
-		behaviourB.setFieldInstances(objectList, key);
+		behaviourB.setFieldInstances(objectList, key,alienHandler.getAlienLogic());
 		
 		// MODIFIES: location instance field of the key
 		
@@ -102,9 +108,11 @@ public class TimeWastingAlienBehaviourTest {
 		Location initialLocation = new Location(3, 18);
 		Key key = new Key(initialLocation);
 		
-		TimeWastingAlien alien = new TimeWastingAlien(new Location(1, 1));
+		GameController gameController = new GameController();
+		TimeWastingAlienHandler alienHandler = new TimeWastingAlienHandler(gameController);
+		TimeWastingAlien alien = alienHandler.getTimeWastingAlien();
 		TimeWastingAlienBehaviourStrategy behaviourC = alien.getBehaviours()[2];
-		behaviourC.setFieldInstances(objectList, key);
+		behaviourC.setFieldInstances(objectList, key,alienHandler.getAlienLogic());
 		
 		// MODIFIES: isActive instance field of the time wasting alien
 		
