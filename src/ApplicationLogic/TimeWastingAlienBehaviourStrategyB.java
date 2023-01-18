@@ -3,15 +3,20 @@ package ApplicationLogic;
 import java.util.ArrayList;
 import java.util.Random;
 
+
 import dataStructures.Location;
 import domain.Key;
 import domain.RoomObject;
+
 
 public class TimeWastingAlienBehaviourStrategyB implements TimeWastingAlienBehaviourStrategy {
 
 	private ArrayList<RoomObject> objectList;
 	private Key key;
 	private int counter = 0;
+	private TimeWastingAlienLogic timeWastingAlienLogic;
+	
+
 
 	@Override
 	public boolean changeLocationOfTheKey() {
@@ -28,11 +33,13 @@ public class TimeWastingAlienBehaviourStrategyB implements TimeWastingAlienBehav
 			System.out.printf("%d %d\n", location.getLocationX(), location.getLocationY());
 			counter = 0;
 		}
+		
 		return true;
 	}
 	
-	public void setFieldInstances(ArrayList<RoomObject> objectList, Key key) {
+	public void setFieldInstances(ArrayList<RoomObject> objectList, Key key, TimeWastingAlienLogic timeWastingAlienLogic) {
 		this.objectList = objectList;
 		this.key = key;
+		this.timeWastingAlienLogic = timeWastingAlienLogic;
 	}
 }

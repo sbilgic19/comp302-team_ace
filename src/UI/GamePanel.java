@@ -64,7 +64,7 @@ public class GamePanel extends JPanel {
      
     RoomKeyHandler roomKeyHandler;
     PowerUpHandler powerUpHandler;
-    TimeWastingAlienHandler alienHandler;
+    TimeWastingAlienHandler timeWastingAlienHandler;
     ShooterAlienHandler shooterAlienHandler;
     BlindAlienHandler blindAlienHandler;
     
@@ -134,15 +134,14 @@ public class GamePanel extends JPanel {
 				gameMap[ii][jj].addMouseListener(new MouseAdapter() {
 					@Override
                     public void mouseClicked(MouseEvent e) {
-						if(!GameState.getInstance().isPaused() && key != null  && !GameState.getInstance().isGameOver()) {
+						if(!GameState.getInstance().isPaused() && key != null && !key.getIsTaken()  && !GameState.getInstance().isGameOver()) {
 							int locX_key = key.getLocation().getLocationX();
                     		int locY_key =key.getLocation().getLocationY();
-                    		Boolean b = roomKeyHandler.takeKey(key);
-                    		if(e.getSource() == gameMap[locX_key][locY_key] && key != null && b ) {
+                    		if(e.getSource() == gameMap[locX_key][locY_key] && key != null ) {
+                    			roomKeyHandler.takeKey(key);
                     			System.out.println(locX_key+" " + locY_key);
-                    			gameFrame.updateKeyView(b);
-                            	System.out.println(b);
-                            	key = null;
+                    			gameFrame.updateKeyView(true);
+                            	System.out.println(true);
                     		}
 						}
 						
@@ -187,15 +186,19 @@ public class GamePanel extends JPanel {
         System.out.println(key.getLocation().getLocationX()+" " + key.getLocation().getLocationY());
         gameMap[0][5].setIcon(playerFrontIcon);
         powerUp = powerUpHandler.getRandomPowerUp();
-        alienHandler = new TimeWastingAlienHandler(gameFrame.getGameController(), key);
+        timeWastingAlienHandler = new TimeWastingAlienHandler(gameFrame.getGameController(), key);
+        
         
         if (!key.getIsTaken()) {
-        	TimeWastingAlien alien = alienHandler.getTimeWastingAlien();
-        	alien.setLevelTime(this.gameFrame.getLevelTime()); //no point
-        	GameTime.getInstance().setTimeWastingAlien(alien);
+        	//TimeWastingAlien alien = alienHandler.getTimeWastingAlien();
+        	//alien.setLevelTime(this.gameFrame.getLevelTime()); //no point
+        	//GameTime.getInstance().setTimeWastingAlien(alien);
         }
 
     }
+    
+    
+    
     
     
     public void alienProducer() {
@@ -205,11 +208,18 @@ public class GamePanel extends JPanel {
     	TimerTask tt = new TimerTask() {
     	    @Override
     	    public void run() {
-    	    	int alienNumber = new Random().nextInt(2)+1;
+    	    	int alienNumber;
+    	        if (!key.getIsTaken()) {
+    	        	alienNumber = new Random().nextInt(3);
+    	        }
+    	        else {
+    	        	alienNumber = new Random().nextInt(2)+1;
+    	        }
+    	        	
     	    	System.out.println(alienNumber);
     	    	switch(alienNumber) {
     	    	case 0:
-    	    		System.out.println("TimeWasting");
+    	    		timeWastingAlienRandomizer();
     	    		break;
     	    	case 1:
     	    		shooterAlieanRandomizer();
@@ -243,6 +253,48 @@ public class GamePanel extends JPanel {
     			
     }
     
+    public void timeWastingAlienRandomizer() {
+    	
+        int minDelay = 7000; // 5 seconds
+        int maxDelay = 10000; // 10 seconds
+        int randomDelay = new Random().nextInt(maxDelay - minDelay + 1) + minDelay;
+    	int t  = 0;
+    	timeWastingAlienHandler.getTimeWastingAlien();
+    	Timer wastingTimer = new Timer();
+    	
+    	wastingTimer.scheduleAtFixedRate(new TimerTask() {
+    	    @Override
+    	    public void run() {
+    	    	if (!GameState.getInstance().isPaused()) {
+    	    		
+    	    		boolean b  = timeWastingAlienHandler.changeLocationOfKey();
+	    	        if (b) {
+	    	            System.out.println("changed");
+	    	        }
+
+    	    	}
+    	    	
+    	    	if(GameState.getInstance().isGameOver()) {
+    	    		wastingTimer.cancel();    	    		//System.out.println("heyyo");
+    	    	}
+
+    	    }
+    	}, 1000, 1000);
+    	
+
+    	new Timer().schedule(new TimerTask() {
+    	    @Override
+    	    public void run() {
+    	    	wastingTimer.cancel();
+    	    	if(!GameState.getInstance().isGameOver()) {
+    	    		timeWastingAlienHandler.deactivate();
+    	    	}
+    	    }
+    	}, randomDelay);
+
+    }
+    
+    
     public void shooterAlieanRandomizer() {
     	
         int minDelay = 7000; // 5 seconds
@@ -262,7 +314,7 @@ public class GamePanel extends JPanel {
     	    	
     	    	if(GameState.getInstance().isGameOver()) {
     	    		shooterTimer.cancel();
-    	    		System.out.println("heyyo");
+    	    		//System.out.println("heyyo");
     	    	}
 
     	    }

@@ -37,13 +37,10 @@ avoiding locations occupied by other objects and the door location.
 		this.gameController = gameController;
 	}
 
-	public void addKey(Key k) {
-		Location location = k.getLocation();
-	}
 	
 	public boolean takeKey(Player p , Key k) {
 
-		if ( Math.abs(p.getLocation().getLocationX()- k.getLocation().getLocationX()) <= 1 && Math.abs(p.getLocation().getLocationY()- k.getLocation().getLocationY()) <= 1 ) {
+		if ( Math.abs(p.getLocation().getLocationX()- k.getLocation().getLocationX()) <= 1 && Math.abs(p.getLocation().getLocationY()- k.getLocation().getLocationY()) <= 1 && !k.getIsTaken() ) {
 			k.taken(p);
 			System.out.println("key taken");
 			return true;
@@ -81,7 +78,6 @@ avoiding locations occupied by other objects and the door location.
 		int rand = r.nextInt(object_locations.size());
 		
 		k = new Key(object_locations.get(rand));
-		this.addKey(k);
 			
 		return k;
 	}

@@ -1,50 +1,118 @@
 package ApplicationLogic;
+
 import java.util.ArrayList;
 import java.util.Random;
 
 import UI.GameController;
 import UI.GameFrame;
 import UI.GamePanel;
+import UI.GameTime;
 import dataStructures.Location;
+import domain.GameInfo;
 import domain.Key;
 import domain.RoomObject;
-import domain.aliens.*;
+import domain.aliens.AlienFactory;
+import domain.aliens.ShooterAlien;
+import domain.aliens.TimeWastingAlien;
 
 public class TimeWastingAlienLogic {
-	
+	TimeWastingAlien timeWastingAlien;
 	private GameController gameController;
-	private Key key;
-	private Random random = new Random();
-	
+	private final Random random = new Random();
+	Key key;
 	
 	public TimeWastingAlienLogic(GameController gameController, Key key) {
 		this.gameController = gameController;
 		this.key = key;
 	}
+	
+	
+	public Boolean changeLocationOfKey(Key key) {
 
-	public TimeWastingAlien getTimeWastingAlien() {
+		determineBehaviourStrategy();
 		
-		int numRow = gameController.getGameFrame().getNumRow();
-		int numCol = gameController.getGameFrame().getNumCol();
 		
-		int randRow;
-		int randCol;
-		
-		while (true) {
-			randRow = random.nextInt(numRow);
-			randCol = random.nextInt(numCol);
-			if (gameController.getGameFrame().getGamePanel().getGameMap()[randRow][randCol].getIcon() == null) {
-				break;
-			}
+		return false;
+	}
+	
+	
+private boolean determineBehaviourStrategy() {
+		int currentTime = GameTime.getInstance().getSeconds();
+		int levelTime = gameController.getGameFrame().getLevelTime();
+		TimeWastingAlienBehaviourStrategy[] behaviours = timeWastingAlien.getBehaviours();
+
+		if ((currentTime * 100) / (float) levelTime < 30 && !key.getIsTaken()) {
+			System.out.println("A");
+			return behaviours[0].changeLocationOfTheKey();
+			
 		}
-		gameController.getGameFrame().getGamePanel().getGameMap()[randRow][randCol].setIcon(gameController.getGameFrame().getGamePanel().getTimeWastingAlienIcon());
-		TimeWastingAlien timeWastingAlien = new TimeWastingAlien(new Location(randRow, randCol));
-		TimeWastingAlienBehaviourStrategy[] behavioursArray = timeWastingAlien.getBehaviours();
 		
-		behavioursArray[0].setFieldInstances(excludeDoorRoom(), key);
-		behavioursArray[1].setFieldInstances(excludeDoorRoom(), key);
+		else if ((currentTime * 100)/ (float) levelTime > 70  && !key.getIsTaken()) {
+			System.out.println("B");
+			return behaviours[1].changeLocationOfTheKey();
+		}
 		
-		return timeWastingAlien;	
+		else {
+			System.out.println("C");
+			return behaviours[2].changeLocationOfTheKey();
+		}
+}	
+	
+	
+	public void placeTimeWastingAlien() {
+		gameController.getGameFrame().getGamePanel().placeAlien(timeWastingAlien.getLocation(), timeWastingAlien.getAlienType());
+	}
+	
+	
+	public void deactivate() {
+		timeWastingAlien.setIsActive(false);
+		gameController.getGameFrame().getGamePanel().setNullIcon(timeWastingAlien.getLocation());
+	}
+	
+	
+	
+	public TimeWastingAlien getTimeWastingAlien() {
+		if(this.timeWastingAlien != null) {
+			this.deactivate();
+		}
+		Location doorLocation = gameController.getGameFrame().getDoorLocation();
+		int rowCount = gameController.getGameFrame().getNumRow();
+		int columnCount = gameController.getGameFrame().getNumCol();
+		Boolean flag = false;
+		ArrayList<Location> object_locations = new ArrayList<>(); 
+		for (int i = 0; i < rowCount; i++) {
+			  for ( int j = 0; j < columnCount ; j++) {
+				  if (i == 0 && j == 5) {
+					  continue;
+				  }
+				  else if (i == doorLocation.getLocationX() && j == doorLocation.getLocationY()) {
+					  continue;
+				  }
+				  if (gameController.getGameFrame().getGamePanel().getGameMap()[i][j].getIcon() == null) {
+					  if (i == 0 && j == 5) {
+						  continue;
+					  }
+					  object_locations.add(new Location(i,j));
+					  
+				  }
+			  }
+			}
+		
+		int rand = random.nextInt(object_locations.size());
+		
+		TimeWastingAlien timeWastingAlien = (TimeWastingAlien) AlienFactory.getInstance().getAlien("TimeWasting" , object_locations.get(rand));
+		TimeWastingAlienBehaviourStrategy[] behaviours = timeWastingAlien.getBehaviours();
+		behaviours[0].setFieldInstances(excludeDoorRoom(), key,this);
+		behaviours[1].setFieldInstances(excludeDoorRoom(), key,this);
+		behaviours[2].setFieldInstances(excludeDoorRoom(), key,this);
+		setTimeWastingAlien(timeWastingAlien);
+		placeTimeWastingAlien();
+		return timeWastingAlien;
+	}
+
+
+	public void setTimeWastingAlien(TimeWastingAlien timeWastingAlien) {
+		this.timeWastingAlien = timeWastingAlien;
 	}
 	
 	private ArrayList<RoomObject> excludeDoorRoom() {
@@ -60,4 +128,10 @@ public class TimeWastingAlienLogic {
 		}	
 		return objectList;
 	}
+
+
+	
+	
+	
+
 }

@@ -28,5 +28,22 @@ public class TimeWastingAlienHandler {
 	
 	public TimeWastingAlien getTimeWastingAlien() {
 		return alienLogic.getTimeWastingAlien();
-	}	
+	}
+	
+	public void deactivate() {
+		alienLogic.deactivate();
+	}
+	public boolean changeLocationOfKey() {
+		return alienLogic.changeLocationOfKey(key);
+	}
+	
+	public void placeTimeWastingAlien() {
+		alienLogic.placeTimeWastingAlien();
+	}
+
+	public TimeWastingAlienLogic getAlienLogic() {
+		return alienLogic;
+	}
+	
+	
 }

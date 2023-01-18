@@ -54,11 +54,7 @@ public class GameTimeTest {
     assertNotNull(gameTime.getTimer());
   }
 
-  @Test
-  public void testSetTimeWastingAlien() {
-    gameTime.setTimeWastingAlien(alien);
-    assertEquals(alien, gameTime.getTimeWastingAlien());
-  }
+
 
   @Test
   public void testRepOK() {

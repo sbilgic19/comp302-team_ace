@@ -194,7 +194,6 @@ public class GameFrame extends JFrame {
 		this.keyHandler = keyHandler;
 	}
 
-	// Sign Up Check i için
 	public String getSignupUsername() {
 		return signupPanel.getSignupUsername();
 	}

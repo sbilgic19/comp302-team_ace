@@ -22,7 +22,7 @@ public class RoomKeyHandler {
 	}
 	
 	public Key getRandomKey() {
-		this.key = keyLogic.getKey();
+		key = keyLogic.getKey();
 		return key;
 	}
 	
