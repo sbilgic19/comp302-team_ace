@@ -47,6 +47,7 @@ public class GameController {
 	private ShooterAlienHandler shooterAlienHandler;
 	private BlindAlienHandler blindAlienHandler;
 	private PowerUpHandler powerUpHandler;
+	private PowerUp activePowerUp;
 	
 	public GameController() {
 		
@@ -269,6 +270,18 @@ public class GameController {
 	public void increaseSecond(int second) {
 		int newSecond = GameTime.getInstance().getSeconds() + second;
 		GameTime.getInstance().setSeconds(newSecond);
+	}
+
+	public void setPowerUp(PowerUp powerUp){
+		this.activePowerUp = powerUp;
+		gameFrame.getGamePanel().setPowerUp(powerUp);
+	}
+	public void removePowerUp(){
+		this.activePowerUp = null;
+		gameFrame.getGamePanel().setPowerUp(null);
+	}
+	public PowerUp getActivePowerUp(){
+		return this.activePowerUp;
 	}
 	
 }

@@ -102,18 +102,22 @@ public class KeyHandler extends KeyAdapter {
 						powerUp = new PlasticBottlePowerUp(bottleStartPos, playerHandler.getPlayer(),"North");
 						PlasticBottleMovementLogic plasticBottleMovementLogic = new PlasticBottleMovementLogic(playerHandler.getGameController(), powerUp);
 						plasticBottleMovementLogic.updateBottlePosition();
+						playerHandler.getPlayer().removePowerUp("PlasticBottle");
 					} else if (isAPressed) {
 						powerUp = new PlasticBottlePowerUp(bottleStartPos, playerHandler.getPlayer(),"West");
 						PlasticBottleMovementLogic plasticBottleMovementLogic = new PlasticBottleMovementLogic(playerHandler.getGameController(), powerUp);
 						plasticBottleMovementLogic.updateBottlePosition();
+						playerHandler.getPlayer().removePowerUp("PlasticBottle");
 					} else if (isDPressed) {
 						powerUp = new PlasticBottlePowerUp(bottleStartPos, playerHandler.getPlayer(),"East");
 						PlasticBottleMovementLogic plasticBottleMovementLogic = new PlasticBottleMovementLogic(playerHandler.getGameController(),powerUp);
 						plasticBottleMovementLogic.updateBottlePosition();
+						playerHandler.getPlayer().removePowerUp("PlasticBottle");
 					} else if (isSPressed) {
 						powerUp = new PlasticBottlePowerUp(bottleStartPos, playerHandler.getPlayer(),"South");
 						PlasticBottleMovementLogic plasticBottleMovementLogic = new PlasticBottleMovementLogic(playerHandler.getGameController(), powerUp);
 						plasticBottleMovementLogic.updateBottlePosition();
+						playerHandler.getPlayer().removePowerUp("PlasticBottle");
 					}
 				}
 				lastSavedTime = currentTime;
