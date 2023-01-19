@@ -4,15 +4,12 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import UI.GameController;
-import UI.GameFrame;
-import UI.GamePanel;
 import UI.GameTime;
 import dataStructures.Location;
 import domain.GameInfo;
 import domain.Key;
 import domain.RoomObject;
 import domain.aliens.AlienFactory;
-import domain.aliens.ShooterAlien;
 import domain.aliens.TimeWastingAlien;
 
 public class TimeWastingAlienLogic {
@@ -75,7 +72,7 @@ private boolean determineBehaviourStrategy() {
 		if(this.timeWastingAlien != null) {
 			this.deactivate();
 		}
-		Location doorLocation = gameController.getGameFrame().getDoorLocation();
+		Location doorLocation = GameInfo.getInstance().getDoorLocation();
 		int rowCount = gameController.getGameFrame().getNumRow();
 		int columnCount = gameController.getGameFrame().getNumCol();
 		Boolean flag = false;
@@ -117,8 +114,8 @@ private boolean determineBehaviourStrategy() {
 	
 	private ArrayList<RoomObject> excludeDoorRoom() {
 		
-		Location doorLocation = gameController.getGameFrame().getDoorLocation();
-		ArrayList<RoomObject> objectList = gameController.getGameFrame().getObjectList();
+		Location doorLocation = GameInfo.getInstance().getDoorLocation();
+		ArrayList<RoomObject> objectList = GameInfo.getInstance().getListOfObjects();
 		for (int ii = 0; ii < objectList.size(); ii++) {
 			Location tempLocation = objectList.get(ii).getLocation();
 			if (tempLocation.getLocationX() == doorLocation.getLocationX() 

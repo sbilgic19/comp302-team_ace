@@ -3,9 +3,8 @@ package ApplicationLogic;
 import java.util.Random;
 
 import UI.GameController;
-import UI.GameFrame;
-import UI.GamePanel;
 import dataStructures.Location;
+import domain.GameInfo;
 import domain.Player;
 import domain.powerUps.PowerUp;
 import domain.powerUps.PowerUpFactory;
@@ -13,12 +12,10 @@ import domain.powerUps.PowerUpFactory;
 public class PowerUpLogic {
 
 	private GameController gameController;
-	private Player player;
 	private final Random r = new Random();
 	
 	public PowerUpLogic(GameController gameController, Player player) {
 		this.gameController = gameController;
-		this.player = player;
 	}
 	public void addPowerUp(PowerUp powerUp) 
 	{
@@ -33,7 +30,7 @@ public class PowerUpLogic {
 			powerUp.triggerEffect();
 		else
 			gameController.getGameFrame().updateBagView(powerUp);
-			player.addToBag(powerUp);
+			GameInfo.getInstance().getPlayer().addToBag(powerUp);
 			System.out.println(powerUp.getPowerUpType() + " added to the bag");
 	}
 	
@@ -68,7 +65,7 @@ public class PowerUpLogic {
 				powerUp = PowerUpFactory.getInstance().getPowerUp("ProtectionVest", location);
 				this.addPowerUp(powerUp);
 				break;
-      case 3:
+      		case 3:
 				powerUp = PowerUpFactory.getInstance().getPowerUp("PlasticBottle", location);
 				this.addPowerUp(powerUp);
 				break;

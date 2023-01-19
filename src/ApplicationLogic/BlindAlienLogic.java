@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import UI.GameController;
-import UI.GameFrame;
-import UI.GamePanel;
 import dataStructures.Location;
+import domain.GameInfo;
 import domain.Player;
 import domain.aliens.AlienFactory;
 import domain.aliens.BlindAlien;
@@ -105,7 +104,7 @@ public class BlindAlienLogic {
 		if(this.blindAlien != null) {
 			this.deactivate();
 		}
-		Location doorLocation = gameController.getGameFrame().getDoorLocation();
+		Location doorLocation = GameInfo.getInstance().getDoorLocation();
 		int rowCount = gameController.getGameFrame().getNumRow();
 		int columnCount = gameController.getGameFrame().getNumCol();
 		Boolean flag = false;

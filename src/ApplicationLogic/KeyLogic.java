@@ -6,9 +6,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import UI.GameController;
-import UI.GameFrame;
-import UI.GamePanel;
 import dataStructures.Location;
+import domain.GameInfo;
 import domain.Key;
 import domain.Player;
 
@@ -52,7 +51,7 @@ avoiding locations occupied by other objects and the door location.
 	public Key getKey() {
 		Key k = null;
 		//System.out.println("getKey called");
-		Location doorLocation = gameController.getGameFrame().getDoorLocation();
+		Location doorLocation = GameInfo.getInstance().getDoorLocation();
 		int rowCount = gameController.getGameFrame().getNumRow();
 		int columnCount = gameController.getGameFrame().getNumCol();
 		Boolean flag = false;

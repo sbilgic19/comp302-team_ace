@@ -1,10 +1,9 @@
 package Controllers;
 
-import UI.GameFrame;
-import UI.GamePanel;
 import ApplicationLogic.PlasticBottleMovementLogic;
 import UI.GameState;
 import dataStructures.Location;
+import domain.GameInfo;
 import domain.powerUps.PlasticBottlePowerUp;
 import domain.powerUps.PowerUp;
 import domain.Key;
@@ -51,14 +50,14 @@ public class KeyHandler extends KeyAdapter {
 					playerHandler.updatePlayerPosition(0, -1);
 				} else if (event.getKeyCode() == KeyEvent.VK_RIGHT) {
 					playerHandler.updatePlayerPosition(0, 1);
-				}else if(event.getKeyCode() == KeyEvent.VK_P && playerHandler.getPlayer().isContains("ProtectionVest")){
-					PowerUp powerUp = playerHandler.getPlayer().getPowerUp("ProtectionVest");
+				}else if(event.getKeyCode() == KeyEvent.VK_P && GameInfo.getInstance().getPlayer().isContains("ProtectionVest")){
+					PowerUp powerUp = GameInfo.getInstance().getPlayer().getPowerUp("ProtectionVest");
 					if(powerUp != null){
 						powerUp.triggerEffect();
 						playerHandler.getGameController().getGameFrame().updateBagView(null);
 					}
-				}else if(event.getKeyCode() == KeyEvent.VK_H && playerHandler.getPlayer().isContains("Hint")){
-					PowerUp powerUp = playerHandler.getPlayer().getPowerUp("Hint");
+				}else if(event.getKeyCode() == KeyEvent.VK_H && GameInfo.getInstance().getPlayer().isContains("Hint")){
+					PowerUp powerUp = GameInfo.getInstance().getPlayer().getPowerUp("Hint");
 					if(powerUp != null){
 						Key key = powerUpHandler.getGameController().getGameFrame().getGamePanel().getKey();
 						powerUpHandler.getGameController().getGameFrame().getGamePanel().addBordersHint(key.getLocation().getLocationX(), key.getLocation().getLocationY());
@@ -93,25 +92,25 @@ public class KeyHandler extends KeyAdapter {
 				if(event.getKeyChar() == 's'){
 					isSPressed = true;
 				}
-				else if(isBPressed && playerHandler.getPlayer().isContains("PlasticBottle")){
+				else if(isBPressed && GameInfo.getInstance().getPlayer().isContains("PlasticBottle")){
 					System.out.println("Hi");
-					Location bottleStartPos = new Location(playerHandler.getPlayer().getLocation().getLocationX(),playerHandler.getPlayer().getLocation().getLocationY());
+					Location bottleStartPos = new Location(GameInfo.getInstance().getPlayer().getLocation().getLocationX(),GameInfo.getInstance().getPlayer().getLocation().getLocationY());
 					PlasticBottlePowerUp powerUp = null;
 					if(isWPressed){
 						System.out.println("HİW");
-						powerUp = new PlasticBottlePowerUp(bottleStartPos, playerHandler.getPlayer(),"North");
+						powerUp = new PlasticBottlePowerUp(bottleStartPos,GameInfo.getInstance().getPlayer(), "North");
 						PlasticBottleMovementLogic plasticBottleMovementLogic = new PlasticBottleMovementLogic(playerHandler.getGameController(), powerUp);
 						plasticBottleMovementLogic.updateBottlePosition();
 					} else if (isAPressed) {
-						powerUp = new PlasticBottlePowerUp(bottleStartPos, playerHandler.getPlayer(),"West");
+						powerUp = new PlasticBottlePowerUp(bottleStartPos, GameInfo.getInstance().getPlayer(),"West");
 						PlasticBottleMovementLogic plasticBottleMovementLogic = new PlasticBottleMovementLogic(playerHandler.getGameController(), powerUp);
 						plasticBottleMovementLogic.updateBottlePosition();
 					} else if (isDPressed) {
-						powerUp = new PlasticBottlePowerUp(bottleStartPos, playerHandler.getPlayer(),"East");
+						powerUp = new PlasticBottlePowerUp(bottleStartPos, GameInfo.getInstance().getPlayer(),"East");
 						PlasticBottleMovementLogic plasticBottleMovementLogic = new PlasticBottleMovementLogic(playerHandler.getGameController(),powerUp);
 						plasticBottleMovementLogic.updateBottlePosition();
 					} else if (isSPressed) {
-						powerUp = new PlasticBottlePowerUp(bottleStartPos, playerHandler.getPlayer(),"South");
+						powerUp = new PlasticBottlePowerUp(bottleStartPos, GameInfo.getInstance().getPlayer(),"South");
 						PlasticBottleMovementLogic plasticBottleMovementLogic = new PlasticBottleMovementLogic(playerHandler.getGameController(), powerUp);
 						plasticBottleMovementLogic.updateBottlePosition();
 					}

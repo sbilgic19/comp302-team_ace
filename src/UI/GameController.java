@@ -16,7 +16,6 @@ import javax.swing.JPanel;
 import Controllers.BlindAlienHandler;
 import Controllers.BuildModeButtonHandler;
 import Controllers.KeyHandler;
-import Controllers.LoginAuthorizationHandler;
 import Controllers.PlayerHandler;
 import Controllers.PowerUpHandler;
 import Controllers.RoomKeyHandler;
@@ -55,6 +54,7 @@ public class GameController {
 		gameFrame = new GameFrame(this);
 		//gamePanel = new GamePanel(this);
 		player = new Player();
+		player.setLocation(GameInfo.getInstance().getPlayerLocation());
 		this.roomKeyHandler = new RoomKeyHandler(this, player);
 		
 		
@@ -132,18 +132,6 @@ public class GameController {
 			gameFrame.remove(gameFrame.getBuildPanel());
 			gameFrame.getButtonPanel().remove(gameFrame.getBuildModeSubmitButton());
 		}
-		
-		
-		
-		//player = new Player();
-		roomKeyHandler = new RoomKeyHandler(this, player);
-		playerHandler = new PlayerHandler(player, this);
-
-		keyHandler = new KeyHandler(playerHandler);
-		shooterAlienHandler = new ShooterAlienHandler(player, this);
-		blindAlienHandler = new BlindAlienHandler(player, this);
-		powerUpHandler = new PowerUpHandler(this, player);
-	
 		gameFrame.setPauseButton(new JButton("II"));
 		gameFrame.getPauseButton().setFocusable(false);
 		gameFrame.getPauseButton().setSize(50,50);
@@ -153,8 +141,17 @@ public class GameController {
 		gameFrame.getResumeButton().setVisible(false);
 		gameFrame.getResumeButton().setSize(50,50);
 		
-		gameFrame.setLevelTime(5 * gameFrame.getBuildPanel().getBuildingObjectCounter());
-		GameTime.getInstance().setSeconds(gameFrame.getLevelTime());
+		
+		player = GameInfo.getInstance().getPlayer();
+		roomKeyHandler = new RoomKeyHandler(this, player);
+		playerHandler = new PlayerHandler(player, this);
+
+		keyHandler = new KeyHandler(playerHandler);
+		shooterAlienHandler = new ShooterAlienHandler(player, this);
+		blindAlienHandler = new BlindAlienHandler(player, this);
+		powerUpHandler = new PowerUpHandler(this, player);
+
+		GameTime.getInstance().setSeconds(GameInfo.getInstance().getTime());
 		gameFrame.setTimer(GameTime.getInstance().getTimer());
 		gameFrame.getTimer().start();
 
@@ -236,39 +233,4 @@ public class GameController {
 		timerPanel.add(timerLabel, BorderLayout.NORTH);
 		timerPanel.add(gameFrame.getTimerAsSecond(), BorderLayout.CENTER);
 	}
-	
-	public void updatePlayerLivesView(int life) {
-        gameFrame.getLives().setText("Remaining lives: " + life);
-        if(life == 0) {
-        	GameState.getInstance().setGameOver(true);
-        	GameState.getInstance().setPaused(true);
-        	System.out.println("game over!");
-        }
-    }
-	
-	public void updateKeyView(Boolean is_taken) {
-		if(is_taken) {
-			gameFrame.getKey().setIcon(gameFrame.getGamePanel().getGamePanelIcons()[0]);
-			Location doorLocation = gameFrame.getBuildMode().getDoorLocation();
-			JLabel[][] gameMap = this.getGameFrame().getGamePanel().getGameMap();
-			gameMap[doorLocation.getLocationX()][doorLocation.getLocationY()]
-					.setIcon(gameFrame.getGamePanel().getOpenDoorIcon());
-		}
-	}
-
-	public void updateBagView(PowerUp powerUp) {
-		if (powerUp instanceof ProtectionVestPowerUp) {
-			gameFrame.getPowerUp().setIcon(gameFrame.getGamePanel().getGamePanelIcons()[3]);
-		}
-			else{
-				gameFrame.getPowerUp().setIcon(null);
-
-		}
-	}
-	
-	public void increaseSecond(int second) {
-		int newSecond = GameTime.getInstance().getSeconds() + second;
-		GameTime.getInstance().setSeconds(newSecond);
-	}
-	
 }
