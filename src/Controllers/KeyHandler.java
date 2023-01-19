@@ -5,11 +5,14 @@ import UI.GamePanel;
 import ApplicationLogic.PlasticBottleMovementLogic;
 import UI.GameState;
 import dataStructures.Location;
+import domain.GameInfo;
 import domain.powerUps.PlasticBottlePowerUp;
 import domain.powerUps.PowerUp;
 import domain.Key;
 
-import java.util.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.TimerTask;
@@ -24,6 +27,9 @@ public class KeyHandler extends KeyAdapter {
 	private boolean isSPressed = false;
 	private boolean isAPressed = false;
 	private boolean isBPressed = false;
+	private Timer hintTimer;
+
+	private int seconds = 0;
 
 	private PlayerHandler playerHandler;
 	private PowerUpHandler powerUpHandler;
@@ -31,11 +37,6 @@ public class KeyHandler extends KeyAdapter {
 	public KeyHandler(PlayerHandler playerHandler) {
 		this.playerHandler = playerHandler; 
 		currentTime = System.currentTimeMillis();
-	}
-	public KeyHandler(PlayerHandler playerHandler, PowerUpHandler powerUpHandler) {
-		this.playerHandler = playerHandler;
-		currentTime = System.currentTimeMillis();
-		this.powerUpHandler = powerUpHandler;
 	}
 	 
 	@Override
@@ -60,9 +61,25 @@ public class KeyHandler extends KeyAdapter {
 				}else if(event.getKeyCode() == KeyEvent.VK_H && playerHandler.getPlayer().isContains("Hint")){
 					PowerUp powerUp = playerHandler.getPlayer().getPowerUp("Hint");
 					if(powerUp != null){
-						Key key = powerUpHandler.getGameController().getGameFrame().getGamePanel().getKey();
-						powerUpHandler.getGameController().getGameFrame().getGamePanel().addBordersHint(key.getLocation().getLocationX(), key.getLocation().getLocationY());
-						Timer timer = new Timer();
+						Key key = GameInfo.getInstance().getKey();
+						playerHandler.getGameController().getGameFrame().getGamePanel().addBordersHint(key.getLocation().getLocationX(), key.getLocation().getLocationY());
+
+						hintTimer = new Timer(1000, new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								if (!GameState.getInstance().isPaused())
+								{
+									seconds++;
+									if(seconds == 10){
+										playerHandler.getGameController().getGameFrame().getGamePanel().removeBorders();
+										hintTimer.stop();
+									}
+								}
+							}
+						});
+						powerUp.triggerEffect();
+						hintTimer.start();
+						/*Timer timer = new Timer();
 						timer.schedule(new TimerTask() {
 							@Override
 							public void run() {
@@ -71,9 +88,10 @@ public class KeyHandler extends KeyAdapter {
 								powerUpHandler.getGameController().getGameFrame().getGamePanel().removeBorders();
 							}
 						}, 10 * 1000);
-
+*/
 						playerHandler.getGameController().getGameFrame().updateBagView(null);
-						powerUp.triggerEffect();
+
+
 
 
 					}
