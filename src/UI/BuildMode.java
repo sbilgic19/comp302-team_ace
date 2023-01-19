@@ -11,6 +11,7 @@ import javax.swing.border.Border;
 
 import Controllers.MouseHandler;
 import dataStructures.Location;
+import domain.GameInfo;
 import domain.RoomObject;
 
 public class BuildMode {
@@ -131,6 +132,7 @@ public class BuildMode {
 		}
 		else if (doorLocation == null && previous.getLocationX() == 0) {
 			doorLocation = location;
+			GameInfo.getInstance().setDoorLocation(doorLocation);
 		}
 		
 		int index = objectListSearch(location);
@@ -143,6 +145,7 @@ public class BuildMode {
 			if (selectedIcon == null) {
 				if (objectList.get(index).getTypeID() == 0) {
 					doorLocation = null;
+					GameInfo.getInstance().setDoorLocation(null);
 				}
 				objectList.remove(index);
 			}
