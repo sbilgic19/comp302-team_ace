@@ -234,3 +234,56 @@ public class GameController {
 		timerPanel.add(timerLabel, BorderLayout.NORTH);
 		timerPanel.add(gameFrame.getTimerAsSecond(), BorderLayout.CENTER);
 	}
+	
+	public void updatePlayerLivesView(int life) {
+        gameFrame.getLives().setText("Remaining lives: " + life);
+        if(life == 0) {
+        	GameState.getInstance().setGameOver(true);
+        	GameState.getInstance().setPaused(true);
+        	System.out.println("game over!");
+        }
+    }
+	
+	public void updateKeyView(Boolean is_taken) {
+		if(is_taken) {
+			gameFrame.getKey().setIcon(gameFrame.getGamePanel().getGamePanelIcons()[0]);
+			Location doorLocation = gameFrame.getBuildMode().getDoorLocation();
+			JLabel[][] gameMap = this.getGameFrame().getGamePanel().getGameMap();
+			gameMap[doorLocation.getLocationX()][doorLocation.getLocationY()]
+					.setIcon(gameFrame.getGamePanel().getOpenDoorIcon());
+		}
+	}
+
+	public void updateBagView(PowerUp powerUp) {
+		if (powerUp instanceof ProtectionVestPowerUp) {
+			gameFrame.getPowerUp().setIcon(gameFrame.getGamePanel().getGamePanelIcons()[3]);
+		}
+			else{
+				gameFrame.getPowerUp().setIcon(null);
+
+		}
+	}
+	
+	public void increaseSecond(int second) {
+		int newSecond = GameTime.getInstance().getSeconds() + second;
+		GameTime.getInstance().setSeconds(newSecond);
+	}
+
+	public void setPowerUp(PowerUp powerUp){
+		this.activePowerUp = powerUp;
+		gameFrame.getGamePanel().setPowerUp(powerUp);
+	}
+	public void removePowerUp(){
+		this.activePowerUp = null;
+		gameFrame.getGamePanel().setPowerUp(null);
+	}
+	public PowerUp getActivePowerUp(){
+		return this.activePowerUp;
+	}
+
+	public Client getClient(){
+		return this.client;
+	}
+	
+}
+

@@ -1,6 +1,5 @@
 package Database;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCursor;
+
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -15,12 +14,15 @@ import org.bson.types.Binary;
 import java.io.*;
 
 public class MongoDBStorageAdapter implements IDataStorageAdapter {
-    private MongoCollection<Document> collection;
+    private MongoCollection<Document> collectionGameInfo;
+    private MongoCollection<Document> collectionLogin;
 
     public MongoDBStorageAdapter() {
         MongoClient mongoClient = MongoClients.create("mongodb+srv://AliOktay123:AliOktay123@escapfromkoc.mxq9rt9.mongodb.net/?retryWrites=true&w=majority");
         MongoDatabase db = mongoClient.getDatabase("GameFiles");
-        this.collection =db.getCollection("Save");
+        this.collectionGameInfo =db.getCollection("Save");
+        MongoDatabase dbLogin = mongoClient.getDatabase("Users");
+        this.collectionLogin =dbLogin.getCollection("loginInfo");
     }
 
 
@@ -49,7 +51,7 @@ public class MongoDBStorageAdapter implements IDataStorageAdapter {
         Document doc = new Document("name", key)
                 .append("GameInfo",binary);
         // Insert the Document into the collection
-        collection.replaceOne(new Document("name", key), doc);
+        collectionGameInfo.replaceOne(new Document("name", key), doc);
     }
 
     /**
@@ -69,7 +71,7 @@ public class MongoDBStorageAdapter implements IDataStorageAdapter {
         try
         {
             Document query = new Document("name", key);
-            Document retrievedDoc = collection.find(query).first();
+            Document retrievedDoc = collectionGameInfo.find(query).first();
             Binary retrievedBinary = retrievedDoc.get("GameInfo", Binary.class);
             retrievedBytes = retrievedBinary.getData();
         } catch (Exception e)
@@ -92,5 +94,31 @@ public class MongoDBStorageAdapter implements IDataStorageAdapter {
 
     }
 
+    @Override
+    public boolean login(String userName, String password) {
+        try
+        {
+            Document query = new Document("userName", userName).append("password", password);
+            Document retrievedDoc = collectionLogin.find(query).first();
+            return true;
+        } catch (Exception e)
+        {
+            return false;
+        }
+    }
 
+    @Override
+    public boolean signUp(String userName, String password) {
+        try
+        {
+            Document doc = new Document("userName", userName)
+              .append("password",password);
+        // Insert the Document into the collection
+        collectionLogin.insertOne(doc);
+        return true;
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
 }

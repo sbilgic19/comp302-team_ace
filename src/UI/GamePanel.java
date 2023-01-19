@@ -173,7 +173,7 @@ public class GamePanel extends JPanel {
             gameFrame.getGameController().setPowerUp(powerUp);
             GameInfo.getInstance().setActivePowerUp(powerUp);
           }
-        }, 0,12000);
+        }, 6*1000,12000);
 
         Timer powerUpRemoveTimer = new Timer();
         powerUpRemoveTimer.schedule(new TimerTask() {
@@ -186,7 +186,7 @@ public class GamePanel extends JPanel {
               GameInfo.getInstance().setActivePowerUp(null);
             }
           }
-        }, 6 * 1000, 12 * 1000);
+        }, 0, 12 * 1000);
 
         timeWastingAlienHandler = new TimeWastingAlienHandler(gameFrame.getGameController(), key);
 
