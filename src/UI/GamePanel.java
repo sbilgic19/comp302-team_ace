@@ -229,7 +229,7 @@ public class GamePanel extends JPanel {
     	    public void run() {
     	    	int alienNumber;
     	        if (!key.getIsTaken()) {
-    	        	alienNumber = 0;
+    	        	alienNumber = new Random().nextInt(3);
     	        }
     	        else {
     	        	alienNumber = new Random().nextInt(2)+1;
