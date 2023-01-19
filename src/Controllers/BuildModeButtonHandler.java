@@ -6,10 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-import UI.BuildMode;
-import UI.BuildPanel;
-import UI.GameController;
-import UI.GameFrame;
+import UI.*;
 import domain.GameInfo;
 
 public class BuildModeButtonHandler implements ActionListener {
@@ -46,6 +43,8 @@ public class BuildModeButtonHandler implements ActionListener {
 					"Alert", JOptionPane.ERROR_MESSAGE);
 		}
 		else if (buildPanel.getBuildingObjectCounter() > 0) {
+			GameTime.getInstance().setSeconds(5*counter);
+			GameInfo.getInstance().setTime(GameTime.getInstance().getSeconds());
 			gameController.switchGameView(buildModeMap);
 			buildMode.removeMouseHandler();
 		}
