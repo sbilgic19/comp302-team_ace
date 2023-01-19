@@ -13,7 +13,7 @@ public class GameInfo implements Serializable{
     private Player player;
     private int time;
     private ArrayList<RoomObject> listOfObjects;
-    ArrayList<Alien> listOfAlien;
+    ArrayList<Alien> listOfAlien = new ArrayList<Alien>();
     private PowerUp activePowerUp;
 
 
