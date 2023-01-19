@@ -150,7 +150,7 @@ public class GamePanel extends JPanel {
                         	powerUpHandler.usePowerUp(powerUp);
                           gameFrame.getGameController().removePowerUp();
                           GameInfo.getInstance().setActivePowerUp(null);
-                        	gameFrame.updatePlayerLivesView(gameFrame.getGameController().getPlayer().getLives());
+                        	gameFrame.updatePlayerLivesView(GameInfo.getInstance().getPlayer().getLives());
                         	gameMap[locX][locY].setIcon(null);
                         	powerUp = null;
                         

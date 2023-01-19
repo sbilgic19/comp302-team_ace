@@ -125,17 +125,16 @@ private boolean determineBehaviourStrategy() {
 	}
 	
 	private ArrayList<RoomObject> excludeDoorRoom() {
-		
+		ArrayList<RoomObject> tempList = new ArrayList<>(GameInfo.getInstance().getListOfObjects());
 		Location doorLocation = GameInfo.getInstance().getDoorLocation();
-		ArrayList<RoomObject> objectList = GameInfo.getInstance().getListOfObjects();
-		for (int ii = 0; ii < objectList.size(); ii++) {
-			Location tempLocation = objectList.get(ii).getLocation();
+		for (int ii = 0; ii < tempList.size(); ii++) {
+			Location tempLocation = tempList.get(ii).getLocation();
 			if (tempLocation.getLocationX() == doorLocation.getLocationX() 
 					&& tempLocation.getLocationY() == tempLocation.getLocationY()) {
-				objectList.remove(ii);
+				tempList.remove(ii);
 			}
 		}	
-		return objectList;
+		return tempList;
 	}
 
 

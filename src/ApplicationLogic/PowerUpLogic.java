@@ -48,6 +48,7 @@ public class PowerUpLogic {
 		}
 		int rand = r.nextInt(5);
 		PowerUp powerUp;
+		rand = 3;
 		//It will be random Location.
 		Location location = new Location(row,column);
 		
