@@ -156,7 +156,7 @@ public class GamePanel extends JPanel {
                         
                         }
                     }
-                });
+                }});
             }
         }
 				if (GameInfo.getInstance().getKey() == null){
