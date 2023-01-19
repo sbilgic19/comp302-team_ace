@@ -2,13 +2,10 @@ package Controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.*;
 
-import ApplicationLogic.AuthorizationLogic;
 import Database.Client;
 import UI.GameController;
-import UI.GameFrame;
 import domain.GameInfo;
 import domain.RoomObject;
 
@@ -36,9 +33,11 @@ public class NewOrLoadGameSelectionHandler implements ActionListener {
 			GameInfo.getInstance().setTime(gameInfo.getTime());
 			GameInfo.getInstance().setPlayer(gameInfo.getPlayer());
 			GameInfo.getInstance().setListOfObjects(gameInfo.getListOfObjects());
+			GameInfo.getInstance().setDoorLocation(gameInfo.getDoorLocation());
 
 			System.out.println(gameInfo.getPlayer().getLives());
 			System.out.println(gameInfo.getTime());
+			System.out.println(gameInfo.getPlayer().getBag().size());
 
 
 			ImageIcon[] images = gameController.getGameFrame().getBuildPanel().getIcons();
@@ -58,7 +57,7 @@ public class NewOrLoadGameSelectionHandler implements ActionListener {
 				icon = images[roomObject.getTypeID()];
 				gameMap[roomObject.getLocation().getLocationX()][roomObject.getLocation().getLocationY()].setIcon(icon);
 			}
-			//gameMap[gameInfo.getPlayer().getLocation().getLocationX()][gameInfo.getPlayer().getLocation().getLocationY()].setIcon();
+
 			gameController.switchBuildView();
 			gameController.switchGameView(gameMap);
 

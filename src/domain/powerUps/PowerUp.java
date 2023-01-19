@@ -2,7 +2,9 @@ package domain.powerUps;
 
 import dataStructures.Location;
 
-public interface PowerUp {
+import java.io.Serializable;
+
+public interface PowerUp extends Serializable {
     
     void triggerEffect();
     String getPowerUpType();

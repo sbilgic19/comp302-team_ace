@@ -16,7 +16,6 @@ import javax.swing.JPanel;
 import Controllers.BlindAlienHandler;
 import Controllers.BuildModeButtonHandler;
 import Controllers.KeyHandler;
-import Controllers.LoginAuthorizationHandler;
 import Controllers.PlayerHandler;
 import Controllers.PowerUpHandler;
 import Controllers.RoomKeyHandler;
@@ -56,6 +55,7 @@ public class GameController {
 		gameFrame = new GameFrame(this);
 		//gamePanel = new GamePanel(this);
 		player = new Player();
+		player.setLocation(GameInfo.getInstance().getPlayerLocation());
 		this.roomKeyHandler = new RoomKeyHandler(this, player);
 		
 		
@@ -133,18 +133,6 @@ public class GameController {
 			gameFrame.remove(gameFrame.getBuildPanel());
 			gameFrame.getButtonPanel().remove(gameFrame.getBuildModeSubmitButton());
 		}
-		
-		
-		
-		//player = new Player();
-		roomKeyHandler = new RoomKeyHandler(this, player);
-		playerHandler = new PlayerHandler(player, this);
-
-		keyHandler = new KeyHandler(playerHandler);
-		shooterAlienHandler = new ShooterAlienHandler(player, this);
-		blindAlienHandler = new BlindAlienHandler(player, this);
-		powerUpHandler = new PowerUpHandler(this, player);
-	
 		gameFrame.setPauseButton(new JButton("II"));
 		gameFrame.getPauseButton().setFocusable(false);
 		gameFrame.getPauseButton().setSize(50,50);
@@ -154,8 +142,17 @@ public class GameController {
 		gameFrame.getResumeButton().setVisible(false);
 		gameFrame.getResumeButton().setSize(50,50);
 		
-		gameFrame.setLevelTime(5 * gameFrame.getBuildPanel().getBuildingObjectCounter());
-		GameTime.getInstance().setSeconds(gameFrame.getLevelTime());
+		
+		player = GameInfo.getInstance().getPlayer();
+		roomKeyHandler = new RoomKeyHandler(this, player);
+		playerHandler = new PlayerHandler(player, this);
+
+		keyHandler = new KeyHandler(playerHandler);
+		shooterAlienHandler = new ShooterAlienHandler(player, this);
+		blindAlienHandler = new BlindAlienHandler(player, this);
+		powerUpHandler = new PowerUpHandler(this, player);
+
+		GameTime.getInstance().setSeconds(GameInfo.getInstance().getTime());
 		gameFrame.setTimer(GameTime.getInstance().getTimer());
 		gameFrame.getTimer().start();
 
@@ -289,3 +286,4 @@ public class GameController {
 	}
 	
 }
+
