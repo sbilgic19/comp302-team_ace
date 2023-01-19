@@ -8,6 +8,7 @@ import Controllers.PowerUpHandler;
 import Controllers.RoomKeyHandler;
 import Controllers.ShooterAlienHandler;
 import dataStructures.Location;
+import domain.GameInfo;
 import domain.powerUps.PowerUp;
 import domain.Player;
 import domain.aliens.ShooterAlien;
@@ -166,6 +167,8 @@ public class GamePanel extends JPanel {
                         if(e.getSource() == gameMap[locX][locY]) {
                         	//powerUp.triggerEffect();
                         	powerUpHandler.usePowerUp(powerUp);
+                          gameFrame.getGameController().removePowerUp();
+                          GameInfo.getInstance().setActivePowerUp(null);
                         	gameFrame.updatePlayerLivesView(gameFrame.getGameController().getPlayer().getLives());
                         	gameMap[locX][locY].setIcon(null);
                         	powerUp = null;
@@ -185,7 +188,28 @@ public class GamePanel extends JPanel {
         PowerUpFactory.getInstance().setKey(key);
         System.out.println(key.getLocation().getLocationX()+" " + key.getLocation().getLocationY());
         gameMap[0][5].setIcon(playerFrontIcon);
-        powerUp = powerUpHandler.getRandomPowerUp();
+        Timer powerUpCreatorTimer = new Timer();
+      powerUpCreatorTimer.schedule(new TimerTask() {
+          @Override
+          public void run() {
+            powerUp = powerUpHandler.getRandomPowerUp();
+            gameFrame.getGameController().setPowerUp(powerUp);
+            GameInfo.getInstance().setActivePowerUp(powerUp);
+          }
+        }, 0,12000);
+
+        Timer powerUpRemoveTimer = new Timer();
+        powerUpRemoveTimer.schedule(new TimerTask() {
+          @Override
+          public void run() {
+            if (GameInfo.getInstance().getActivePowerUp() != null)
+            {
+              gameFrame.getGamePanel().getGameMap()[powerUp.getLocation().getLocationX()][powerUp.getLocation().getLocationY()].setIcon(null);
+              gameFrame.getGameController().removePowerUp();
+              GameInfo.getInstance().setActivePowerUp(null);
+            }
+          }
+        }, 6 * 1000, 12 * 1000);
         timeWastingAlienHandler = new TimeWastingAlienHandler(gameFrame.getGameController(), key);
         
         
@@ -533,8 +557,8 @@ public class GamePanel extends JPanel {
       return this.key;
     }
 
-    public void setIsPowerUpActive(boolean bool) {
-      this.isPowerUpActive = bool;
+    public void setPowerUp(PowerUp powerUp) {
+      this.powerUp = powerUp;
     }
 
   public boolean getIsPowerUpActive() {
