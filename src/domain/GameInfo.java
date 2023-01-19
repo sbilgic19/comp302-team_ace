@@ -1,6 +1,8 @@
 package domain;
 
 
+import domain.powerUps.PowerUp;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -12,6 +14,8 @@ public class GameInfo implements Serializable{
     private int time;
     private ArrayList<RoomObject> listOfObjects;
     ArrayList<Alien> listOfAlien;
+    private PowerUp activePowerUp;
+
 
     private GameInfo(){}
 
@@ -64,5 +68,13 @@ public class GameInfo implements Serializable{
 
     public void setListOfObjects(ArrayList<RoomObject> listOfObjects) {
         this.listOfObjects = listOfObjects;
+    }
+
+    public PowerUp getActivePowerUp() {
+        return activePowerUp;
+    }
+
+    public void setActivePowerUp(PowerUp powerUp){
+        this.activePowerUp = powerUp;
     }
 }
