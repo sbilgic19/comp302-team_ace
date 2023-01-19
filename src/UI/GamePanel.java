@@ -51,7 +51,8 @@ public class GamePanel extends JPanel {
     private ImageIcon plasticBottleIconEast;
     private ImageIcon plasticBottleIconWest;
     private ImageIcon plasticBottleIconSouth;
-
+    
+    private Location plasticBottleLocation = null;
     private int numRow;
     private int numCol;
     private GameFrame gameFrame;
@@ -155,13 +156,7 @@ public class GamePanel extends JPanel {
                     	if(!GameState.getInstance().isPaused() && powerUp != null && !GameState.getInstance().isGameOver()) {
                     		int locX = powerUp.getLocation().getLocationX();
                     		int locY = powerUp.getLocation().getLocationY();
-                    		int locX_key = 0;
-                    		int locY_key = 0;
-                    		if(key != null) {
-                    		locX_key = key.getLocation().getLocationX();
-                    		locY_key =key.getLocation().getLocationY();
-                    		
-                    		}
+        
                     		String powerUpType = powerUp.getPowerUpType();
                         if(e.getSource() == gameMap[locX][locY]) {
                         	//powerUp.triggerEffect();
@@ -210,29 +205,102 @@ public class GamePanel extends JPanel {
     	    public void run() {
     	    	int alienNumber;
     	        if (!key.getIsTaken()) {
-    	        	alienNumber = new Random().nextInt(3);
+    	        	alienNumber = 0;
     	        }
     	        else {
     	        	alienNumber = new Random().nextInt(2)+1;
     	        }
-    	        	
     	    	System.out.println(alienNumber);
-    	    	switch(alienNumber) {
-    	    	case 0:
-    	    		timeWastingAlienRandomizer();
-    	    		break;
-    	    	case 1:
-    	    		shooterAlieanRandomizer();
-    	    		break;
-    	    	case 2:
-    	    		blindAlieanRandomizer();
-    	    		break;
-    	    }
+    	    	if(!GameState.getInstance().isPaused()) {
+	    	    	switch(alienNumber) {
+	    	    	case 0:
+	    	    		timeWastingAlienHandler.deactivate();
+	    	    		timeWastingAlienRandomizer();
+	    	    		shooterAlienHandler.deactivate();
+	    	    		blindAlienHandler.deactivate();
+	    	    		break;
+	    	    	case 1:
+	    	    		shooterAlienHandler.deactivate();
+	    	    		shooterAlieanRandomizer();
+	    	    		timeWastingAlienHandler.deactivate();
+	    	    		blindAlienHandler.deactivate();
+	    	    		break;
+	    	    	case 2:
+	    	    		blindAlienHandler.deactivate();
+	    	    		blindAlieanRandomizer();
+	    	    		timeWastingAlienHandler.deactivate();
+	    	    		shooterAlienHandler.deactivate();
+	    	    		break;
+    	    		
+    	    	}
+	    	   
+    	    } 	
+    	    	else {
+
+    	    		
+    	    		Timer tryTimer = new Timer();
+    	    		TimerTask tt = new TimerTask() {
+
+						@Override
+						public void run() {
+							if(!GameState.getInstance().isPaused()) {
+				    	    	switch(alienNumber) {
+				    	    	case 0:
+				    	    		timeWastingAlienHandler.deactivate();
+				    	    		timeWastingAlienRandomizer();
+				    	    		shooterAlienHandler.deactivate();
+				    	    		blindAlienHandler.deactivate();
+				    	    		break;
+				    	    	case 1:
+				    	    		shooterAlienHandler.deactivate();
+				    	    		shooterAlieanRandomizer();
+				    	    		timeWastingAlienHandler.deactivate();
+				    	    		blindAlienHandler.deactivate();
+				    	    		break;
+				    	    	case 2:
+				    	    		blindAlienHandler.deactivate();
+				    	    		blindAlieanRandomizer();
+				    	    		timeWastingAlienHandler.deactivate();
+				    	    		shooterAlienHandler.deactivate();
+				    	    		break;
+				    	    	}
+				    	    	
+				    	    	tryTimer.cancel();
+
+				    	    	
+							}
+						}
+    	    			
+    	    		};
+    	    		
+    	    		tryTimer.scheduleAtFixedRate(tt, 1000, 1000);
+    	    		
+    	    		
+    	        	Timer stopTimer = new Timer();
+    	        	stopTimer.scheduleAtFixedRate(new TimerTask() {
+    	        	    @Override
+    	        	    public void run() {
+    	        	    	
+    	        	    	if(!GameState.getInstance().isPaused()) {
+    	        	    		tryTimer.cancel();
+    	        	    		tt.cancel();
+    	        	    		stopTimer.cancel();
+    	        	    	}
+    	        	    	
+
+    	        	    	
+    	      
+    	        	    }
+    	        	}, 250, 250);
+	    	}
     	    	
     	    	
     	    if(GameState.getInstance().isGameOver()) {
     	    	alienTimer.cancel();
     	    	}
+    	    
+    	    
+  
     	    }
     	};
     	
@@ -247,6 +315,10 @@ public class GamePanel extends JPanel {
     	    		tt.cancel();
     	    		stopTimer.cancel();
     	    	}
+    	    	
+
+    	    	
+    	    	
     	    }
     	}, 250, 250);
     	
@@ -255,10 +327,9 @@ public class GamePanel extends JPanel {
     
     public void timeWastingAlienRandomizer() {
     	
-        int minDelay = 7000; // 5 seconds
+        int minDelay = 7000; // 7 seconds
         int maxDelay = 10000; // 10 seconds
         int randomDelay = new Random().nextInt(maxDelay - minDelay + 1) + minDelay;
-    	int t  = 0;
     	timeWastingAlienHandler.getTimeWastingAlien();
     	Timer wastingTimer = new Timer();
     	
@@ -277,18 +348,24 @@ public class GamePanel extends JPanel {
     	    	if(GameState.getInstance().isGameOver()) {
     	    		wastingTimer.cancel();    	    		//System.out.println("heyyo");
     	    	}
+    	    	
 
     	    }
     	}, 1000, 1000);
     	
-
-    	new Timer().schedule(new TimerTask() {
+    	Timer deactivateTimer = new Timer();
+    	deactivateTimer.schedule(new TimerTask() {
     	    @Override
     	    public void run() {
     	    	wastingTimer.cancel();
-    	    	if(!GameState.getInstance().isGameOver()) {
+    	    	if(!GameState.getInstance().isGameOver() && !GameState.getInstance().isPaused()) {
     	    		timeWastingAlienHandler.deactivate();
     	    	}
+    	    	
+    	    	
+    	    	
+
+
     	    }
     	}, randomDelay);
 
@@ -297,7 +374,7 @@ public class GamePanel extends JPanel {
     
     public void shooterAlieanRandomizer() {
     	
-        int minDelay = 7000; // 5 seconds
+        int minDelay = 7000; // 7 seconds
         int maxDelay = 10000; // 10 seconds
         int randomDelay = new Random().nextInt(maxDelay - minDelay + 1) + minDelay;
     	
@@ -316,6 +393,8 @@ public class GamePanel extends JPanel {
     	    		shooterTimer.cancel();
     	    		//System.out.println("heyyo");
     	    	}
+    	    	
+
 
     	    }
     	}, 1000, 1000);
@@ -324,9 +403,45 @@ public class GamePanel extends JPanel {
     	    @Override
     	    public void run() {
     	        shooterTimer.cancel();
-    	    	if(!GameState.getInstance().isGameOver()) {
-    	    		shooterAlienHandler.deactivate();
+    	    	if(GameState.getInstance().isPaused() && !GameState.getInstance().isGameOver() ) {
+    	    		Timer tryTimer = new Timer();
+    	    		TimerTask tt = new TimerTask() {
+
+						@Override
+						public void run() {
+							if(!GameState.getInstance().isPaused()) {
+								shooterAlienHandler.deactivate();
+				    	    	
+								tryTimer.cancel();
+
+							}
+			
+						}
+    	    			
+    	    		};
+    	    		
+    	    		tryTimer.scheduleAtFixedRate(tt, 1000, 1000);
+    	    		
+    	    		
+    	        	Timer stopTimer = new Timer();
+    	        	stopTimer.scheduleAtFixedRate(new TimerTask() {
+    	        	    @Override
+    	        	    public void run() {
+    	        	    	
+    	        	    	if(!GameState.getInstance().isPaused()) {
+    	        	    		shooterAlienHandler.deactivate();
+    	        	    		tt.cancel();
+    	        	    		stopTimer.cancel();
+    	        	    	}
+    	        	    	
+
+    	        	    	
+    	      
+    	        	    }
+    	        	}, 250, 250);
     	    	}
+    	    	
+
     	    }
     	}, randomDelay);
 
@@ -345,7 +460,7 @@ public class GamePanel extends JPanel {
     	    @Override
     	    public void run() {
     	    	if (!GameState.getInstance().isPaused()) {
-    	    		blindAlienHandler.move();
+    	    		blindAlienHandler.move(plasticBottleLocation);
     	    	}
     	    	
     	    	
@@ -366,16 +481,52 @@ public class GamePanel extends JPanel {
     	    	if(GameState.getInstance().isGameOver()) {
     	    		blindshootTimer.cancel();
     	    	}
+    	    	
+
     	    }
-    	}, 250, 250);
+    	}, 450, 450);
 
     	new Timer().schedule(new TimerTask() {
     	    @Override
     	    public void run() {
     	    	blindTimer.cancel();
     	    	blindshootTimer.cancel();
-    	    	if(!GameState.getInstance().isGameOver()) {
-    	    		blindAlienHandler.deactivate();
+    	    	if(GameState.getInstance().isPaused() && !GameState.getInstance().isGameOver() ) {
+    	    		Timer tryTimer = new Timer();
+    	    		TimerTask tt = new TimerTask() {
+
+						@Override
+						public void run() {
+							if(!GameState.getInstance().isPaused()) {
+								blindAlienHandler.deactivate();
+				    	    	
+								tryTimer.cancel();
+
+							}
+			
+						}
+    	    			
+    	    		};
+    	    		
+    	    		tryTimer.scheduleAtFixedRate(tt, 1000, 1000);
+    	    		
+    	    		
+    	        	Timer stopTimer = new Timer();
+    	        	stopTimer.scheduleAtFixedRate(new TimerTask() {
+    	        	    @Override
+    	        	    public void run() {
+    	        	    	
+    	        	    	if(!GameState.getInstance().isPaused()) {
+    	        	    		blindAlienHandler.deactivate();
+    	        	    		tt.cancel();
+    	        	    		stopTimer.cancel();
+    	        	    	}
+    	        	    	
+
+    	        	    	
+    	      
+    	        	    }
+    	        	}, 250, 250);
     	    	}
     	    }
     	}, randomDelay);

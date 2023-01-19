@@ -6,6 +6,7 @@ import java.util.Random;
 import UI.GameController;
 import UI.GameFrame;
 import UI.GamePanel;
+import UI.GameState;
 import dataStructures.Location;
 import domain.Player;
 import domain.aliens.AlienFactory;
@@ -24,7 +25,7 @@ public class ShooterAlienLogic {
 	
 	public Boolean shoot(Player player) {
 		
-		if(shooterAlien.getIsActive()) {
+		if(shooterAlien.getIsActive() && !GameState.getInstance().isPaused()) {
 			if(Location.distance(player.getLocation(), shooterAlien.getLocation()) <= 3) {
 				//System.out.println("X: "+player.getLocation().getLocationX()+" Y: "+player.getLocation().getLocationY());
 				//System.out.println("isProtected: "+ player.isProtected());
@@ -48,8 +49,12 @@ public class ShooterAlienLogic {
 	
 	
 	public void deactivate() {
-		shooterAlien.setIsActive(false);
-		gameController.getGameFrame().getGamePanel().setNullIcon(shooterAlien.getLocation());
+		if( shooterAlien != null) {
+			if(shooterAlien.getIsActive()) {
+				shooterAlien.setIsActive(false);
+				gameController.getGameFrame().getGamePanel().setNullIcon(shooterAlien.getLocation());
+			}
+		}
 	}
 	
 	
