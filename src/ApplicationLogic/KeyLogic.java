@@ -9,6 +9,7 @@ import UI.GameController;
 import UI.GameFrame;
 import UI.GamePanel;
 import dataStructures.Location;
+import domain.GameInfo;
 import domain.Key;
 import domain.Player;
 
@@ -78,7 +79,7 @@ avoiding locations occupied by other objects and the door location.
 		int rand = r.nextInt(object_locations.size());
 		
 		k = new Key(object_locations.get(rand));
-			
+		GameInfo.getInstance().setKey(k);
 		return k;
 	}
 }

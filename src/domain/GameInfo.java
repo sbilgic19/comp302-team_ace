@@ -15,6 +15,7 @@ public class GameInfo implements Serializable{
     private ArrayList<RoomObject> listOfObjects;
     ArrayList<Alien> listOfAlien = new ArrayList<Alien>();
     private PowerUp activePowerUp;
+    private Key key;
 
 
     private GameInfo(){}
@@ -77,4 +78,6 @@ public class GameInfo implements Serializable{
     public void setActivePowerUp(PowerUp powerUp){
         this.activePowerUp = powerUp;
     }
+    public void setKey(Key k){this.key = k;}
+    public Key getKey(){return this.key;}
 }
