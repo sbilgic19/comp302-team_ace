@@ -1,7 +1,9 @@
 package domain.aliens;
 import dataStructures.Location;
 
-public interface Alien {
+import java.io.Serializable;
+
+public interface Alien extends Serializable {
 	
 	Location getLocation();
 	String getAlienType();

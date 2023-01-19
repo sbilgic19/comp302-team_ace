@@ -209,7 +209,7 @@ public class GameController {
 		JPanel livesPanel = new JPanel();
 		gameFrame.add(livesPanel, BorderLayout.NORTH);
 		livesPanel.add(gameFrame.getLives(), BorderLayout.CENTER);
-		gameFrame.getLives().setText("Remaining lives: 3");
+		gameFrame.getLives().setText("Remaining lives: " + player.getLives());
 		gameFrame.getLives().setVisible(true);
 		
 		JPanel keyPanel = new JPanel();

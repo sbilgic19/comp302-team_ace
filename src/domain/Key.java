@@ -2,7 +2,9 @@ package domain;
 
 import dataStructures.Location;
 
-public class Key {
+import java.io.Serializable;
+
+public class Key implements Serializable {
 	/*
 	 Class Summary
 The Key class represents a key in a game or application. It has a location, which is represented by a Location object, and a boolean flag isTaken that indicates whether the key has been taken by a player or not.

@@ -34,6 +34,7 @@ public class NewOrLoadGameSelectionHandler implements ActionListener {
 			GameInfo.getInstance().setPlayer(gameInfo.getPlayer());
 			GameInfo.getInstance().setListOfObjects(gameInfo.getListOfObjects());
 			GameInfo.getInstance().setDoorLocation(gameInfo.getDoorLocation());
+			GameInfo.getInstance().setKey(gameInfo.getKey());
 
 			System.out.println(gameInfo.getPlayer().getLives());
 			System.out.println(gameInfo.getTime());
