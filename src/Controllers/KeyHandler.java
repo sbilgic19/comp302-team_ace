@@ -58,7 +58,7 @@ public class KeyHandler extends KeyAdapter {
 						powerUp.triggerEffect();
 						playerHandler.getGameController().getGameFrame().updateBagView(null);
 					}
-				}else if(event.getKeyCode() == KeyEvent.VK_H && playerHandler.getPlayer().isContains("Hint")){
+				}else if(event.getKeyCode() == KeyEvent.VK_H && playerHandler.getPlayer().isContains("Hint") && !playerHandler.getPlayer().getIsKeyTaken()){
 					PowerUp powerUp = playerHandler.getPlayer().getPowerUp("Hint");
 					if(powerUp != null){
 						Key key = GameInfo.getInstance().getKey();
@@ -79,16 +79,6 @@ public class KeyHandler extends KeyAdapter {
 						});
 						powerUp.triggerEffect();
 						hintTimer.start();
-						/*Timer timer = new Timer();
-						timer.schedule(new TimerTask() {
-							@Override
-							public void run() {
-								
-								//GamePanel.removeBorders();
-								powerUpHandler.getGameController().getGameFrame().getGamePanel().removeBorders();
-							}
-						}, 10 * 1000);
-*/
 						playerHandler.getGameController().getGameFrame().updateBagView(null);
 
 

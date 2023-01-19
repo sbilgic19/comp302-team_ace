@@ -190,7 +190,7 @@ public class GamePanel extends JPanel {
       powerUpCreatorTimer.schedule(new TimerTask() {
           @Override
           public void run() {
-						if (!GameState.getInstance().isPaused()){
+						if (!GameState.getInstance().isPaused() && !GameState.getInstance().isGameOver()){
             powerUp = powerUpHandler.getRandomPowerUp();
             gameFrame.getGameController().setPowerUp(powerUp);
             GameInfo.getInstance().setActivePowerUp(powerUp);
@@ -202,7 +202,7 @@ public class GamePanel extends JPanel {
           @Override
           public void run() {
 
-            if (GameInfo.getInstance().getActivePowerUp() != null && !GameState.getInstance().isPaused())
+            if (GameInfo.getInstance().getActivePowerUp() != null && !GameState.getInstance().isPaused() && !GameState.getInstance().isGameOver())
             {
               gameFrame.getGamePanel().getGameMap()[powerUp.getLocation().getLocationX()][powerUp.getLocation().getLocationY()].setIcon(null);
               gameFrame.getGameController().removePowerUp();
