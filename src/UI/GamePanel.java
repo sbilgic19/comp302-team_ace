@@ -159,8 +159,11 @@ public class GamePanel extends JPanel {
                 });
             }
         }
-
-        key = roomKeyHandler.getRandomKey();
+				if (GameInfo.getInstance().getKey() == null){
+        	key = roomKeyHandler.getRandomKey();}
+				else {
+					this.key = GameInfo.getInstance().getKey();
+				}
         PowerUpFactory.getInstance().setKey(key);
         System.out.println(key.getLocation().getLocationX()+" " + key.getLocation().getLocationY());
 
@@ -169,17 +172,19 @@ public class GamePanel extends JPanel {
       powerUpCreatorTimer.schedule(new TimerTask() {
           @Override
           public void run() {
+						if (!GameState.getInstance().isPaused() && !GameState.getInstance().isGameOver()){
             powerUp = powerUpHandler.getRandomPowerUp();
             gameFrame.getGameController().setPowerUp(powerUp);
             GameInfo.getInstance().setActivePowerUp(powerUp);
-          }
+          }}
         }, 6*1000,12000);
 
         Timer powerUpRemoveTimer = new Timer();
         powerUpRemoveTimer.schedule(new TimerTask() {
           @Override
           public void run() {
-            if (GameInfo.getInstance().getActivePowerUp() != null)
+
+            if (GameInfo.getInstance().getActivePowerUp() != null && !GameState.getInstance().isPaused() && !GameState.getInstance().isGameOver())
             {
               gameFrame.getGamePanel().getGameMap()[powerUp.getLocation().getLocationX()][powerUp.getLocation().getLocationY()].setIcon(null);
               gameFrame.getGameController().removePowerUp();

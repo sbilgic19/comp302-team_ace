@@ -1,5 +1,6 @@
 package domain.powerUps;
 
+import UI.GameState;
 import domain.Player;
 
 import javax.swing.*;
@@ -42,10 +43,13 @@ public class WearVestBehavior implements PowerUpBehavior{
         return new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                seconds++;
-                if(seconds == 20){
-                    player.setIsProtected(false);
-                    timer.stop();
+                if (!GameState.getInstance().isPaused())
+                {
+                    seconds++;
+                    if(seconds == 20){
+                        player.setIsProtected(false);
+                        timer.stop();
+                    }
                 }
             }
         });
