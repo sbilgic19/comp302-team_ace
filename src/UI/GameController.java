@@ -283,5 +283,9 @@ public class GameController {
 	public PowerUp getActivePowerUp(){
 		return this.activePowerUp;
 	}
+
+	public Client getClient(){
+		return this.client;
+	}
 	
 }
