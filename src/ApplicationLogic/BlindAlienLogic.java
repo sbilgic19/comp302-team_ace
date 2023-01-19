@@ -6,6 +6,7 @@ import java.util.Random;
 import UI.GameController;
 import UI.GameFrame;
 import UI.GamePanel;
+import UI.GameState;
 import dataStructures.Location;
 import domain.Player;
 import domain.aliens.AlienFactory;
@@ -26,7 +27,7 @@ public class BlindAlienLogic {
 	
 	public Boolean shoot(Player player) {
 		
-		if(blindAlien.getIsActive()) {
+		if(blindAlien.getIsActive() && !GameState.getInstance().isPaused()) {
 			if(Location.distance(player.getLocation(), blindAlien.getLocation()) <= 1) {
 				System.out.println("X: "+player.getLocation().getLocationX()+" Y: "+player.getLocation().getLocationY());
 				System.out.println("isProtected: "+ player.isProtected());
@@ -44,25 +45,58 @@ public class BlindAlienLogic {
 	}
 	
 	
-	public boolean move() {
+	public boolean move(Location loc) {
 		if (this.blindAlien != null) {
-			int randomMove = new Random().nextInt(4);
+			if(loc == null) {
+				int randomMove = new Random().nextInt(4);
+				
+				switch (randomMove){
+				case 0:
+					return moveable(0,1);
+				case 1:
+					return moveable(1,0);
+				case 2:
+					return moveable(-1,0);
+				case 3:
+					return moveable(0,-1);
+					
+				}
 			
-			switch (randomMove){
-			case 0:
-				return moveable(0,1);
-			case 1:
-				return moveable(1,0);
-			case 2:
-				return moveable(-1,0);
-			case 3:
-				return moveable(0,-1);
+			}
+			else {
+				int x = Location.x_direction(loc, blindAlien.getLocation());
+				int y = Location.y_direction(loc, blindAlien.getLocation());
+				int randomMove;
+				if(x != 0 && y != 0) {
+					randomMove = new Random().nextInt(2);
+				}
+				else if(x == 0 && y != 0) {
+					randomMove = 1;
+				}
+				else if(x != 0 && y == 0) {
+					randomMove = 1;
+				}
+				else {
+					randomMove =2;
+				}
+				switch (randomMove){
+				case 0:
+					return moveable(x,0);
+				case 1:
+					return moveable(0,y);
+				case 2:
+					break;
+				}
 				
 			}
-		
-		}	
+		}
+			
+			
 		return false;
 	}
+	
+	
+	
 	
 	
 	public boolean moveable(int changeInX, int changeInY) {
@@ -95,8 +129,12 @@ public class BlindAlienLogic {
 	
 	
 	public void deactivate() {
-		blindAlien.setIsActive(false);
-		gameController.getGameFrame().getGamePanel().setNullIcon(blindAlien.getLocation());
+		if ( blindAlien != null) {
+			if(blindAlien.getIsActive()) {
+				blindAlien.setIsActive(false);
+				gameController.getGameFrame().getGamePanel().setNullIcon(blindAlien.getLocation());
+			}
+		}
 	}
 	
 	

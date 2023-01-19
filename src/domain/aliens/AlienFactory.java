@@ -1,6 +1,7 @@
 package domain.aliens;
 
 import dataStructures.Location;
+import domain.GameInfo;
 import domain.powerUps.ExtraLifePowerUp;
 import domain.powerUps.ExtraTimePowerUp;
 import domain.powerUps.PowerUp;
@@ -19,14 +20,24 @@ public class AlienFactory {
     
     public Alien getAlien(String alienType, Location location)
     {
+    	Alien aliean;
     	switch (alienType)
     	{
 			case "TimeWasting":
-				return new TimeWastingAlien(location);
+				aliean = new TimeWastingAlien(location);
+				GameInfo.getInstance().clearAlienList();
+				GameInfo.getInstance().addAlien(aliean);
+				return aliean;
 			case "Shooter":
-				return new ShooterAlien(location);
+				aliean = new ShooterAlien(location);
+				GameInfo.getInstance().clearAlienList();
+				GameInfo.getInstance().addAlien(aliean);
+				return aliean;
 			case "Blind":
-				return new BlindAlien(location);
+				aliean = new BlindAlien(location);
+				GameInfo.getInstance().clearAlienList();
+				GameInfo.getInstance().addAlien(aliean);
+				return aliean;
     		default:
     			return null;
     	}

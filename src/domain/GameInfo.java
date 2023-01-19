@@ -6,12 +6,16 @@ import domain.powerUps.PowerUp;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import domain.aliens.Alien;
+
 public class GameInfo implements Serializable{
     private static GameInfo instance;
     private Player player;
     private int time;
     private ArrayList<RoomObject> listOfObjects;
+    ArrayList<Alien> listOfAlien;
     private PowerUp activePowerUp;
+
 
     private GameInfo(){}
 
@@ -38,6 +42,25 @@ public class GameInfo implements Serializable{
     public void setTime(int time) {
         this.time = time;
     }
+    
+    public ArrayList<Alien> getAlienList(){
+    	return listOfAlien;
+    }
+    
+    public void addAlien(Alien a) {
+    	listOfAlien.add(a);
+    }
+    
+    public void removeAlien(Alien a) {
+    	listOfAlien.remove(a);
+    }
+    
+    public void clearAlienList() {
+    	listOfAlien.clear();
+    }
+    
+    
+    
 
     public ArrayList<RoomObject> getListOfObjects() {
         return listOfObjects;
