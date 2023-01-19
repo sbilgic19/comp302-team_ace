@@ -20,18 +20,20 @@ public class TimeWastingAlienBehaviourStrategyB implements TimeWastingAlienBehav
 
 	@Override
 	public boolean changeLocationOfTheKey() {
-		counter++;
-		if (counter == 3) {
-			Random random = new Random();
-			Location location;
-			do {
-				int randInt = random.nextInt(objectList.size());
-				location = objectList.get(randInt).getLocation();
-			} while (location.getLocationX() == key.getLocation().getLocationX() && 
-					location.getLocationY() == key.getLocation().getLocationY());
-			key.setLocation(location);
-			System.out.printf("%d %d\n", location.getLocationX(), location.getLocationY());
-			counter = 0;
+		if(timeWastingAlienLogic.getTimeWastingAlien().getIsActive()) {
+			counter++;
+			if (counter == 3) {
+				Random random = new Random();
+				Location location;
+				do {
+					int randInt = random.nextInt(objectList.size());
+					location = objectList.get(randInt).getLocation();
+				} while (location.getLocationX() == key.getLocation().getLocationX() && 
+						location.getLocationY() == key.getLocation().getLocationY());
+				key.setLocation(location);
+				System.out.printf("%d %d\n", location.getLocationX(), location.getLocationY());
+				counter = 0;
+			}
 		}
 		
 		return true;

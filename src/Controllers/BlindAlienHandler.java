@@ -3,6 +3,7 @@ package Controllers;
 import ApplicationLogic.BlindAlienLogic;
 import UI.GameController;
 import UI.GameFrame;
+import dataStructures.Location;
 import domain.Player;
 import domain.aliens.BlindAlien;
 import domain.aliens.ShooterAlien;
@@ -28,8 +29,8 @@ public class BlindAlienHandler {
 	}
 	
 	
-	public boolean move() {
-		return blindAlienLogic.move();
+	public boolean move(Location loc) {
+		return blindAlienLogic.move(loc);
 	}
 	
 	public BlindAlien getBlindAlien() {

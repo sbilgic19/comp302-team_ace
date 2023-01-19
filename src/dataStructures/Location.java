@@ -31,6 +31,33 @@ public class Location implements Serializable {
 		int y_dist = Math.abs(location1.getLocationY()- location2.getLocationY());
 		return y_dist;
 	}
+	
+	public static int x_direction(Location location1, Location location2) {
+		int x_dist = (location1.getLocationX()- location2.getLocationX());
+		
+		if(x_dist > 0) {
+			return 1;
+		}
+		else if(x_dist == 0) {
+			return 0;
+		}
+		else {
+			return -1;
+		}
+	}
+	
+	public static int y_direction(Location location1, Location location2) {
+		int y_dist = (location1.getLocationY()- location2.getLocationY());
+		if(y_dist > 0) {
+			return 1;
+		}
+		else if(y_dist == 0) {
+			return 0;
+		}
+		else {
+			return -1;
+		}
+	}
 
 	public void moveLeft() {
 		this.locationX--;

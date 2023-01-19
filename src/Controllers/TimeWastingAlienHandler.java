@@ -27,7 +27,7 @@ public class TimeWastingAlienHandler {
 	}
 	
 	public TimeWastingAlien getTimeWastingAlien() {
-		return alienLogic.getTimeWastingAlien();
+		return alienLogic.getRandomTimeWastingAlien();
 	}
 	
 	public void deactivate() {

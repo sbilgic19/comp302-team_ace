@@ -46,6 +46,7 @@ public class GameController {
 	private ShooterAlienHandler shooterAlienHandler;
 	private BlindAlienHandler blindAlienHandler;
 	private PowerUpHandler powerUpHandler;
+	private PowerUp activePowerUp;
 	
 	public GameController() {
 		
@@ -233,4 +234,3 @@ public class GameController {
 		timerPanel.add(timerLabel, BorderLayout.NORTH);
 		timerPanel.add(gameFrame.getTimerAsSecond(), BorderLayout.CENTER);
 	}
-}

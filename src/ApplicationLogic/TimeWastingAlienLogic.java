@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import UI.GameController;
+
+import UI.GameFrame;
+import UI.GamePanel;
+import UI.GameState;
+
 import UI.GameTime;
 import dataStructures.Location;
 import domain.GameInfo;
@@ -25,9 +30,9 @@ public class TimeWastingAlienLogic {
 	
 	
 	public Boolean changeLocationOfKey(Key key) {
-
-		determineBehaviourStrategy();
-		
+		if(!GameState.getInstance().isPaused()) {
+			return determineBehaviourStrategy();
+		}
 		
 		return false;
 	}
@@ -62,13 +67,17 @@ private boolean determineBehaviourStrategy() {
 	
 	
 	public void deactivate() {
-		timeWastingAlien.setIsActive(false);
-		gameController.getGameFrame().getGamePanel().setNullIcon(timeWastingAlien.getLocation());
+		if(timeWastingAlien != null) {
+			if(timeWastingAlien.getIsActive()) {
+				timeWastingAlien.setIsActive(false);
+				gameController.getGameFrame().getGamePanel().setNullIcon(timeWastingAlien.getLocation());
+			}
+		}
 	}
 	
 	
 	
-	public TimeWastingAlien getTimeWastingAlien() {
+	public TimeWastingAlien getRandomTimeWastingAlien() {
 		if(this.timeWastingAlien != null) {
 			this.deactivate();
 		}
@@ -110,6 +119,9 @@ private boolean determineBehaviourStrategy() {
 
 	public void setTimeWastingAlien(TimeWastingAlien timeWastingAlien) {
 		this.timeWastingAlien = timeWastingAlien;
+	}
+	public TimeWastingAlien getTimeWastingAlien() {
+		return this.timeWastingAlien;
 	}
 	
 	private ArrayList<RoomObject> excludeDoorRoom() {
