@@ -136,7 +136,10 @@ public class BlindAlienLogic {
 			if(blindAlien.getIsActive()) {
 				blindAlien.setIsActive(false);
 				gameController.getGameFrame().getGamePanel().setNullIcon(blindAlien.getLocation());
+				
 			}
+			GameInfo.getInstance().removeAlien(blindAlien);
+			
 		}
 	}
 	

@@ -54,7 +54,9 @@ public class ShooterAlienLogic {
 			if(shooterAlien.getIsActive()) {
 				shooterAlien.setIsActive(false);
 				gameController.getGameFrame().getGamePanel().setNullIcon(shooterAlien.getLocation());
+				
 			}
+			GameInfo.getInstance().removeAlien(shooterAlien);
 		}
 	}
 	
