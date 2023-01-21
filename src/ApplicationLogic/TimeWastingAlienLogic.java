@@ -71,6 +71,7 @@ private boolean determineBehaviourStrategy() {
 				timeWastingAlien.setIsActive(false);
 				gameController.getGameFrame().getGamePanel().setNullIcon(timeWastingAlien.getLocation());
 			}
+			GameInfo.getInstance().removeAlien(timeWastingAlien);
 		}
 	}
 	

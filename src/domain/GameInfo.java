@@ -52,7 +52,9 @@ public class GameInfo implements Serializable{
     }
     
     public void removeAlien(Alien a) {
-    	listOfAlien.remove(a);
+    	if(listOfAlien.contains(a)) {
+    		listOfAlien.remove(a);
+    	}
     }
     
     public void clearAlienList() {

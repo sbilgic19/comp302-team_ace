@@ -8,6 +8,7 @@ import UI.GameFrame;
 import UI.GamePanel;
 import UI.GameState;
 import dataStructures.Location;
+import domain.GameInfo;
 import domain.Player;
 import domain.aliens.AlienFactory;
 import domain.aliens.ShooterAlien;
@@ -53,7 +54,9 @@ public class ShooterAlienLogic {
 			if(shooterAlien.getIsActive()) {
 				shooterAlien.setIsActive(false);
 				gameController.getGameFrame().getGamePanel().setNullIcon(shooterAlien.getLocation());
+				
 			}
+			GameInfo.getInstance().removeAlien(shooterAlien);
 		}
 	}
 	
