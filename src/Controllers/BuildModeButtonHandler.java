@@ -69,15 +69,15 @@ public class BuildModeButtonHandler implements ActionListener {
 			case 1:
 				return objectCount >= 5;
 			case 2:
-				return objectCount >= 7;
+				return objectCount >= 2;
 			case 3:
-				return objectCount >= 10;
+				return objectCount >= 2;
 			case 4:
-				return objectCount >= 14;
+				return objectCount >= 2;
 			case 5:
-				return objectCount >= 19;
+				return objectCount >= 2;
 			case 6:
-				return objectCount >= 25;
+				return objectCount >= 2;
 			default:
 				return false;
 		}

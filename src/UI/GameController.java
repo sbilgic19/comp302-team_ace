@@ -225,12 +225,14 @@ public class GameController {
 				int seconds =0;
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					seconds++;
-					if(seconds == 4){
-						int x = GameInfo.getInstance().getActivePowerUp().getLocation().getLocationX();
-						int y = GameInfo.getInstance().getActivePowerUp().getLocation().getLocationY();
-						gameFrame.getGamePanel().getGameMap()[x][y].setIcon(null);
-						tempTimer.stop();
+					if(GameInfo.getInstance().getActivePowerUp()!=null) {
+						seconds++;
+						if (seconds == 4) {
+							int x = GameInfo.getInstance().getActivePowerUp().getLocation().getLocationX();
+							int y = GameInfo.getInstance().getActivePowerUp().getLocation().getLocationY();
+							gameFrame.getGamePanel().getGameMap()[x][y].setIcon(null);
+							tempTimer.stop();
+						}
 					}
 				}
 			});
@@ -352,7 +354,7 @@ public class GameController {
 			GameInfo.getInstance().getPlayer().setLocation(new Location(0,5));
 			GameInfo.getInstance().getPlayer().setKeyTaken(false);
 			GameInfo.getInstance().setActivePowerUp(null);
-			this.switchGameView(newMap);
+			gameFrame.getGameController().switchGameView(newMap);
 			System.out.println(GameInfo.getInstance().getPlayer().isContains("PlasticBottle"));
 		}
 	}

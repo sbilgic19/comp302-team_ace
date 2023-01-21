@@ -55,24 +55,28 @@ public class PowerUpLogic {
 		{
 			case 0:
 				powerUp = PowerUpFactory.getInstance().getPowerUp("ExtraLife", location);
+				this.addPowerUp(powerUp);
 	            break;
 			case 1:
 				powerUp = PowerUpFactory.getInstance().getPowerUp("ExtraTime", location);
+				this.addPowerUp(powerUp);
 				break;
 			case 2:
 				powerUp = PowerUpFactory.getInstance().getPowerUp("ProtectionVest", location);
+				this.addPowerUp(powerUp);
 				break;
       		case 3:
 				powerUp = PowerUpFactory.getInstance().getPowerUp("PlasticBottle", location);
+				this.addPowerUp(powerUp);
 				break;
 			case 4:
 				powerUp = PowerUpFactory.getInstance().getPowerUp("Hint", location);
+				this.addPowerUp(powerUp);
 				break;
 	    default:
 				powerUp = null;
 		}
 		GameInfo.getInstance().setActivePowerUp(powerUp);
-		this.addPowerUp(powerUp);
 		gameController.setPowerUp(powerUp);
 		return powerUp;
 		}

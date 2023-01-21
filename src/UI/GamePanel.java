@@ -264,7 +264,7 @@ public class GamePanel extends JPanel {
 
             }
 
-          } else {
+          } /*else {
 
 
             Timer tryTimer = new Timer();
@@ -318,7 +318,7 @@ public class GamePanel extends JPanel {
 
             }
           }, 250, 250);
-        }
+        }*/
 
 
         if (GameState.getInstance().isGameOver()) {
