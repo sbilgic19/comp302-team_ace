@@ -5,6 +5,7 @@ import ApplicationLogic.KeyLogic;
 import ApplicationLogic.PowerUpLogic;
 import UI.GameController;
 import UI.GameFrame;
+import domain.GameInfo;
 import domain.Key;
 import domain.Player;
 
@@ -27,7 +28,7 @@ public class RoomKeyHandler {
 	}
 	
 	public boolean takeKey(Key k) {
-		return keyLogic.takeKey(player, k);
+		return keyLogic.takeKey(GameInfo.getInstance().getPlayer(), GameInfo.getInstance().getKey());
 	}
 	
 	public Key getKeyInstance() {
