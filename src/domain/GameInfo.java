@@ -146,5 +146,9 @@ public class GameInfo implements Serializable{
     public ArrayList<RoomObject> getCurrentObjects(){
         return this.listOfObjectsOfAllLevels.get(currentLevel - 1);
     }
+    public void setListOfAlien(ArrayList<Alien> alienArrayList){
+        this.listOfAlien = alienArrayList;
+    }
+    public ArrayList<Alien> getListOfAlien(){return listOfAlien; }
 
 }

@@ -6,6 +6,7 @@ import javax.swing.*;
 
 import Database.Client;
 import UI.GameController;
+import UI.GameState;
 import domain.GameInfo;
 import domain.RoomObject;
 
@@ -36,6 +37,8 @@ public class NewOrLoadGameSelectionHandler implements ActionListener {
 			GameInfo.getInstance().setDoorLocationList(gameInfo.getDoorLocationList());
 			GameInfo.getInstance().setKeyList(gameInfo.getKeyList());
 			GameInfo.getInstance().setCurrentLevel(gameInfo.getCurrentLevel());
+			GameInfo.getInstance().setListOfAlien(gameInfo.getListOfAlien());
+			GameInfo.getInstance().setActivePowerUp(gameInfo.getActivePowerUp());
 
 			System.out.println(gameInfo.getPlayer().getLives());
 			System.out.println(gameInfo.getTime());

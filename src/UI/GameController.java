@@ -44,6 +44,7 @@ public class GameController {
 	private BlindAlienHandler blindAlienHandler;
 	private PowerUpHandler powerUpHandler;
 	private PowerUp activePowerUp;
+	Timer tempTimer;
 	private final String[] levels = {"Student Center", "CASE Building", "SOS Building", "SCI Building", "ENG Building", "SNA Building"};
 
 	public GameController() {
@@ -213,6 +214,24 @@ public class GameController {
 		gameFrame.getGamePanel().requestFocus();
 		gameFrame.getGamePanel().addKeyListener(this.keyHandler);
 		gameFrame.getGamePanel().alienProducer();
+
+		if(GameInfo.getInstance().getActivePowerUp() != null){
+			powerUpHandler.getPowerUpLogic().addPowerUp(GameInfo.getInstance().getActivePowerUp());
+			tempTimer = new Timer(1000, new ActionListener() {
+				int seconds =0;
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					seconds++;
+					if(seconds == 4){
+						int x = GameInfo.getInstance().getActivePowerUp().getLocation().getLocationX();
+						int y = GameInfo.getInstance().getActivePowerUp().getLocation().getLocationY();
+						gameFrame.getGamePanel().getGameMap()[x][y].setIcon(null);
+						tempTimer.stop();
+					}
+				}
+			});
+			tempTimer.start();
+		}
 
 		JPanel livesPanel = new JPanel();
 		gameFrame.add(livesPanel, BorderLayout.NORTH);
