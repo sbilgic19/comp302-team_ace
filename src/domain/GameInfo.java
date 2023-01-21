@@ -15,13 +15,11 @@ public class GameInfo implements Serializable{
     private Player player;
     private Location playerLocation;
     private int time = 0;
-    //private Location doorLocation;
     private ArrayList<Location> doorLocationList = new ArrayList<>();
-    //private ArrayList<RoomObject> listOfObjects;
+
     private ArrayList<ArrayList<RoomObject>> listOfObjectsOfAllLevels = new ArrayList<>();
     ArrayList<Alien> listOfAlien = new ArrayList<Alien>();
     private PowerUp activePowerUp;
-    //private Key key;
     private ArrayList<Key> keyList = new ArrayList<>();
     private int currentLevel = 1;
 

@@ -169,13 +169,14 @@ public class GamePanel extends JPanel {
     int x, y;
     x = GameInfo.getInstance().getDoorLocation().getLocationX();
     y = GameInfo.getInstance().getDoorLocation().getLocationY();
+    key = GameInfo.getInstance().getKey();
     gameMap[x][y].addMouseListener(new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent e) {
         System.out.println("isKeyTaken " + key.getIsTaken() );
         if (!GameState.getInstance().isPaused() && !GameState.getInstance().isGameOver() && GameInfo.getInstance().getKey().getIsTaken()
               && Location.distance(GameInfo.getInstance().getPlayer().getLocation(),GameInfo.getInstance().getDoorLocation()) < 2) {
-          if (e.getSource() == gameMap[x][y]) {
+          if (e.getSource() == gameMap[GameInfo.getInstance().getDoorLocation().getLocationX()][GameInfo.getInstance().getDoorLocation().getLocationY()]) {
             System.out.println((GameInfo.getInstance().getCurrentLevel() + 1) + ". level is starting...");
             GameInfo.getInstance().levelUp();
             GameInfo.getInstance().setActivePowerUp(null);

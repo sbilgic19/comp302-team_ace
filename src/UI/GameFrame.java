@@ -60,9 +60,7 @@ public class GameFrame extends JFrame {
 	private int levelTime;
 	
 	private ArrayList<RoomObject> objectList;
-  
- 	private final Client client;
-	private final String serviceUsed;
+
 	BuildModeButtonHandler buildModeButtonHandler;
 	PlayerHandler playerHandler;
 
@@ -74,8 +72,6 @@ public class GameFrame extends JFrame {
 		
 		this.gamePanel = new GamePanel(this);
 		this.gameController = gameController;
-		serviceUsed = "MongoDB";
-		client = new Client(serviceUsed);
 
 		loadNewGameScreen = new LoadOrNewGameSelectionScreen();
 		iconFactory = IconFactory.getInstance();
@@ -150,7 +146,7 @@ public class GameFrame extends JFrame {
 		
 		add(loadNewGameScreen);
 		
-		newLoadSelectionScreenHandler = new NewOrLoadGameSelectionHandler(gameController, client);
+		newLoadSelectionScreenHandler = new NewOrLoadGameSelectionHandler(gameController);
 		loadNewGameScreen.paintComponent(getGraphics());
 		loadNewGameScreen.setVisible(true);
 		

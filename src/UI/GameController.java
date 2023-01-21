@@ -356,5 +356,6 @@ public class GameController {
 			System.out.println(GameInfo.getInstance().getPlayer().isContains("PlasticBottle"));
 		}
 	}
+
 }
 

@@ -17,10 +17,10 @@ public class NewOrLoadGameSelectionHandler implements ActionListener {
 	private final GameController gameController;
 	
 	
-	public NewOrLoadGameSelectionHandler(GameController gameController, Client client) {
+	public NewOrLoadGameSelectionHandler(GameController gameController) {
 		
 		this.gameController = gameController;
-		this.client = client;
+		this.client = gameController.getClient();
 	}
 	
 	
