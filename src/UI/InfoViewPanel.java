@@ -14,10 +14,10 @@ import javax.swing.JTextField;
 
 public class InfoViewPanel extends JPanel{
 
-	private JLabel infoTextLabel;
-	private JButton infoPanelBackButton;
+	private final JLabel infoTextLabel;
+	private final JButton infoPanelBackButton;
 	private boolean isOn = false;
-	private  JScrollPane scroolPane;
+	private final JScrollPane scroolPane;
 	public InfoViewPanel() {
 		//setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		setLayout(null);

@@ -6,7 +6,7 @@ import UI.GameController;
 
 public class PlayerMoveLogic  {
 	
-	private GameController gameController;
+	private final GameController gameController;
 	
 	public PlayerMoveLogic(GameController gameController) {
 		this.gameController = gameController;
@@ -27,9 +27,9 @@ public class PlayerMoveLogic  {
 		
 		if ( Math.abs(changeInX) +  Math.abs(changeInY) <= 1 && !GameState.getInstance().isGameOver()) {
 			int xPlayerPosition = GameInfo.getInstance().getPlayer().getLocation().getLocationX();
-			int yPlayerPosition = GameInfo.getInstance().getPlayer().getLocation().getLocationY();;
+			int yPlayerPosition = GameInfo.getInstance().getPlayer().getLocation().getLocationY();
 
-			int newXPlayerPosition = xPlayerPosition + changeInX;
+      int newXPlayerPosition = xPlayerPosition + changeInX;
 			int newYPlayerPosition = yPlayerPosition + changeInY;
 			
 			if (newXPlayerPosition >= 0 && newXPlayerPosition < gameController.getGameFrame().getNumRow() && newYPlayerPosition >= 0 

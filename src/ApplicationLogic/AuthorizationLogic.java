@@ -11,7 +11,7 @@ import domain.User;
 
 public class AuthorizationLogic {
 	
-	private ArrayList<User> recordedUsers = new ArrayList<User>(); // Temporary solution until database is constructed. It can be changed with text file. 
+	private final ArrayList<User> recordedUsers = new ArrayList<User>(); // Temporary solution until database is constructed. It can be changed with text file.
 	private User activeUser;
 	private Boolean isLoggedIn;
 	private String loginMessage;

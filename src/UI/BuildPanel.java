@@ -26,8 +26,8 @@ public class BuildPanel extends JPanel {
 
 	private IconFactory iconFactory;
 	
-	private int panelHeight;
-	private int panelWidth;
+	private final int panelHeight;
+	private final int panelWidth;
 
 	private int buildingObjectCounter = 0;
 	

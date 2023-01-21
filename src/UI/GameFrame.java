@@ -13,18 +13,18 @@ import domain.powerUps.PowerUp;
 import domain.powerUps.ProtectionVestPowerUp;
 
 public class GameFrame extends JFrame {
-	private int numRow = 15;
-	private int numCol = 29;
+	private final int numRow = 15;
+	private final int numCol = 29;
 	private GamePanel gamePanel;
 	private JButton pauseButton;
 	private JButton resumeButton;
-	private IconFactory iconFactory;
-	private ImageIcon gameIcon;
-	private Image gameImage;
+	private final IconFactory iconFactory;
+	private final ImageIcon gameIcon;
+	private final Image gameImage;
 	
-	private JLabel lives;
-	private JLabel key;
-	private JLabel powerUp = new JLabel();
+	private final JLabel lives;
+	private final JLabel key;
+	private final JLabel powerUp = new JLabel();
 	
 	private KeyHandler keyHandler;
 	private RoomKeyHandler roomKeyHandler;
@@ -34,24 +34,25 @@ public class GameFrame extends JFrame {
 	private PowerUpHandler powerUpHandler;
 	private JPanel buttonPanel;
 	
-	private LoginPanel loginPanel;
+	private final LoginPanel loginPanel;
 	private LoginAuthorizationHandler buttonHandler;
 	
 	private MainScreenPanel mainScreen;
 	private MainScreenPanelButtonsHandler mainButtonHandler;
 	
-	private LoadOrNewGameSelectionScreen loadNewGameScreen;
+	private final LoadOrNewGameSelectionScreen loadNewGameScreen;
 	private NewOrLoadGameSelectionHandler newLoadSelectionScreenHandler;
 	
-	private InfoViewPanel infoPanel = new InfoViewPanel();
+	private final InfoViewPanel infoPanel = new InfoViewPanel();
 
-	private SignUpPanel signupPanel = new SignUpPanel();
+	private final SignUpPanel signupPanel = new SignUpPanel();
 	private SignUpButtonHandler signupHandler;
 
 	private Timer timer;
 	private JLabel timerAsSecond;
 	private JButton buildModeSubmitButton;
-	private BuildPanel buildPanel = new BuildPanel(this);;
+	private final JLabel levelLabel = new JLabel();
+	private final BuildPanel buildPanel = new BuildPanel(this);
 	private BuildMode buildMode;
 	
 	private PausedGameScreen pauseDialog;
@@ -60,12 +61,12 @@ public class GameFrame extends JFrame {
 	
 	private ArrayList<RoomObject> objectList;
   
- 	private Client client;
-	private String serviceUsed;
+ 	private final Client client;
+	private final String serviceUsed;
 	BuildModeButtonHandler buildModeButtonHandler;
 	PlayerHandler playerHandler;
 
-	private GameController gameController;
+	private final GameController gameController;
 	public GameFrame(GameController gameController) {
 		
 		super("Escape From Koc");
@@ -249,12 +250,16 @@ public class GameFrame extends JFrame {
     }
 	
 	public void updateKeyView(Boolean is_taken) {
+		Location doorLocation = GameInfo.getInstance().getDoorLocation();
+		JLabel[][] gameMap = this.gamePanel.getGameMap();
 		if(is_taken) {
 			this.getKey().setIcon(this.getGamePanel().getGamePanelIcons()[0]);
-			Location doorLocation = GameInfo.getInstance().getDoorLocation();
-			JLabel[][] gameMap = this.gamePanel.getGameMap();
 			gameMap[doorLocation.getLocationX()][doorLocation.getLocationY()]
 					.setIcon(this.getGamePanel().getOpenDoorIcon());
+		} else {
+			gameMap[doorLocation.getLocationX()][doorLocation.getLocationY()]
+						.setIcon(this.getIcons()[0]);
+			this.getKey().setIcon(null);
 		}
 	}
 
@@ -396,6 +401,13 @@ public class GameFrame extends JFrame {
 	public void setButtonPanel(JPanel panel) {
 		this.buttonPanel = panel;
 	}
-	
-	
+	public void setCurrentLevelText(String levelText) {
+		this.levelLabel.setText(levelText);
+	}
+	public ImageIcon[] getIcons(){
+		return this.buildPanel.getIcons();
+	}
+	public JLabel getLevelLabel() {
+		return levelLabel;
+	}
 }

@@ -10,8 +10,8 @@ import domain.aliens.TimeWastingAlien;
 
 public class TimeWastingAlienBehaviourStrategyC implements TimeWastingAlienBehaviourStrategy {
 
-	private int totalTime = 0;;
-	private TimeWastingAlienLogic timeWastingAlienLogic;
+	private int totalTime = 0;
+  private TimeWastingAlienLogic timeWastingAlienLogic;
 	
 
 	@Override

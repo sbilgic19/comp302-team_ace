@@ -12,9 +12,9 @@ import javax.swing.JDialog;
 public class PausedGameScreen extends JDialog {
 	
 
-	private JButton saveGameButton;
-	private JButton returnToGameButton;
-	private Client client;
+	private final JButton saveGameButton;
+	private final JButton returnToGameButton;
+	private final Client client;
 	
 	
 	public PausedGameScreen(Client client) {

@@ -20,9 +20,9 @@ import javax.swing.JPanel;
 public class LoadOrNewGameSelectionScreen extends JPanel {
 	
 
-	private JButton newGameButton;
-	private JButton loadGameButton;
-	private Image img;
+	private final JButton newGameButton;
+	private final JButton loadGameButton;
+	private final Image img;
 	
 	public LoadOrNewGameSelectionScreen() {
 

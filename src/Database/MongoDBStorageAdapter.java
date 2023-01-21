@@ -14,8 +14,8 @@ import org.bson.types.Binary;
 import java.io.*;
 
 public class MongoDBStorageAdapter implements IDataStorageAdapter {
-    private MongoCollection<Document> collectionGameInfo;
-    private MongoCollection<Document> collectionLogin;
+    private final MongoCollection<Document> collectionGameInfo;
+    private final MongoCollection<Document> collectionLogin;
 
     public MongoDBStorageAdapter() {
         MongoClient mongoClient = MongoClients.create("mongodb+srv://AliOktay123:AliOktay123@escapfromkoc.mxq9rt9.mongodb.net/?retryWrites=true&w=majority");
@@ -99,8 +99,9 @@ public class MongoDBStorageAdapter implements IDataStorageAdapter {
         try
         {
             Document query = new Document("userName", userName).append("password", password);
-            Document retrievedDoc = collectionLogin.find(query).first();
-            return true;
+            boolean isContain = collectionLogin.find(query).first() != null;
+            System.out.println("Successful");
+            return isContain;
         } catch (Exception e)
         {
             return false;

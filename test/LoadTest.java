@@ -24,7 +24,7 @@ public class LoadTest {
 
         GameInfo.getInstance().setPlayer(player);
         GameInfo.getInstance().setTime(time);
-        GameInfo.getInstance().setListOfObjects(objectList);
+        GameInfo.getInstance().addObjectList(objectList);
 
         Client client = new Client("MongoDB");
         // Save the game and then load
@@ -34,7 +34,7 @@ public class LoadTest {
 
         Assert.assertEquals(GameInfo.getInstance().getTime(), gameInfo.getTime());
         Assert.assertEquals(GameInfo.getInstance().getPlayer().getLives(), gameInfo.getPlayer().getLives());
-        Assert.assertTrue(GameInfo.getInstance().getListOfObjects().equals(gameInfo.getListOfObjects()));
+        Assert.assertEquals(GameInfo.getInstance().getCurrentObjects(), gameInfo.getCurrentObjects());
 
     }
     @Test
@@ -48,7 +48,7 @@ public class LoadTest {
 
         GameInfo.getInstance().setPlayer(player);
         GameInfo.getInstance().setTime(time);
-        GameInfo.getInstance().setListOfObjects(objectList);
+        GameInfo.getInstance().addObjectList(objectList);
 
         Client client = new Client("MongoDB");
         // Save the game and then load
@@ -57,7 +57,7 @@ public class LoadTest {
         // Check that the created game info same as the loaded one.
 
         Assert.assertEquals(GameInfo.getInstance().getTime(), gameInfo.getTime());
-        Assert.assertTrue(GameInfo.getInstance().getListOfObjects().equals(gameInfo.getListOfObjects()));
+        Assert.assertEquals(GameInfo.getInstance().getCurrentObjects(), gameInfo.getCurrentObjects());
 
     }
     @Test
@@ -69,7 +69,7 @@ public class LoadTest {
         objectList.add(roomObject);
 
         GameInfo.getInstance().setPlayer(player);
-        GameInfo.getInstance().setListOfObjects(objectList);
+        GameInfo.getInstance().addObjectList(objectList);
 
         Client client = new Client("MongoDB");
         // Save the game and then load
@@ -78,7 +78,7 @@ public class LoadTest {
         // Check that the created game info same as the loaded one.
 
         Assert.assertEquals(GameInfo.getInstance().getPlayer().getLives(), gameInfo.getPlayer().getLives());
-        Assert.assertTrue(GameInfo.getInstance().getListOfObjects().equals(gameInfo.getListOfObjects()));
+        Assert.assertEquals(GameInfo.getInstance().getCurrentObjects(), gameInfo.getCurrentObjects());
 
     }
 
@@ -112,7 +112,7 @@ public class LoadTest {
 
         GameInfo.getInstance().setPlayer(player);
         GameInfo.getInstance().setTime(time);
-        GameInfo.getInstance().setListOfObjects(objectList);
+        GameInfo.getInstance().addObjectList(objectList);
 
         Client client = new Client("MongoDB");
         // Save the game and then load
@@ -122,7 +122,7 @@ public class LoadTest {
 
         Assert.assertEquals(GameInfo.getInstance().getTime(), gameInfo.getTime());
         Assert.assertEquals(GameInfo.getInstance().getPlayer().getLives(), gameInfo.getPlayer().getLives());
-        Assert.assertTrue(GameInfo.getInstance().getListOfObjects().equals(gameInfo.getListOfObjects()));
+        Assert.assertEquals(GameInfo.getInstance().getCurrentObjects(), gameInfo.getCurrentObjects());
 
     }
 
@@ -151,7 +151,7 @@ public class LoadTest {
             e.printStackTrace();
         }
         System.out.println(Arrays.equals(originalGameInfo, retrievedGameInfo));
-        Assert.assertTrue(Arrays.equals(originalGameInfo, retrievedGameInfo));
+        Assert.assertArrayEquals(originalGameInfo, retrievedGameInfo);
     }
 
 

@@ -14,8 +14,8 @@ public class SignupLoginTests {
 		AuthorizationLogic al = new AuthorizationLogic();
 		
 		boolean returnVal = al.signupAuthorization(user.getUsername(), user.getPassword(), user.getCheckPassword());
-		
-		Assert.assertEquals(returnVal, false);
+
+    Assert.assertFalse(returnVal);
 		
 	}
 	
@@ -32,8 +32,8 @@ public class SignupLoginTests {
 		
 		
 		boolean combinedVal = returnVal1 && returnVal2;
-		
-		Assert.assertEquals(!combinedVal, true);
+
+    Assert.assertTrue(!combinedVal);
 		
 	}
 	@Test
@@ -47,8 +47,8 @@ public class SignupLoginTests {
 		User user2 = new User("testUser","123@test","123@test");
 		
 		boolean returnVal = al.signupAuthorization(user2.getUsername(), user2.getPassword(), user2.getCheckPassword());
-		
-		Assert.assertEquals(returnVal, false);
+
+    Assert.assertFalse(returnVal);
 		
 	}
 	
@@ -61,8 +61,8 @@ public class SignupLoginTests {
 		
 		
 		boolean returnVal = al.loginAuthorization("testUser", "test123@");
-		
-		Assert.assertEquals(returnVal, true);
+
+    Assert.assertTrue(returnVal);
 	}
 	
 	@Test
@@ -72,8 +72,8 @@ public class SignupLoginTests {
 		User nonExistingAccount = new User("testUser", "test123@", "test123@");
 		
 		boolean returnVal = al.loginAuthorization(nonExistingAccount.getUsername(), nonExistingAccount.getPassword());
-		
-		Assert.assertEquals(returnVal, false);
+
+    Assert.assertFalse(returnVal);
 	}
 	
 }

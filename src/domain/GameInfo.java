@@ -15,11 +15,15 @@ public class GameInfo implements Serializable{
     private Player player;
     private Location playerLocation;
     private int time;
-    private Location doorLocation;
-    private ArrayList<RoomObject> listOfObjects;
+    //private Location doorLocation;
+    private ArrayList<Location> doorLocationList = new ArrayList<>();
+    //private ArrayList<RoomObject> listOfObjects;
+    private ArrayList<ArrayList<RoomObject>> listOfObjectsOfAllLevels = new ArrayList<>();
     ArrayList<Alien> listOfAlien = new ArrayList<Alien>();
     private PowerUp activePowerUp;
-    private Key key;
+    //private Key key;
+    private ArrayList<Key> keyList = new ArrayList<>();
+    private int currentLevel = 1;
 
 
     private GameInfo(){}
@@ -66,7 +70,7 @@ public class GameInfo implements Serializable{
     
     
     
-
+/*
     public ArrayList<RoomObject> getListOfObjects() {
         return listOfObjects;
     }
@@ -74,9 +78,21 @@ public class GameInfo implements Serializable{
     public void setListOfObjects(ArrayList<RoomObject> listOfObjects) {
         this.listOfObjects = listOfObjects;
     }
-    
+    */
+    /*
     public Location getDoorLocation(){ return doorLocation; }
     public void setDoorLocation(Location location){ this.doorLocation = location; }
+    */
+    public Location getDoorLocation(){return doorLocationList.get(currentLevel - 1);}
+    public ArrayList<Location> getDoorLocationList(){return doorLocationList;}
+    public void setDoorLocationList(ArrayList<Location> doorList) { this.doorLocationList = doorList;}
+    public void addDoorLocation(Location location) {
+        if(doorLocationList.size() >= currentLevel) {
+            this.doorLocationList.set(currentLevel - 1, location);
+        } else {
+            this.doorLocationList.add(location);
+        }
+    }
     public Location getPlayerLocation(){return playerLocation; }
     public void setPlayerLocation(Location location){this.playerLocation = location; }
 
@@ -87,6 +103,46 @@ public class GameInfo implements Serializable{
     public void setActivePowerUp(PowerUp powerUp){
         this.activePowerUp = powerUp;
     }
+    /*
     public void setKey(Key k){this.key = k;}
     public Key getKey(){return this.key;}
+     */
+    public void setKeyList(ArrayList<Key> keyList){this.keyList = keyList;}
+    public void addKey(Key k){
+        if(keyList.size() >= currentLevel) {
+            this.keyList.set(currentLevel - 1, k);
+        } else {
+            this.keyList.add(k);
+        }
+    }
+    public Key getKey(){
+        if(keyList.size() >= currentLevel) {
+             return this.keyList.get(currentLevel - 1);
+        } else {
+            return null;
+        }
+    }
+    public ArrayList<Key> getKeyList(){return this.keyList;}
+    public void setCurrentLevel(int level){this.currentLevel = level;}
+    public int getCurrentLevel(){return this.currentLevel;}
+    public void levelUp(){this.currentLevel = this.currentLevel + 1;}
+
+    public void setListOfObjectsOfAllLevels(ArrayList<ArrayList<RoomObject>> listOfObjectsOfAllLevels) {
+        this.listOfObjectsOfAllLevels = listOfObjectsOfAllLevels;
+    }
+    public void addObjectList(ArrayList<RoomObject> objectList) {
+        if(listOfObjectsOfAllLevels.size() >= currentLevel) {
+            this.listOfObjectsOfAllLevels.set(currentLevel - 1, objectList);
+        } else {
+            this.listOfObjectsOfAllLevels.add(objectList);
+        }
+    }
+
+    public ArrayList<ArrayList<RoomObject>> getListOfObjectsOfAllLevels() {
+        return listOfObjectsOfAllLevels;
+    }
+    public ArrayList<RoomObject> getCurrentObjects(){
+        return this.listOfObjectsOfAllLevels.get(currentLevel - 1);
+    }
+
 }

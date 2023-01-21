@@ -10,8 +10,8 @@ import domain.powerUps.PowerUpFactory;
 
 public class Main {
 	
-	private static int frameWidth = 1500;
-	private static int frameHeight = 750;
+	private static final int frameWidth = 1500;
+	private static final int frameHeight = 750;
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {

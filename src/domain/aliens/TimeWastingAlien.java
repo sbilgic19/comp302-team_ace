@@ -11,9 +11,9 @@ public class TimeWastingAlien implements Alien{
 	private String alienType = "TimeWasting";
 	private Boolean isActive;
 	
-	private TimeWastingAlienBehaviourStrategy behaviourA;
-	private TimeWastingAlienBehaviourStrategy behaviourB;
-	private TimeWastingAlienBehaviourStrategy behaviourC;
+	private final TimeWastingAlienBehaviourStrategy behaviourA;
+	private final TimeWastingAlienBehaviourStrategy behaviourB;
+	private final TimeWastingAlienBehaviourStrategy behaviourC;
 
 	
 	public TimeWastingAlien(Location location) {

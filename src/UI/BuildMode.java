@@ -16,22 +16,22 @@ import domain.RoomObject;
 
 public class BuildMode {
 	
-	private JLabel[][] buildModeMap;
-	private ImageIcon[] icons;
+	private final JLabel[][] buildModeMap;
+	private final ImageIcon[] icons;
 	
-	private int rowStep;
-	private int colStep;
-	private int numRow;
-	private int numCol;
+	private final int rowStep;
+	private final int colStep;
+	private final int numRow;
+	private final int numCol;
 	
-	private Border border1;
-	private Border border2;
+	private final Border border1;
+	private final Border border2;
 	
 	private Location previous;
 	private ImageIcon selectedIcon;
 	
-	private MouseHandler mouseHandler;
-	private BuildPanel buildPanel;
+	private final MouseHandler mouseHandler;
+	private final BuildPanel buildPanel;
 	
 	private ArrayList<RoomObject> objectList;
 	private Location doorLocation;
@@ -132,7 +132,7 @@ public class BuildMode {
 		}
 		else if (doorLocation == null && previous.getLocationX() == 0) {
 			doorLocation = location;
-			GameInfo.getInstance().setDoorLocation(doorLocation);
+			GameInfo.getInstance().addDoorLocation(doorLocation);
 		}
 		
 		int index = objectListSearch(location);
@@ -145,7 +145,7 @@ public class BuildMode {
 			if (selectedIcon == null) {
 				if (objectList.get(index).getTypeID() == 0) {
 					doorLocation = null;
-					GameInfo.getInstance().setDoorLocation(null);
+					GameInfo.getInstance().getDoorLocationList().set(GameInfo.getInstance().getCurrentLevel() - 1, null);
 				}
 				objectList.remove(index);
 			}
@@ -180,5 +180,17 @@ public class BuildMode {
 			}
 		}
 		return -1;
+	}
+	public void addNewLevel(){
+		this.doorLocation = null;
+		this.objectList = new ArrayList<RoomObject>();
+		for (int ii = 0; ii < numRow; ii++) {
+			for (int jj = 0; jj < numCol - 1; jj++) {
+				buildModeMap[ii][jj].setIcon(null);
+			}
+		}
+		buildModeMap[0][5].setIcon(buildPanel.getCrossIcon());
+		this.selectedIcon = null;
+
 	}
 }
