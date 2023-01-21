@@ -3,7 +3,7 @@ import domain.Player;
 
 public class IncreaseLifeBehavior implements PowerUpBehavior{
 
-    private Player player;
+    private final Player player;
 
     public IncreaseLifeBehavior(Player player) {
         this.player = player;

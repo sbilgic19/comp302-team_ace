@@ -8,7 +8,7 @@ import dataStructures.Location;
 
 public class MouseHandler extends MouseAdapter {
 
-	private BuildMode buildMode;
+	private final BuildMode buildMode;
 	
 	public MouseHandler(BuildMode buildMode) {
 		this.buildMode = buildMode;

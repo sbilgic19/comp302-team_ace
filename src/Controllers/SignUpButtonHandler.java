@@ -11,8 +11,8 @@ import UI.GameFrame;
 
 public class SignUpButtonHandler implements ActionListener{
 
-	private GameFrame gameFrame;
-	private Client client;
+	private final GameFrame gameFrame;
+	private final Client client;
 	
 	public SignUpButtonHandler(GameFrame gameFrame) {
 		//this.mainScreenPanel = mainScreenPanel;

@@ -17,7 +17,7 @@ import domain.aliens.BlindAlien;
 
 public class BlindAlienLogic {
 	BlindAlien blindAlien;
-	private GameController gameController;
+	private final GameController gameController;
 	private final Random random = new Random();
 	
 	public BlindAlienLogic(GameController gameController, Player player) {

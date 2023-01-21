@@ -42,10 +42,10 @@ public class TimeWastingAlienBehaviourTest {
 		alien.triggerAction(behaviourA);
 		
 		boolean test1 = key.getLocation().equals(initialLocation);
-		Assert.assertEquals(test1, false);
+    Assert.assertFalse(test1);
 		
 		boolean test2 = alien.getIsActive();
-		Assert.assertEquals(test2, false);
+    Assert.assertFalse(test2);
 		
 		// EFFECTS: After one calls on the changeLocationOfTheKey method of 
 		// TimeWastingAlienBehaviourStrategyA by using triggerAction method of the alien, 
@@ -82,10 +82,10 @@ public class TimeWastingAlienBehaviourTest {
 		}
 		
 		boolean test1 = key.getLocation().equals(initialLocation);
-		Assert.assertEquals(test1, false);
+    Assert.assertFalse(test1);
 		
 		boolean test2 = alien.getIsActive();
-		Assert.assertEquals(test2, true);
+    Assert.assertTrue(test2);
 		
 		// EFFECTS: After three calls on the changeLocationOfTheKey method of 
 		// TimeWastingAlienBehaviourStrategyB by using triggerAction method of the alien, 
@@ -121,10 +121,10 @@ public class TimeWastingAlienBehaviourTest {
 		}
 		
 		boolean test1 = key.getLocation().equals(initialLocation);
-		Assert.assertEquals(test1, true);
+    Assert.assertTrue(test1);
 		
 		boolean test2 = alien.getIsActive();
-		Assert.assertEquals(test2, false);
+    Assert.assertFalse(test2);
 		
 		// EFFECTS: After two calls on the changeLocationOfTheKey method of 
 		// TimeWastingAlienBehaviourStrategyC by using triggerAction method of the alien, 

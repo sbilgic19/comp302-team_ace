@@ -12,13 +12,13 @@ import Controllers.MainScreenPanelButtonsHandler;
 
 public class MainScreenPanel extends JPanel{
 	
-	private JButton loginButton;
-	private JButton signinButton;
-	private JLabel mainScreenLabel;
+	private final JButton loginButton;
+	private final JButton signinButton;
+	private final JLabel mainScreenLabel;
 
 	
-	private ImageIcon infoIcon;
-	private JButton infoButton;
+	private final ImageIcon infoIcon;
+	private final JButton infoButton;
 	
 	public MainScreenPanel() {
 		setLayout(null);

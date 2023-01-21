@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 
 public class ShowHintBehavior implements PowerUpBehavior{
 
-  private int seconds = 0;
+  private final int seconds = 0;
   Timer timer;
   Player player;
 

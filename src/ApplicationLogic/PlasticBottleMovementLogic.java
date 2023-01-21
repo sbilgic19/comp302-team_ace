@@ -10,8 +10,8 @@ import java.awt.event.ActionListener;
 
 public class PlasticBottleMovementLogic {
 
-    private PlasticBottlePowerUp powerUp;
-    private GameController gameController;
+    private final PlasticBottlePowerUp powerUp;
+    private final GameController gameController;
     Timer timer;
     boolean isMoving = true;
     public PlasticBottleMovementLogic(GameController gameController, PlasticBottlePowerUp powerUp){
@@ -31,10 +31,8 @@ public class PlasticBottleMovementLogic {
 
                     int oldXLoc = powerUp.getLocation().getLocationX();
                     int oldYLoc = powerUp.getLocation().getLocationY();
-                    System.out.println("OldX: " + oldXLoc + " OldY: " + oldYLoc);
                     powerUp.triggerEffect();
                     powerUp.setBottleIconPosition(powerUp.getBottleIconPosition()+1);
-                    System.out.println("OldX: " + oldXLoc + " OldY: " + oldYLoc);
                     isMoving = gameController.getGameFrame().getGamePanel().updateBottleView(oldXLoc,oldYLoc,powerUp.getLocation().getLocationX(), powerUp.getLocation().getLocationY(), powerUp.getBottleIconPosition());
                     
                 }else

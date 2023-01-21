@@ -12,9 +12,9 @@ import domain.GameInfo;
 public class BuildModeButtonHandler implements ActionListener {
 	
 	//private GameFrame gameFrame;
-	private BuildMode buildMode;
-	private BuildPanel buildPanel;
-	private GameController gameController;
+	private final BuildMode buildMode;
+	private final BuildPanel buildPanel;
+	private final GameController gameController;
 	
 	public BuildModeButtonHandler(GameController gameController, BuildMode buildMode, BuildPanel buildPanel) {
 		this.gameController = gameController;
@@ -42,16 +42,44 @@ public class BuildModeButtonHandler implements ActionListener {
 			JOptionPane.showMessageDialog(null, "Room door is not placed!",  
 					"Alert", JOptionPane.ERROR_MESSAGE);
 		}
-		else if (buildPanel.getBuildingObjectCounter() > 0) {
-			GameTime.getInstance().setSeconds(5*counter);
-			GameInfo.getInstance().setTime(GameTime.getInstance().getSeconds());
-			gameController.switchGameView(buildModeMap);
-			buildMode.removeMouseHandler();
+		else if (validObjectCount(buildPanel.getBuildingObjectCounter())) {
+			/*GameTime.getInstance().setSeconds(5*counter);
+			GameInfo.getInstance().setTime(GameTime.getInstance().getSeconds());*/
+
+			GameInfo.getInstance().addObjectList(buildMode.getObjectList());
+			GameInfo.getInstance().levelUp();
+			if(GameInfo.getInstance().getListOfObjectsOfAllLevels().size() == 6){
+				GameInfo.getInstance().setCurrentLevel(1);
+				gameController.switchGameView(gameController.arrayToMatrix(GameInfo.getInstance().getCurrentObjects()));
+				buildMode.removeMouseHandler();
+			} else {
+				gameController.updateLevelView();
+				buildMode.addNewLevel();
+			}
 		}
 		else {
-			JOptionPane.showMessageDialog(null, "Required at least one room object except room door!",  
+			JOptionPane.showMessageDialog(null, "Required more room objects",
 					"Alert", JOptionPane.ERROR_MESSAGE);
 		}
-		GameInfo.getInstance().setListOfObjects(buildMode.getObjectList());
+	}
+	public boolean validObjectCount(int objectCount){
+
+		int currentLevel = GameInfo.getInstance().getCurrentLevel();
+		switch (currentLevel){
+			case 1:
+				return objectCount >= 5;
+			case 2:
+				return objectCount >= 7;
+			case 3:
+				return objectCount >= 10;
+			case 4:
+				return objectCount >= 14;
+			case 5:
+				return objectCount >= 19;
+			case 6:
+				return objectCount >= 25;
+			default:
+				return false;
+		}
 	}
 }

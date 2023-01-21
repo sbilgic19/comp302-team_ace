@@ -77,7 +77,7 @@ avoiding locations occupied by other objects and the door location.
 		int rand = r.nextInt(object_locations.size());
 		
 		k = new Key(object_locations.get(rand));
-		GameInfo.getInstance().setKey(k);
+		GameInfo.getInstance().addKey(k);
 		return k;
 	}
 }

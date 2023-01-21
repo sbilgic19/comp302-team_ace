@@ -19,7 +19,7 @@ import domain.aliens.TimeWastingAlien;
 
 public class TimeWastingAlienLogic {
 	TimeWastingAlien timeWastingAlien;
-	private GameController gameController;
+	private final GameController gameController;
 	private final Random random = new Random();
 	Key key;
 	
@@ -125,7 +125,7 @@ private boolean determineBehaviourStrategy() {
 	}
 	
 	private ArrayList<RoomObject> excludeDoorRoom() {
-		ArrayList<RoomObject> tempList = new ArrayList<>(GameInfo.getInstance().getListOfObjects());
+		ArrayList<RoomObject> tempList = new ArrayList<>(GameInfo.getInstance().getCurrentObjects());
 		Location doorLocation = GameInfo.getInstance().getDoorLocation();
 		for (int ii = 0; ii < tempList.size(); ii++) {
 			Location tempLocation = tempList.get(ii).getLocation();

@@ -14,14 +14,14 @@ import javax.swing.JTextField;
 public class SignUpPanel extends JPanel{
 	
 	
-	private JTextField signUsername;
-	private JPasswordField signPassword;
-	private JPasswordField signCheckPassword;
-	private JLabel signUsernameLabel;
-	private JLabel signPasswordLabel;
-	private JLabel signCheckPasswordLabel;
-	private JButton signUpButton;
-	private JButton backButton;
+	private final JTextField signUsername;
+	private final JPasswordField signPassword;
+	private final JPasswordField signCheckPassword;
+	private final JLabel signUsernameLabel;
+	private final JLabel signPasswordLabel;
+	private final JLabel signCheckPasswordLabel;
+	private final JButton signUpButton;
+	private final JButton backButton;
 	private boolean isOn = false;
 	public SignUpPanel() {
 		//setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));

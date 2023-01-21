@@ -29,12 +29,13 @@ public void setLocation(Location location)
 This method sets the location field of the Key object to the given location
 	 */
 	private Location location;
-	private boolean isTaken = false;
+	private boolean isTaken;
 	
 	public Key(Location location) {
 		super();
 		this.location = location;
 		System.out.println("key is created on " + location.getLocationX() +" " + location.getLocationY() );
+		this.isTaken = false;
 	}
 
 	public void taken(Player p ) {

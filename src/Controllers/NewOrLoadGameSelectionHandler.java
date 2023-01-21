@@ -12,8 +12,8 @@ import domain.RoomObject;
 public class NewOrLoadGameSelectionHandler implements ActionListener {
 
 	//private GameFrame gameFrame;
-	private Client client;
-	private GameController gameController;
+	private final Client client;
+	private final GameController gameController;
 	
 	
 	public NewOrLoadGameSelectionHandler(GameController gameController, Client client) {
@@ -32,9 +32,10 @@ public class NewOrLoadGameSelectionHandler implements ActionListener {
 			GameInfo gameInfo = client.loadGame("Game1");
 			GameInfo.getInstance().setTime(gameInfo.getTime());
 			GameInfo.getInstance().setPlayer(gameInfo.getPlayer());
-			GameInfo.getInstance().setListOfObjects(gameInfo.getListOfObjects());
-			GameInfo.getInstance().setDoorLocation(gameInfo.getDoorLocation());
-			GameInfo.getInstance().setKey(gameInfo.getKey());
+			GameInfo.getInstance().setListOfObjectsOfAllLevels(gameInfo.getListOfObjectsOfAllLevels());
+			GameInfo.getInstance().setDoorLocationList(gameInfo.getDoorLocationList());
+			GameInfo.getInstance().setKeyList(gameInfo.getKeyList());
+			GameInfo.getInstance().setCurrentLevel(gameInfo.getCurrentLevel());
 
 			System.out.println(gameInfo.getPlayer().getLives());
 			System.out.println(gameInfo.getTime());
@@ -53,7 +54,7 @@ public class NewOrLoadGameSelectionHandler implements ActionListener {
 				}
 			}
 
-			for (RoomObject roomObject : gameInfo.getListOfObjects()) {
+			for (RoomObject roomObject : gameInfo.getCurrentObjects()) {
 
 				icon = images[roomObject.getTypeID()];
 				gameMap[roomObject.getLocation().getLocationX()][roomObject.getLocation().getLocationY()].setIcon(icon);

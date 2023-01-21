@@ -18,11 +18,11 @@ public class LoginPanel extends JPanel {
 	
 
 	
-	private JTextField usernameField;
-	private JPasswordField passwordField;
-	private JLabel usernameLabel;
-	private JLabel passwordLabel;
-	private JButton loginButton;
+	private final JTextField usernameField;
+	private final JPasswordField passwordField;
+	private final JLabel usernameLabel;
+	private final JLabel passwordLabel;
+	private final JButton loginButton;
 	
 	public LoginPanel() {
 		

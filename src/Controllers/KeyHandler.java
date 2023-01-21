@@ -29,7 +29,7 @@ public class KeyHandler extends KeyAdapter {
 
 	private int seconds = 0;
 
-	private PlayerHandler playerHandler;
+	private final PlayerHandler playerHandler;
 	private PowerUpHandler powerUpHandler;
 	
 	public KeyHandler(PlayerHandler playerHandler) {

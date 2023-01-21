@@ -16,7 +16,7 @@ import domain.aliens.ShooterAlien;
 
 public class ShooterAlienLogic {
 	ShooterAlien shooterAlien;
-	private GameController gameController;
+	private final GameController gameController;
 	private final Random random = new Random();
 	
 	public ShooterAlienLogic(GameController gameController, Player player) {

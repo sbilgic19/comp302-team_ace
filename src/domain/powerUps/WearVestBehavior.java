@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class WearVestBehavior implements PowerUpBehavior{
-    private Player player;
+    private final Player player;
     private int seconds = 0;
     Timer timer;
     public WearVestBehavior(Player player){

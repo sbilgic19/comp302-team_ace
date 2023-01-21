@@ -13,7 +13,7 @@ public class GameTime {
     private static GameTime gameTime;
     private int seconds = 0;
     private static JLabel timerAsSecond;
-    private Timer timer = createTimer();
+    private final Timer timer = createTimer();
 
     private GameTime() {
     

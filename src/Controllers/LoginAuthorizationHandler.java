@@ -13,9 +13,9 @@ import Database.Client;
 
 public class LoginAuthorizationHandler implements ActionListener {
 	
-	private GameFrame gameFrame;
-	private LoginPanel loginPanel;
-	private Client client;
+	private final GameFrame gameFrame;
+	private final LoginPanel loginPanel;
+	private final Client client;
 	
 	public LoginAuthorizationHandler(GameFrame gameFrame) {
 		this.gameFrame = gameFrame;

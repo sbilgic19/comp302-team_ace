@@ -8,6 +8,6 @@ import domain.Key;
 import domain.RoomObject;
 
 public interface TimeWastingAlienBehaviourStrategy {
-	public boolean changeLocationOfTheKey();
-	public void setFieldInstances(ArrayList<RoomObject> objectList, Key key, TimeWastingAlienLogic timeWastingAlienLogic);
+	boolean changeLocationOfTheKey();
+	void setFieldInstances(ArrayList<RoomObject> objectList, Key key, TimeWastingAlienLogic timeWastingAlienLogic);
 }

@@ -10,7 +10,7 @@ import UI.MainScreenPanel;
 public class MainScreenPanelButtonsHandler implements ActionListener{
 
 	//private MainScreenPanel mainScreenPanel;
-	private GameFrame gameFrame;
+	private final GameFrame gameFrame;
 	
 	public MainScreenPanelButtonsHandler(GameFrame gameFrame) {
 		//this.mainScreenPanel = mainScreenPanel;

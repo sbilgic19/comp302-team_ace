@@ -31,8 +31,7 @@ public class RoomObject implements Serializable {
 
 	public boolean equals(Object o) {
 		if (o == this) return true;
-		if (!(o instanceof RoomObject)) return false;
-		RoomObject p = (RoomObject) o;
+		if (!(o instanceof RoomObject p)) return false;
 		return p.typeID == typeID && p.location.getLocationX() == location.getLocationX()
 					&& p.location.getLocationY() == location.getLocationY();
 	}

@@ -7,8 +7,8 @@ import UI.GameFrame;
 
 public class PlayerHandler {
 	
-	private Player player;
-	private GameController gameController;
+	private final Player player;
+	private final GameController gameController;
 	private int numRow;
 	private int numCol;
 	PlayerMoveLogic playerMoveLogic;

@@ -13,7 +13,7 @@ public class Player implements Serializable {
 	private boolean isKeyTaken = false;
 	private boolean isProtected = false;
 	private boolean isThrowing = false;
-	private ArrayList<PowerUp> bag = new ArrayList<PowerUp>();
+	private final ArrayList<PowerUp> bag = new ArrayList<PowerUp>();
 
 	public Player() {
 		this.lives = 3;
@@ -134,5 +134,6 @@ public class Player implements Serializable {
 		return false;
 	}
 	public void setLocation(Location location){this.location = location; }
+	public void setKeyTaken(boolean isKeyTaken){this.isKeyTaken = isKeyTaken;}
 
 }

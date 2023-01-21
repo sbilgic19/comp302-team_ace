@@ -11,7 +11,7 @@ import domain.powerUps.PowerUpFactory;
 
 public class PowerUpLogic {
 
-	private GameController gameController;
+	private final GameController gameController;
 	private final Random r = new Random();
 	
 	public PowerUpLogic(GameController gameController, Player player) {
@@ -77,6 +77,8 @@ public class PowerUpLogic {
 	    default:
 				powerUp = null;
 		}
+		GameInfo.getInstance().setActivePowerUp(powerUp);
+		gameController.setPowerUp(powerUp);
 		return powerUp;
 		}
 }
