@@ -232,73 +232,72 @@ public class GamePanel extends JPanel {
     TimerTask tt = new TimerTask() {
       @Override
       public void run() {
-        int alienNumber;
-        if (!key.getIsTaken()) {
-          alienNumber = new Random().nextInt(3);
-        } else {
-          alienNumber = new Random().nextInt(2) + 1;
-        }
-        System.out.println(alienNumber);
-        if (!GameState.getInstance().isPaused()) {
-          switch (alienNumber) {
-            case 0:
-              timeWastingAlienHandler.deactivate();
-              timeWastingAlienRandomizer();
-              shooterAlienHandler.deactivate();
-              blindAlienHandler.deactivate();
-              break;
-            case 1:
-              shooterAlienHandler.deactivate();
-              shooterAlieanRandomizer();
-              timeWastingAlienHandler.deactivate();
-              blindAlienHandler.deactivate();
-              break;
-            case 2:
-              blindAlienHandler.deactivate();
-              blindAlieanRandomizer();
-              timeWastingAlienHandler.deactivate();
-              shooterAlienHandler.deactivate();
-              break;
-
+          int alienNumber;
+          if (!key.getIsTaken()) {
+            alienNumber = new Random().nextInt(3);
+          } else {
+            alienNumber = new Random().nextInt(2) + 1;
           }
+          System.out.println(alienNumber);
+          if (!GameState.getInstance().isPaused()){
+            switch (alienNumber) {
+              case 0:
+                timeWastingAlienHandler.deactivate();
+                timeWastingAlienRandomizer();
+                shooterAlienHandler.deactivate();
+                blindAlienHandler.deactivate();
+                break;
+              case 1:
+                shooterAlienHandler.deactivate();
+                shooterAlieanRandomizer();
+                timeWastingAlienHandler.deactivate();
+                blindAlienHandler.deactivate();
+                break;
+              case 2:
+                blindAlienHandler.deactivate();
+                blindAlieanRandomizer();
+                timeWastingAlienHandler.deactivate();
+                shooterAlienHandler.deactivate();
+                break;
 
-        } else {
-
-
-          Timer tryTimer = new Timer();
-          TimerTask tt = new TimerTask() {
-
-            @Override
-            public void run() {
-              if (!GameState.getInstance().isPaused()) {
-                switch (alienNumber) {
-                  case 0:
-                    timeWastingAlienHandler.deactivate();
-                    timeWastingAlienRandomizer();
-                    shooterAlienHandler.deactivate();
-                    blindAlienHandler.deactivate();
-                    break;
-                  case 1:
-                    shooterAlienHandler.deactivate();
-                    shooterAlieanRandomizer();
-                    timeWastingAlienHandler.deactivate();
-                    blindAlienHandler.deactivate();
-                    break;
-                  case 2:
-                    blindAlienHandler.deactivate();
-                    blindAlieanRandomizer();
-                    timeWastingAlienHandler.deactivate();
-                    shooterAlienHandler.deactivate();
-                    break;
-                }
-
-                tryTimer.cancel();
-
-
-              }
             }
 
-          };
+          } else {
+
+
+            Timer tryTimer = new Timer();
+            TimerTask tt = new TimerTask() {
+
+              @Override
+              public void run() {
+                if (!GameState.getInstance().isPaused()) {
+                  switch (alienNumber) {
+                    case 0:
+                      timeWastingAlienHandler.deactivate();
+                      timeWastingAlienRandomizer();
+                      shooterAlienHandler.deactivate();
+                      blindAlienHandler.deactivate();
+                      break;
+                    case 1:
+                      shooterAlienHandler.deactivate();
+                      shooterAlieanRandomizer();
+                      timeWastingAlienHandler.deactivate();
+                      blindAlienHandler.deactivate();
+                      break;
+                    case 2:
+                      blindAlienHandler.deactivate();
+                      blindAlieanRandomizer();
+                      timeWastingAlienHandler.deactivate();
+                      shooterAlienHandler.deactivate();
+                      break;
+                  }
+
+                  tryTimer.cancel();
+
+
+                }
+              }
+            };
 
           tryTimer.scheduleAtFixedRate(tt, 1000, 1000);
 

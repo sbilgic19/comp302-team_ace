@@ -17,14 +17,14 @@ public class PowerUpLogic {
 	public PowerUpLogic(GameController gameController, Player player) {
 		this.gameController = gameController;
 	}
-	public void addPowerUp(PowerUp powerUp) 
+	public void addPowerUp(PowerUp powerUp)
 	{
 		String powerUpType = powerUp.getPowerUpType();
 		Location location = powerUp.getLocation();
-		
-		gameController.getGameFrame().getGamePanel().placePowerUp(location, powerUpType);	
-			
-	}	
+
+		gameController.getGameFrame().getGamePanel().placePowerUp(location, powerUpType);
+
+	}
 	public void usePowerUp(PowerUp powerUp){
 		if(powerUp.getPowerUpType().equalsIgnoreCase("ExtraLife") || powerUp.getPowerUpType().equalsIgnoreCase("ExtraTime"))
 			powerUp.triggerEffect();
@@ -55,28 +55,24 @@ public class PowerUpLogic {
 		{
 			case 0:
 				powerUp = PowerUpFactory.getInstance().getPowerUp("ExtraLife", location);
-				this.addPowerUp(powerUp);
 	            break;
 			case 1:
 				powerUp = PowerUpFactory.getInstance().getPowerUp("ExtraTime", location);
-				this.addPowerUp(powerUp);
 				break;
 			case 2:
 				powerUp = PowerUpFactory.getInstance().getPowerUp("ProtectionVest", location);
-				this.addPowerUp(powerUp);
 				break;
       		case 3:
 				powerUp = PowerUpFactory.getInstance().getPowerUp("PlasticBottle", location);
-				this.addPowerUp(powerUp);
 				break;
 			case 4:
 				powerUp = PowerUpFactory.getInstance().getPowerUp("Hint", location);
-				this.addPowerUp(powerUp);
 				break;
 	    default:
 				powerUp = null;
 		}
 		GameInfo.getInstance().setActivePowerUp(powerUp);
+		this.addPowerUp(powerUp);
 		gameController.setPowerUp(powerUp);
 		return powerUp;
 		}
