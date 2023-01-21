@@ -45,7 +45,7 @@ public class BuildModeButtonHandler implements ActionListener {
 		else if (validObjectCount(buildPanel.getBuildingObjectCounter())) {
 			GameInfo.getInstance().addObjectList(buildMode.getObjectList());
 			GameInfo.getInstance().levelUp();
-			if(GameInfo.getInstance().getListOfObjectsOfAllLevels().size() == 2){
+			if(GameInfo.getInstance().getListOfObjectsOfAllLevels().size() == 6){
 				GameInfo.getInstance().setCurrentLevel(1);
 				gameController.switchGameView(gameController.arrayToMatrix(GameInfo.getInstance().getCurrentObjects()));
 				buildMode.removeMouseHandler();
@@ -62,9 +62,7 @@ public class BuildModeButtonHandler implements ActionListener {
 	public boolean validObjectCount(int objectCount){
 
 		int currentLevel = GameInfo.getInstance().getCurrentLevel();
-		if (objectCount > 0){
-			return true;
-		}
+
 		switch (currentLevel){
 			case 1:
 				return objectCount >= 5;
