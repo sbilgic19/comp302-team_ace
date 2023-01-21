@@ -160,7 +160,11 @@ public class GameController {
 		blindAlienHandler = new BlindAlienHandler(player, this);
 		powerUpHandler = new PowerUpHandler(this, player);
 
-		int time = (GameInfo.getInstance().getCurrentObjects().size() - 1)* 5;
+		int time = GameInfo.getInstance().getTime();
+		if (GameInfo.getInstance().getTime() == 0)
+		{
+			time = (GameInfo.getInstance().getCurrentObjects().size() - 1)* 5;
+		}
 		GameTime.getInstance().setSeconds(time);
 		gameFrame.setTimer(GameTime.getInstance().getTimer());
 		gameFrame.getTimer().start();

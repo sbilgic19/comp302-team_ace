@@ -14,7 +14,7 @@ public class GameInfo implements Serializable{
     private static GameInfo instance;
     private Player player;
     private Location playerLocation;
-    private int time;
+    private int time = 0;
     //private Location doorLocation;
     private ArrayList<Location> doorLocationList = new ArrayList<>();
     //private ArrayList<RoomObject> listOfObjects;

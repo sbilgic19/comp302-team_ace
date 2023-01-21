@@ -49,9 +49,11 @@ public class BuildModeButtonHandler implements ActionListener {
 				GameInfo.getInstance().setCurrentLevel(1);
 				gameController.switchGameView(gameController.arrayToMatrix(GameInfo.getInstance().getCurrentObjects()));
 				buildMode.removeMouseHandler();
+				buildMode.setDoorLocation(null);
 			} else {
 				gameController.updateLevelView();
 				buildMode.addNewLevel();
+				buildMode.setDoorLocation(null);
 			}
 		}
 		else {
