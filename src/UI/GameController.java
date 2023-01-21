@@ -160,6 +160,7 @@ public class GameController {
 		powerUpHandler = new PowerUpHandler(this, player);
 
 		int time = (GameInfo.getInstance().getCurrentObjects().size() - 1)* 5;
+		time = 100;
 		GameTime.getInstance().setSeconds(time);
 		gameFrame.setTimer(GameTime.getInstance().getTimer());
 		gameFrame.getTimer().start();

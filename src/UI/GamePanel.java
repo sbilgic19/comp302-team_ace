@@ -48,7 +48,7 @@ public class GamePanel extends JPanel {
   private final ImageIcon plasticBottleIconWest;
   private final ImageIcon plasticBottleIconSouth;
 
-  private final Location plasticBottleLocation = null;
+  private Location plasticBottleLocation = null;
   private final int numRow;
   private final int numCol;
   private final GameFrame gameFrame;
@@ -66,6 +66,7 @@ public class GamePanel extends JPanel {
   TimeWastingAlienHandler timeWastingAlienHandler;
   ShooterAlienHandler shooterAlienHandler;
   BlindAlienHandler blindAlienHandler;
+
 
   public GamePanel(GameFrame gameFrame) {
 
@@ -171,7 +172,8 @@ public class GamePanel extends JPanel {
     gameMap[x][y].addMouseListener(new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent e) {
-        if (!GameState.getInstance().isPaused() && !GameState.getInstance().isGameOver() && GameInfo.getInstance().getKey().getIsTaken()) {
+        if (!GameState.getInstance().isPaused() && !GameState.getInstance().isGameOver() && GameInfo.getInstance().getKey().getIsTaken()
+              && Location.distance(GameInfo.getInstance().getPlayer().getLocation(),GameInfo.getInstance().getDoorLocation()) < 2) {
           if (e.getSource() == gameMap[x][y]) {
             System.out.println((GameInfo.getInstance().getCurrentLevel() + 1) + ". level is starting...");
             GameInfo.getInstance().levelUp();
@@ -574,8 +576,10 @@ public class GamePanel extends JPanel {
     if (gameMap[newXPlayerPosition][newYPlayerPosition].getIcon() == null && newXPlayerPosition < numRow - 1 && newYPlayerPosition < numCol - 1
           && newXPlayerPosition > 0 && newYPlayerPosition > 0) {
       gameMap[newXPlayerPosition][newYPlayerPosition].setIcon(plasticBottleIcons[bottleIconPosition % 4]);
+      plasticBottleLocation = new Location(newXPlayerPosition, newYPlayerPosition);
       return true;
     } else
+      plasticBottleLocation = null;
       return false;
   }
 

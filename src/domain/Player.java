@@ -2,8 +2,9 @@ package domain;
 
 import dataStructures.Location;
 import domain.powerUps.PowerUp;
+import domain.powerUps.PowerUpFactory;
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
 
 public class Player implements Serializable {
@@ -95,7 +96,8 @@ public class Player implements Serializable {
 	 * @param powerUp powerUp to add to the bag.
 	 */
 	public void addToBag(PowerUp powerUp){
-		bag.add(powerUp);
+		PowerUp copy = PowerUpFactory.getInstance().getPowerUp(powerUp.getPowerUpType(), powerUp.getLocation());
+		bag.add(copy);
 	}
 
 	/**

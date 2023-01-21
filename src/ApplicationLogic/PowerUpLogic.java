@@ -25,7 +25,7 @@ public class PowerUpLogic {
 		gameController.getGameFrame().getGamePanel().placePowerUp(location, powerUpType);	
 			
 	}	
-	public void usePowerUp(PowerUp powerUp) {
+	public void usePowerUp(PowerUp powerUp){
 		if(powerUp.getPowerUpType().equalsIgnoreCase("ExtraLife") || powerUp.getPowerUpType().equalsIgnoreCase("ExtraTime"))
 			powerUp.triggerEffect();
 		else
