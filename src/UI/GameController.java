@@ -250,6 +250,8 @@ public class GameController {
         	GameState.getInstance().setGameOver(true);
         	GameState.getInstance().setPaused(true);
         	System.out.println("game over!");
+        	
+        	gameFrame.showPopUpOnScreen("GAME OVER!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
