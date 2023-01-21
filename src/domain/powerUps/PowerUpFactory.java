@@ -27,9 +27,9 @@ public class PowerUpFactory {
 
 	public void setKey(Key key) {this.key = key;}
     
-    public PowerUp getPowerUp(String spellType, Location location)
+    public PowerUp getPowerUp(String powerUpType, Location location)
     {
-    	switch (spellType)
+    	switch (powerUpType)
     	{
 			case "ExtraLife":
 				return new ExtraLifePowerUp(location, player);
