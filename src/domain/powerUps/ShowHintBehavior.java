@@ -5,13 +5,14 @@ import domain.Key;
 import domain.Player;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.Random;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ShowHintBehavior implements PowerUpBehavior{
+public class ShowHintBehavior implements PowerUpBehavior, Serializable {
 
   private final int seconds = 0;
   Timer timer;

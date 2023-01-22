@@ -2,7 +2,9 @@ package domain.powerUps;
 
 import UI.GameTime;
 
-public class IncreaseTimeBehavior implements PowerUpBehavior{
+import java.io.Serializable;
+
+public class IncreaseTimeBehavior implements PowerUpBehavior, Serializable {
 
     /**
      * Increases the game time by five.

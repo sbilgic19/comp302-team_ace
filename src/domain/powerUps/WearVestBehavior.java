@@ -6,8 +6,9 @@ import domain.Player;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 
-public class WearVestBehavior implements PowerUpBehavior{
+public class WearVestBehavior implements PowerUpBehavior, Serializable {
     private final Player player;
     private int seconds = 0;
     Timer timer;
