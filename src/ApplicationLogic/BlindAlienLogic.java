@@ -1,5 +1,6 @@
 package ApplicationLogic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -15,44 +16,42 @@ import domain.Player;
 import domain.aliens.AlienFactory;
 import domain.aliens.BlindAlien;
 
-public class BlindAlienLogic {
+public class BlindAlienLogic implements Serializable {
 	BlindAlien blindAlien;
 	private final GameController gameController;
 	private final Random random = new Random();
-	
+
 	public BlindAlienLogic(GameController gameController, Player player) {
 		this.gameController = gameController;
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 	public Boolean shoot(Player player) {
-		
+
 		if(blindAlien.getIsActive() && !GameState.getInstance().isPaused()) {
-			if(Location.distance(player.getLocation(), blindAlien.getLocation()) <= 1) {
+			System.out.println(GameInfo.getInstance().getPlayer().getLocation().getLocationX() + " p" + GameInfo.getInstance().getPlayer().getLocation().getLocationY());
+			System.out.println(blindAlien.getLocation().getLocationX() + " b" + blindAlien.getLocation().getLocationY());
+			if(Location.distance(player.getLocation(), blindAlien.getLocation()) <2) {
 				System.out.println("X: "+player.getLocation().getLocationX()+" Y: "+player.getLocation().getLocationY());
 				System.out.println("isProtected: "+ player.isProtected());
 
 					player.decreaseLives();
 					gameController.getGameFrame().updatePlayerLivesView(player.getLives());
 					return true;
-			
-				
 			}
 		}
-		
-		
 		return false;
 	}
-	
-	
+
+
 	public boolean move(Location loc) {
 		if (this.blindAlien != null) {
 			if(loc == null) {
 				int randomMove = new Random().nextInt(4);
-				
+
 				switch (randomMove){
 				case 0:
 					return moveable(0,1);
@@ -62,9 +61,7 @@ public class BlindAlienLogic {
 					return moveable(-1,0);
 				case 3:
 					return moveable(0,-1);
-					
 				}
-			
 			}
 			else {
 				int x = Location.x_direction(loc, blindAlien.getLocation());
@@ -90,18 +87,11 @@ public class BlindAlienLogic {
 				case 2:
 					break;
 				}
-				
 			}
 		}
-			
-			
 		return false;
 	}
-	
-	
-	
-	
-	
+
 	public boolean moveable(int changeInX, int changeInY) {
 		if ( Math.abs(changeInX) +  Math.abs(changeInY) <= 1) {
 			int xPosition = blindAlien.getLocation().getLocationX();
@@ -109,42 +99,42 @@ public class BlindAlienLogic {
 
 			int newXPosition = xPosition + changeInX;
 			int newYPosition = yPosition + changeInY;
-			
-			if (newXPosition >= 0 && newXPosition < gameController.getGameFrame().getNumRow() && newYPosition >= 0 
-						&& newYPosition < gameController.getGameFrame().getNumCol()) {  
+
+			if (newXPosition >= 0 && newXPosition < gameController.getGameFrame().getNumRow() && newYPosition >= 0
+						&& newYPosition < gameController.getGameFrame().getNumCol()) {
 				if(gameController.getGameFrame().getGamePanel().getGameMap()[newXPosition][newYPosition].getIcon() == null) {
 					gameController.getGameFrame().getGamePanel().updateBlindAlienView(xPosition, yPosition,
 							newXPosition, newYPosition);
 					blindAlien.getLocation().setLocationX(newXPosition);
 					blindAlien.getLocation().setLocationY(newYPosition);
-					
+
 					return true;
 				}
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	public void placeBlindAlien() {
 		gameController.getGameFrame().getGamePanel().placeAlien(blindAlien.getLocation(), blindAlien.getAlienType());
 	}
-	
-	
+
+
 	public void deactivate() {
 		if ( blindAlien != null) {
 			if(blindAlien.getIsActive()) {
 				blindAlien.setIsActive(false);
 				gameController.getGameFrame().getGamePanel().setNullIcon(blindAlien.getLocation());
-				
+
 			}
-			GameInfo.getInstance().removeAlien(blindAlien);
-			
+			GameInfo.getInstance().setActiveAlien(null);
+
 		}
 	}
-	
-	
-	
+
+
+
 	public BlindAlien getBlindAlien() {
 		if(this.blindAlien != null) {
 			this.deactivate();
@@ -153,7 +143,7 @@ public class BlindAlienLogic {
 		int rowCount = gameController.getGameFrame().getNumRow();
 		int columnCount = gameController.getGameFrame().getNumCol();
 		Boolean flag = false;
-		ArrayList<Location> object_locations = new ArrayList<>(); 
+		ArrayList<Location> object_locations = new ArrayList<>();
 		for (int i = 0; i < rowCount; i++) {
 			  for ( int j = 0; j < columnCount ; j++) {
 				  if (i == 0 && j == 5) {
@@ -167,28 +157,23 @@ public class BlindAlienLogic {
 						  continue;
 					  }
 					  object_locations.add(new Location(i,j));
-					  
+
 				  }
 			  }
 			}
-		
+
 		int rand = random.nextInt(object_locations.size());
-		
+
 		BlindAlien blindAlien = (BlindAlien) AlienFactory.getInstance().getAlien("Blind" , object_locations.get(rand));
-		setBlindAlien(blindAlien);
+		setBlindAlien((BlindAlien) GameInfo.getInstance().getActiveAlien());
 		placeBlindAlien();
-		return blindAlien;
+		return (BlindAlien) GameInfo.getInstance().getActiveAlien();
 	}
 
 
 	public void setBlindAlien(BlindAlien blindAlien) {
 		this.blindAlien = blindAlien;
 	}
-
-
-	
-	
-	
 
 }
 

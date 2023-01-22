@@ -14,14 +14,12 @@ public class GameInfo implements Serializable{
     private static GameInfo instance;
     private Player player;
     private Location playerLocation;
-    private int time;
-    //private Location doorLocation;
+    private int time = 0;
     private ArrayList<Location> doorLocationList = new ArrayList<>();
-    //private ArrayList<RoomObject> listOfObjects;
+    private boolean isLoaded= false;
     private ArrayList<ArrayList<RoomObject>> listOfObjectsOfAllLevels = new ArrayList<>();
-    ArrayList<Alien> listOfAlien = new ArrayList<Alien>();
+    private Alien activeAlien;
     private PowerUp activePowerUp;
-    //private Key key;
     private ArrayList<Key> keyList = new ArrayList<>();
     private int currentLevel = 1;
 
@@ -51,40 +49,6 @@ public class GameInfo implements Serializable{
     public void setTime(int time) {
         this.time = time;
     }
-    
-    public ArrayList<Alien> getAlienList(){
-    	return listOfAlien;
-    }
-    
-    public void addAlien(Alien a) {
-    	listOfAlien.add(a);
-    }
-    
-    public void removeAlien(Alien a) {
-    	if(listOfAlien.contains(a)) {
-    		listOfAlien.remove(a);
-    	}
-    }
-    
-    public void clearAlienList() {
-    	listOfAlien.clear();
-    }
-    
-    
-    
-/*
-    public ArrayList<RoomObject> getListOfObjects() {
-        return listOfObjects;
-    }
-
-    public void setListOfObjects(ArrayList<RoomObject> listOfObjects) {
-        this.listOfObjects = listOfObjects;
-    }
-    */
-    /*
-    public Location getDoorLocation(){ return doorLocation; }
-    public void setDoorLocation(Location location){ this.doorLocation = location; }
-    */
     public Location getDoorLocation(){return doorLocationList.get(currentLevel - 1);}
     public ArrayList<Location> getDoorLocationList(){return doorLocationList;}
     public void setDoorLocationList(ArrayList<Location> doorList) { this.doorLocationList = doorList;}
@@ -105,10 +69,6 @@ public class GameInfo implements Serializable{
     public void setActivePowerUp(PowerUp powerUp){
         this.activePowerUp = powerUp;
     }
-    /*
-    public void setKey(Key k){this.key = k;}
-    public Key getKey(){return this.key;}
-     */
     public void setKeyList(ArrayList<Key> keyList){this.keyList = keyList;}
     public void addKey(Key k){
         if(keyList.size() >= currentLevel) {
@@ -146,5 +106,13 @@ public class GameInfo implements Serializable{
     public ArrayList<RoomObject> getCurrentObjects(){
         return this.listOfObjectsOfAllLevels.get(currentLevel - 1);
     }
+    public void setActiveAlien(Alien alien){ this.activeAlien= alien;}
+    public Alien getActiveAlien(){return activeAlien; }
 
+    public boolean getIsLoaded(){
+        return isLoaded;
+    }
+    public void setIsLoaded(Boolean load) {
+        this.isLoaded = load;
+    }
 }

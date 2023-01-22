@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -25,7 +26,7 @@ import domain.powerUps.PowerUp;
 import domain.powerUps.PowerUpFactory;
 import domain.powerUps.ProtectionVestPowerUp;
 
-public class GameController {
+public class GameController implements Serializable {
 
 	private static final int frameWidth = 1500;
 	private static final int frameHeight = 750;
@@ -44,6 +45,7 @@ public class GameController {
 	private BlindAlienHandler blindAlienHandler;
 	private PowerUpHandler powerUpHandler;
 	private PowerUp activePowerUp;
+	Timer tempTimer;
 	private final String[] levels = {"Student Center", "CASE Building", "SOS Building", "SCI Building", "ENG Building", "SNA Building"};
 
 	public GameController() {
@@ -66,13 +68,15 @@ public class GameController {
 		//Authorization.addUserToRecord(new User("nsavran", "123456"));
 
 
-		RoomKeyHandler roomKeyHandler = new RoomKeyHandler(this, this.player);
-		PlayerHandler playerHandler = new PlayerHandler(this.player, this);
+		//RoomKeyHandler
+		roomKeyHandler = new RoomKeyHandler(this, this.player);
 
-		KeyHandler keyHandler = new KeyHandler(playerHandler);
-		ShooterAlienHandler shooterAlienHandler = new ShooterAlienHandler(this.player, this);
-		BlindAlienHandler blindAlienHandler = new BlindAlienHandler(this.player,this);
-		PowerUpHandler powerUpHandler = new PowerUpHandler(this, this.player);
+		playerHandler = new PlayerHandler(this.player, this);
+
+		 keyHandler = new KeyHandler(playerHandler);
+		 shooterAlienHandler = new ShooterAlienHandler(this.player, this);
+		 blindAlienHandler = new BlindAlienHandler(this.player,this);
+		 powerUpHandler = new PowerUpHandler(this, this.player);
 
 
 
@@ -150,7 +154,7 @@ public class GameController {
 		gameFrame.getResumeButton().setSize(50,50);
 
 
-		player = GameInfo.getInstance().getPlayer();
+		//player = GameInfo.getInstance().getPlayer();
 		roomKeyHandler = new RoomKeyHandler(this, player);
 		playerHandler = new PlayerHandler(player, this);
 
@@ -159,7 +163,11 @@ public class GameController {
 		blindAlienHandler = new BlindAlienHandler(player, this);
 		powerUpHandler = new PowerUpHandler(this, player);
 
-		int time = (GameInfo.getInstance().getCurrentObjects().size() - 1)* 5;
+		int time = GameInfo.getInstance().getTime();
+		if (GameInfo.getInstance().getTime() == 0)
+		{
+			time = (GameInfo.getInstance().getCurrentObjects().size() - 1)* 5;
+		}
 		GameTime.getInstance().setSeconds(time);
 		gameFrame.setTimer(GameTime.getInstance().getTimer());
 		gameFrame.getTimer().start();
@@ -212,7 +220,31 @@ public class GameController {
 		gameFrame.getGamePanel().setGameMap(buildModeMap);
 		gameFrame.getGamePanel().requestFocus();
 		gameFrame.getGamePanel().addKeyListener(this.keyHandler);
-		gameFrame.getGamePanel().alienProducer();
+		if(GameInfo.getInstance().getCurrentLevel() == 1 || GameInfo.getInstance().getIsLoaded()){
+			gameFrame.getGamePanel().alienProducer();
+			gameFrame.getGamePanel().powerUpCreateTimer();
+		}
+
+
+		if(GameInfo.getInstance().getActivePowerUp() != null){
+			powerUpHandler.getPowerUpLogic().addPowerUp(GameInfo.getInstance().getActivePowerUp());
+			tempTimer = new Timer(1000, new ActionListener() {
+				int seconds =0;
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if(GameInfo.getInstance().getActivePowerUp()!=null) {
+						seconds++;
+						if (seconds == 4) {
+							int x = GameInfo.getInstance().getActivePowerUp().getLocation().getLocationX();
+							int y = GameInfo.getInstance().getActivePowerUp().getLocation().getLocationY();
+							gameFrame.getGamePanel().getGameMap()[x][y].setIcon(null);
+							tempTimer.stop();
+						}
+					}
+				}
+			});
+			tempTimer.start();
+		}
 
 		JPanel livesPanel = new JPanel();
 		gameFrame.add(livesPanel, BorderLayout.NORTH);
@@ -313,25 +345,30 @@ public class GameController {
 			x = r.getLocation().getLocationX();
 			y = r.getLocation().getLocationY();
 			buildModeMap[x][y].setIcon(gameFrame.getIcons()[r.getTypeID()]);
+			if(GameInfo.getInstance().getIsLoaded() && r.getTypeID() ==0 && GameInfo.getInstance().getPlayer().getIsKeyTaken() == true){
+				buildModeMap[x][y].setIcon(gameFrame.getGamePanel().getOpenDoorIcon());
+			}
 		}
-
 
 		return buildModeMap;
 	}
 
 	public void nextLevel(){
+		GameInfo.getInstance().setIsLoaded(false);
 		System.out.println("CurrentLevel: " + GameInfo.getInstance().getCurrentLevel());
 		if (GameInfo.getInstance().getCurrentLevel() > 6) {
 			JOptionPane.showMessageDialog(null, "You Won",
 						"Congrats!", JOptionPane.ERROR_MESSAGE);
 		} else {
+			GameInfo.getInstance().setTime(0);
 			JLabel[][] newMap = gameFrame.getGameController().arrayToMatrix(GameInfo.getInstance().getCurrentObjects());
 			GameInfo.getInstance().getPlayer().setLocation(new Location(0,5));
 			GameInfo.getInstance().getPlayer().setKeyTaken(false);
 			GameInfo.getInstance().setActivePowerUp(null);
-			this.switchGameView(newMap);
+			gameFrame.getGameController().switchGameView(newMap);
 			System.out.println(GameInfo.getInstance().getPlayer().isContains("PlasticBottle"));
 		}
 	}
+
 }
 

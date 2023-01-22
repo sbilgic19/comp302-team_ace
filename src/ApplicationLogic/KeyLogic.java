@@ -38,8 +38,10 @@ avoiding locations occupied by other objects and the door location.
 
 	
 	public boolean takeKey(Player p , Key k) {
-
-		if ( Math.abs(p.getLocation().getLocationX()- k.getLocation().getLocationX()) <= 1 && Math.abs(p.getLocation().getLocationY()- k.getLocation().getLocationY()) <= 1 && !k.getIsTaken() ) {
+		System.out.println("Loggoer for keyTake");
+		System.out.println(Location.distance(p.getLocation(), k.getLocation()) < 2);
+		System.out.println(!k.getIsTaken());
+		if ( Location.distance(p.getLocation(), k.getLocation()) < 2  && !k.getIsTaken() ) {
 			k.taken(p);
 			System.out.println("key taken");
 			return true;

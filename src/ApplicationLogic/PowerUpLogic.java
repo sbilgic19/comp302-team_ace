@@ -17,14 +17,14 @@ public class PowerUpLogic {
 	public PowerUpLogic(GameController gameController, Player player) {
 		this.gameController = gameController;
 	}
-	public void addPowerUp(PowerUp powerUp) 
+	public void addPowerUp(PowerUp powerUp)
 	{
 		String powerUpType = powerUp.getPowerUpType();
 		Location location = powerUp.getLocation();
-		
-		gameController.getGameFrame().getGamePanel().placePowerUp(location, powerUpType);	
-			
-	}	
+
+		gameController.getGameFrame().getGamePanel().placePowerUp(location, powerUpType);
+
+	}
 	public void usePowerUp(PowerUp powerUp){
 		if(powerUp.getPowerUpType().equalsIgnoreCase("ExtraLife") || powerUp.getPowerUpType().equalsIgnoreCase("ExtraTime"))
 			powerUp.triggerEffect();

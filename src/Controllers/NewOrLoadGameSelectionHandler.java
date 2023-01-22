@@ -6,6 +6,7 @@ import javax.swing.*;
 
 import Database.Client;
 import UI.GameController;
+import UI.GameState;
 import domain.GameInfo;
 import domain.RoomObject;
 
@@ -16,10 +17,10 @@ public class NewOrLoadGameSelectionHandler implements ActionListener {
 	private final GameController gameController;
 	
 	
-	public NewOrLoadGameSelectionHandler(GameController gameController, Client client) {
+	public NewOrLoadGameSelectionHandler(GameController gameController) {
 		
 		this.gameController = gameController;
-		this.client = client;
+		this.client = gameController.getClient();
 	}
 	
 	
@@ -32,10 +33,13 @@ public class NewOrLoadGameSelectionHandler implements ActionListener {
 			GameInfo gameInfo = client.loadGame("Game1");
 			GameInfo.getInstance().setTime(gameInfo.getTime());
 			GameInfo.getInstance().setPlayer(gameInfo.getPlayer());
+			GameInfo.getInstance().setIsLoaded(true);
 			GameInfo.getInstance().setListOfObjectsOfAllLevels(gameInfo.getListOfObjectsOfAllLevels());
 			GameInfo.getInstance().setDoorLocationList(gameInfo.getDoorLocationList());
 			GameInfo.getInstance().setKeyList(gameInfo.getKeyList());
 			GameInfo.getInstance().setCurrentLevel(gameInfo.getCurrentLevel());
+			GameInfo.getInstance().setActiveAlien(gameInfo.getActiveAlien());
+			GameInfo.getInstance().setActivePowerUp(gameInfo.getActivePowerUp());
 
 			System.out.println(gameInfo.getPlayer().getLives());
 			System.out.println(gameInfo.getTime());
@@ -46,8 +50,8 @@ public class NewOrLoadGameSelectionHandler implements ActionListener {
 			ImageIcon icon;
 			int rowCount = gameController.getGameFrame().getNumRow();
 			int columnCount = gameController.getGameFrame().getNumCol();
-
-			JLabel[][] gameMap = new JLabel[rowCount][columnCount];
+			JLabel[][] gameMap = gameController.arrayToMatrix(GameInfo.getInstance().getCurrentObjects());
+			/*JLabel[][] gameMap = new JLabel[rowCount][columnCount];
 			for(int i = 0; i<rowCount; i++){
 				for(int j = 0; j<columnCount; j++){
 					gameMap[i][j] = new JLabel();
@@ -58,7 +62,10 @@ public class NewOrLoadGameSelectionHandler implements ActionListener {
 
 				icon = images[roomObject.getTypeID()];
 				gameMap[roomObject.getLocation().getLocationX()][roomObject.getLocation().getLocationY()].setIcon(icon);
-			}
+				if(r.getTypeID() ==0 && GameInfo.getInstance().getKey().getIsTaken() == true){
+					gameMap[x][y].setIcon(gameFrame.getGamePanel().getOpenDoorIcon());
+				}
+			}*/
 
 			gameController.switchBuildView();
 			gameController.switchGameView(gameMap);

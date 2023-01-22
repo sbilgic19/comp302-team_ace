@@ -6,7 +6,9 @@ import UI.GameFrame;
 import domain.Player;
 import domain.aliens.ShooterAlien;
 
-public class ShooterAlienHandler {
+import java.io.Serializable;
+
+public class ShooterAlienHandler implements Serializable {
 	ShooterAlienLogic shooterAlienLogic;
 	Player player;
 	GameController gameController;

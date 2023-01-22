@@ -1,5 +1,6 @@
 package ApplicationLogic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -17,7 +18,7 @@ import domain.RoomObject;
 import domain.aliens.AlienFactory;
 import domain.aliens.TimeWastingAlien;
 
-public class TimeWastingAlienLogic {
+public class TimeWastingAlienLogic implements Serializable {
 	TimeWastingAlien timeWastingAlien;
 	private final GameController gameController;
 	private final Random random = new Random();
@@ -72,7 +73,7 @@ private boolean determineBehaviourStrategy() {
 				timeWastingAlien.setIsActive(false);
 				gameController.getGameFrame().getGamePanel().setNullIcon(timeWastingAlien.getLocation());
 			}
-			GameInfo.getInstance().removeAlien(timeWastingAlien);
+			GameInfo.getInstance().setActiveAlien(null);
 		}
 	}
 	
@@ -112,9 +113,9 @@ private boolean determineBehaviourStrategy() {
 		behaviours[0].setFieldInstances(excludeDoorRoom(), key,this);
 		behaviours[1].setFieldInstances(excludeDoorRoom(), key,this);
 		behaviours[2].setFieldInstances(excludeDoorRoom(), key,this);
-		setTimeWastingAlien(timeWastingAlien);
+		setTimeWastingAlien((TimeWastingAlien) GameInfo.getInstance().getActiveAlien());
 		placeTimeWastingAlien();
-		return timeWastingAlien;
+		return (TimeWastingAlien) GameInfo.getInstance().getActiveAlien();
 	}
 
 

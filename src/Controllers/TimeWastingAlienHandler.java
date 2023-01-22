@@ -7,7 +7,9 @@ import UI.GameFrame;
 import domain.Key;
 import domain.aliens.*;
 
-public class TimeWastingAlienHandler {
+import java.io.Serializable;
+
+public class TimeWastingAlienHandler implements Serializable {
 	TimeWastingAlienLogic alienLogic;
 	BuildMode buildMode;
 	GameController gameController;

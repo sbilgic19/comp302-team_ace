@@ -43,15 +43,18 @@ public class BuildModeButtonHandler implements ActionListener {
 					"Alert", JOptionPane.ERROR_MESSAGE);
 		}
 		else if (validObjectCount(buildPanel.getBuildingObjectCounter())) {
+			GameInfo.getInstance().addDoorLocation(buildMode.getDoorLocation());
 			GameInfo.getInstance().addObjectList(buildMode.getObjectList());
 			GameInfo.getInstance().levelUp();
 			if(GameInfo.getInstance().getListOfObjectsOfAllLevels().size() == 6){
 				GameInfo.getInstance().setCurrentLevel(1);
 				gameController.switchGameView(gameController.arrayToMatrix(GameInfo.getInstance().getCurrentObjects()));
 				buildMode.removeMouseHandler();
+				buildMode.setDoorLocation(null);
 			} else {
 				gameController.updateLevelView();
 				buildMode.addNewLevel();
+				buildMode.setDoorLocation(null);
 			}
 		}
 		else {

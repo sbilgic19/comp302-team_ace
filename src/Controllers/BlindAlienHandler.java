@@ -8,14 +8,16 @@ import domain.Player;
 import domain.aliens.BlindAlien;
 import domain.aliens.ShooterAlien;
 
-public class BlindAlienHandler {
+import java.io.Serializable;
+
+public class BlindAlienHandler implements Serializable {
 	BlindAlienLogic blindAlienLogic;
 	Player player;
 	GameController gameController;
 	public BlindAlienHandler(Player player, GameController gameController) {
 		super();
-		this.blindAlienLogic = new BlindAlienLogic(gameController,player);
 		this.player = player;
+		this.blindAlienLogic = new BlindAlienLogic(gameController,player);
 		this.gameController = gameController;
 	}
 	

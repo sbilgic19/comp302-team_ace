@@ -36,6 +36,7 @@ public class PausedGameScreen extends JDialog {
 		saveGameButton.addActionListener(e->{
 			GameInfo.getInstance().setTime(GameTime.getInstance().getSeconds());
 			client.saveGame("Game1",GameInfo.getInstance());
+			GameInfo.getInstance().setTime(0);
 		});
 		add(saveGameButton);
 		add(returnToGameButton);

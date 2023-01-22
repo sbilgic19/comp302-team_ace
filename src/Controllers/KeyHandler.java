@@ -59,8 +59,8 @@ public class KeyHandler extends KeyAdapter {
 				}else if(event.getKeyCode() == KeyEvent.VK_H && GameInfo.getInstance().getPlayer().isContains("Hint") && !playerHandler.getPlayer().getIsKeyTaken()){
 					PowerUp powerUp = GameInfo.getInstance().getPlayer().getPowerUp("Hint");
 					if(powerUp != null){
-						Key key = GameInfo.getInstance().getKey();
-						playerHandler.getGameController().getGameFrame().getGamePanel().addBordersHint(key.getLocation().getLocationX(), key.getLocation().getLocationY());
+						//Key key = GameInfo.getInstance().getKey();
+						playerHandler.getGameController().getGameFrame().getGamePanel().addBordersHint(GameInfo.getInstance().getKey().getLocation().getLocationX(), GameInfo.getInstance().getKey().getLocation().getLocationY());
 
 						hintTimer = new Timer(1000, new ActionListener() {
 							@Override

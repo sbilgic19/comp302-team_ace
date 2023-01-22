@@ -31,11 +31,7 @@ public class PowerUpHandler {
 	public GameController getGameController(){
 		return this.gameController;
 	}
-
-
-
-
-
+	public PowerUpLogic getPowerUpLogic(){return powerUpLogic; }
 
 
 

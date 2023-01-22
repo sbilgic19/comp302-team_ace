@@ -5,6 +5,7 @@ import java.util.Random;
 
 import Controllers.TimeWastingAlienHandler;
 import dataStructures.Location;
+import domain.GameInfo;
 import domain.Key;
 import domain.RoomObject;
 
@@ -29,6 +30,7 @@ public class TimeWastingAlienBehaviourStrategyA implements TimeWastingAlienBehav
 			} while (location.getLocationX() == key.getLocation().getLocationX() && 
 				location.getLocationY() == key.getLocation().getLocationY());
 			key.setLocation(location);
+			GameInfo.getInstance().getKey().setLocation(location);
 			System.out.printf("%d %d\n", location.getLocationX(), location.getLocationY());
 			flag = false;
 			return true;
