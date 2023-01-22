@@ -69,7 +69,7 @@ public class BlindAlienLogic implements Serializable {
 					randomMove = new Random().nextInt(2);
 				}
 				else if(x == 0 && y != 0) {
-					randomMove = 1;
+					randomMove = 0;
 				}
 				else if(x != 0 && y == 0) {
 					randomMove = 1;
