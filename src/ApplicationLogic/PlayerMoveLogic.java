@@ -1,6 +1,7 @@
 package ApplicationLogic;
 
 import UI.GameState;
+import dataStructures.Location;
 import domain.GameInfo;
 import UI.GameController;
 
@@ -51,6 +52,7 @@ public class PlayerMoveLogic  {
 					gameController.getGameFrame().getGamePanel().updatePlayerView(xPlayerPosition, yPlayerPosition,
 							newXPlayerPosition, newYPlayerPosition, playerLogoPosition);
 					//GamePanel.
+					GameInfo.getInstance().getPlayer().setLocation(new Location(newXPlayerPosition, newYPlayerPosition));
 					gameController.getPlayer().getLocation().setLocationX(newXPlayerPosition);
 					gameController.getPlayer().getLocation().setLocationY(newYPlayerPosition);
 				}

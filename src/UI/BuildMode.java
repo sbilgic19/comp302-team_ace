@@ -132,7 +132,6 @@ public class BuildMode {
 		}
 		else if (doorLocation == null && previous.getLocationX() == 0) {
 			doorLocation = location;
-			GameInfo.getInstance().addDoorLocation(doorLocation);
 		}
 		
 		int index = objectListSearch(location);
@@ -145,7 +144,6 @@ public class BuildMode {
 			if (selectedIcon == null) {
 				if (objectList.get(index).getTypeID() == 0) {
 					doorLocation = null;
-					GameInfo.getInstance().getDoorLocationList().set(GameInfo.getInstance().getCurrentLevel() - 1, null);
 				}
 				objectList.remove(index);
 			}

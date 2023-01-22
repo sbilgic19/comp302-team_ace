@@ -43,6 +43,7 @@ public class BuildModeButtonHandler implements ActionListener {
 					"Alert", JOptionPane.ERROR_MESSAGE);
 		}
 		else if (validObjectCount(buildPanel.getBuildingObjectCounter())) {
+			GameInfo.getInstance().addDoorLocation(buildMode.getDoorLocation());
 			GameInfo.getInstance().addObjectList(buildMode.getObjectList());
 			GameInfo.getInstance().levelUp();
 			if(GameInfo.getInstance().getListOfObjectsOfAllLevels().size() == 6){
