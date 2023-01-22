@@ -32,6 +32,8 @@ public class BlindAlienLogic implements Serializable {
 	public Boolean shoot(Player player) {
 
 		if(blindAlien.getIsActive() && !GameState.getInstance().isPaused()) {
+			System.out.println(GameInfo.getInstance().getPlayer().getLocation().getLocationX() + " p" + GameInfo.getInstance().getPlayer().getLocation().getLocationY());
+			System.out.println(blindAlien.getLocation().getLocationX() + " b" + blindAlien.getLocation().getLocationY());
 			if(Location.distance(player.getLocation(), blindAlien.getLocation()) <2) {
 				System.out.println("X: "+player.getLocation().getLocationX()+" Y: "+player.getLocation().getLocationY());
 				System.out.println("isProtected: "+ player.isProtected());

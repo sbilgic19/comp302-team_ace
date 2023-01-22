@@ -16,8 +16,8 @@ public class BlindAlienHandler implements Serializable {
 	GameController gameController;
 	public BlindAlienHandler(Player player, GameController gameController) {
 		super();
-		this.blindAlienLogic = new BlindAlienLogic(gameController,player);
 		this.player = player;
+		this.blindAlienLogic = new BlindAlienLogic(gameController,player);
 		this.gameController = gameController;
 	}
 	

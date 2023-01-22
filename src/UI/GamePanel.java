@@ -442,25 +442,6 @@ public class GamePanel extends JPanel {
   public boolean getIsPowerUpActive() {
     return isPowerUpActive;
   }
-  public void powerUpRemoveTimer() {
-   /* powerUpRemoveTimer = new javax.swing.Timer(900, new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        if (!GameState.getInstance().isPaused() && !GameState.getInstance().isGameOver()) {
-          removeSeconds++;
-          if (removeSeconds == 12) {
-            if (GameInfo.getInstance().getActivePowerUp() != null && powerUp != null) {
-              gameFrame.getGamePanel().getGameMap()[GameInfo.getInstance().getActivePowerUp().getLocation().getLocationX()][GameInfo.getInstance().getActivePowerUp().getLocation().getLocationY()].setIcon(null);
-              gameFrame.getGameController().removePowerUp();
-              GameInfo.getInstance().setActivePowerUp(null);
-            }
-            removeSeconds = 0;
-          }
-        }
-      }
-    });
-    powerUpRemoveTimer.start();*/
-  }
   public void powerUpCreateTimer() {
     powerUpCreatorTimer =new Timer(1000, new ActionListener() {
       @Override
@@ -473,17 +454,13 @@ public class GamePanel extends JPanel {
             System.out.println("New powerUp created at location:" + powerUp.getLocation().getLocationX()
                     + " " + powerUp.getLocation().getLocationY());
 
-            createSeconds = 0;
           }
-          if(removeSeconds == 12){
-            System.out.println("hi");
+          if(removeSeconds % 12 == 0){
             if (GameInfo.getInstance().getActivePowerUp() != null && powerUp != null) {
-              System.out.println("Not delere");
               gameFrame.getGamePanel().getGameMap()[powerUp.getLocation().getLocationX()][powerUp.getLocation().getLocationY()].setIcon(null);
               gameFrame.getGameController().removePowerUp();
               GameInfo.getInstance().setActivePowerUp(null);
             }
-            removeSeconds = 0;
           }
         }
       }

@@ -50,8 +50,8 @@ public class NewOrLoadGameSelectionHandler implements ActionListener {
 			ImageIcon icon;
 			int rowCount = gameController.getGameFrame().getNumRow();
 			int columnCount = gameController.getGameFrame().getNumCol();
-
-			JLabel[][] gameMap = new JLabel[rowCount][columnCount];
+			JLabel[][] gameMap = gameController.arrayToMatrix(GameInfo.getInstance().getCurrentObjects());
+			/*JLabel[][] gameMap = new JLabel[rowCount][columnCount];
 			for(int i = 0; i<rowCount; i++){
 				for(int j = 0; j<columnCount; j++){
 					gameMap[i][j] = new JLabel();
@@ -62,7 +62,10 @@ public class NewOrLoadGameSelectionHandler implements ActionListener {
 
 				icon = images[roomObject.getTypeID()];
 				gameMap[roomObject.getLocation().getLocationX()][roomObject.getLocation().getLocationY()].setIcon(icon);
-			}
+				if(r.getTypeID() ==0 && GameInfo.getInstance().getKey().getIsTaken() == true){
+					gameMap[x][y].setIcon(gameFrame.getGamePanel().getOpenDoorIcon());
+				}
+			}*/
 
 			gameController.switchBuildView();
 			gameController.switchGameView(gameMap);

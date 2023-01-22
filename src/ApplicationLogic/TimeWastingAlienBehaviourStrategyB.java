@@ -5,6 +5,7 @@ import java.util.Random;
 
 
 import dataStructures.Location;
+import domain.GameInfo;
 import domain.Key;
 import domain.RoomObject;
 
@@ -31,6 +32,7 @@ public class TimeWastingAlienBehaviourStrategyB implements TimeWastingAlienBehav
 				} while (location.getLocationX() == key.getLocation().getLocationX() && 
 						location.getLocationY() == key.getLocation().getLocationY());
 				key.setLocation(location);
+				GameInfo.getInstance().getKey().setLocation(location);
 				System.out.printf("%d %d\n", location.getLocationX(), location.getLocationY());
 				counter = 0;
 			}

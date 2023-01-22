@@ -68,13 +68,15 @@ public class GameController implements Serializable {
 		//Authorization.addUserToRecord(new User("nsavran", "123456"));
 
 
-		RoomKeyHandler roomKeyHandler = new RoomKeyHandler(this, this.player);
-		PlayerHandler playerHandler = new PlayerHandler(this.player, this);
+		//RoomKeyHandler
+		roomKeyHandler = new RoomKeyHandler(this, this.player);
 
-		KeyHandler keyHandler = new KeyHandler(playerHandler);
-		ShooterAlienHandler shooterAlienHandler = new ShooterAlienHandler(this.player, this);
-		BlindAlienHandler blindAlienHandler = new BlindAlienHandler(this.player,this);
-		PowerUpHandler powerUpHandler = new PowerUpHandler(this, this.player);
+		playerHandler = new PlayerHandler(this.player, this);
+
+		 keyHandler = new KeyHandler(playerHandler);
+		 shooterAlienHandler = new ShooterAlienHandler(this.player, this);
+		 blindAlienHandler = new BlindAlienHandler(this.player,this);
+		 powerUpHandler = new PowerUpHandler(this, this.player);
 
 
 
@@ -152,7 +154,7 @@ public class GameController implements Serializable {
 		gameFrame.getResumeButton().setSize(50,50);
 
 
-		player = GameInfo.getInstance().getPlayer();
+		//player = GameInfo.getInstance().getPlayer();
 		roomKeyHandler = new RoomKeyHandler(this, player);
 		playerHandler = new PlayerHandler(player, this);
 
@@ -221,7 +223,6 @@ public class GameController implements Serializable {
 		if(GameInfo.getInstance().getCurrentLevel() == 1 || GameInfo.getInstance().getIsLoaded()){
 			gameFrame.getGamePanel().alienProducer();
 			gameFrame.getGamePanel().powerUpCreateTimer();
-			gameFrame.getGamePanel().powerUpRemoveTimer();
 		}
 
 
@@ -344,18 +345,22 @@ public class GameController implements Serializable {
 			x = r.getLocation().getLocationX();
 			y = r.getLocation().getLocationY();
 			buildModeMap[x][y].setIcon(gameFrame.getIcons()[r.getTypeID()]);
+			if(GameInfo.getInstance().getIsLoaded() && r.getTypeID() ==0 && GameInfo.getInstance().getPlayer().getIsKeyTaken() == true){
+				buildModeMap[x][y].setIcon(gameFrame.getGamePanel().getOpenDoorIcon());
+			}
 		}
-
 
 		return buildModeMap;
 	}
 
 	public void nextLevel(){
+		GameInfo.getInstance().setIsLoaded(false);
 		System.out.println("CurrentLevel: " + GameInfo.getInstance().getCurrentLevel());
 		if (GameInfo.getInstance().getCurrentLevel() > 6) {
 			JOptionPane.showMessageDialog(null, "You Won",
 						"Congrats!", JOptionPane.ERROR_MESSAGE);
 		} else {
+			GameInfo.getInstance().setTime(0);
 			JLabel[][] newMap = gameFrame.getGameController().arrayToMatrix(GameInfo.getInstance().getCurrentObjects());
 			GameInfo.getInstance().getPlayer().setLocation(new Location(0,5));
 			GameInfo.getInstance().getPlayer().setKeyTaken(false);
