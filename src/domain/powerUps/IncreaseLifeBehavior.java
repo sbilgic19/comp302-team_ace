@@ -1,7 +1,9 @@
 package domain.powerUps;
 import domain.Player;
 
-public class IncreaseLifeBehavior implements PowerUpBehavior{
+import java.io.Serializable;
+
+public class IncreaseLifeBehavior implements PowerUpBehavior, Serializable {
 
     private final Player player;
 
