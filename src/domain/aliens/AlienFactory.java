@@ -20,24 +20,21 @@ public class AlienFactory {
     
     public Alien getAlien(String alienType, Location location)
     {
-    	Alien aliean;
+    	Alien alien;
     	switch (alienType)
     	{
 			case "TimeWasting":
-				aliean = new TimeWastingAlien(location);
-				GameInfo.getInstance().clearAlienList();
-				GameInfo.getInstance().addAlien(aliean);
-				return aliean;
+				alien = new TimeWastingAlien(location);
+				GameInfo.getInstance().setActiveAlien(alien);
+				return alien;
 			case "Shooter":
-				aliean = new ShooterAlien(location);
-				GameInfo.getInstance().clearAlienList();
-				GameInfo.getInstance().addAlien(aliean);
-				return aliean;
+				alien = new ShooterAlien(location);
+				GameInfo.getInstance().setActiveAlien(alien);
+				return alien;
 			case "Blind":
-				aliean = new BlindAlien(location);
-				GameInfo.getInstance().clearAlienList();
-				GameInfo.getInstance().addAlien(aliean);
-				return aliean;
+				alien = new BlindAlien(location);
+				GameInfo.getInstance().setActiveAlien(alien);
+				return alien;
     		default:
     			return null;
     	}

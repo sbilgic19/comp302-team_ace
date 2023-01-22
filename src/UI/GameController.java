@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -25,7 +26,7 @@ import domain.powerUps.PowerUp;
 import domain.powerUps.PowerUpFactory;
 import domain.powerUps.ProtectionVestPowerUp;
 
-public class GameController {
+public class GameController implements Serializable {
 
 	private static final int frameWidth = 1500;
 	private static final int frameHeight = 750;
@@ -217,7 +218,12 @@ public class GameController {
 		gameFrame.getGamePanel().setGameMap(buildModeMap);
 		gameFrame.getGamePanel().requestFocus();
 		gameFrame.getGamePanel().addKeyListener(this.keyHandler);
-		gameFrame.getGamePanel().alienProducer();
+		if(GameInfo.getInstance().getCurrentLevel() == 1 || GameInfo.getInstance().getIsLoaded()){
+			gameFrame.getGamePanel().alienProducer();
+			gameFrame.getGamePanel().powerUpCreateTimer();
+			gameFrame.getGamePanel().powerUpRemoveTimer();
+		}
+
 
 		if(GameInfo.getInstance().getActivePowerUp() != null){
 			powerUpHandler.getPowerUpLogic().addPowerUp(GameInfo.getInstance().getActivePowerUp());

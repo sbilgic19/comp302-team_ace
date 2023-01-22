@@ -33,11 +33,12 @@ public class NewOrLoadGameSelectionHandler implements ActionListener {
 			GameInfo gameInfo = client.loadGame("Game1");
 			GameInfo.getInstance().setTime(gameInfo.getTime());
 			GameInfo.getInstance().setPlayer(gameInfo.getPlayer());
+			GameInfo.getInstance().setIsLoaded(true);
 			GameInfo.getInstance().setListOfObjectsOfAllLevels(gameInfo.getListOfObjectsOfAllLevels());
 			GameInfo.getInstance().setDoorLocationList(gameInfo.getDoorLocationList());
 			GameInfo.getInstance().setKeyList(gameInfo.getKeyList());
 			GameInfo.getInstance().setCurrentLevel(gameInfo.getCurrentLevel());
-			GameInfo.getInstance().setListOfAlien(gameInfo.getListOfAlien());
+			GameInfo.getInstance().setActiveAlien(gameInfo.getActiveAlien());
 			GameInfo.getInstance().setActivePowerUp(gameInfo.getActivePowerUp());
 
 			System.out.println(gameInfo.getPlayer().getLives());

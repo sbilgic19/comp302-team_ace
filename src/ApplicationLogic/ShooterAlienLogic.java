@@ -1,5 +1,6 @@
 package ApplicationLogic;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -14,7 +15,7 @@ import domain.Player;
 import domain.aliens.AlienFactory;
 import domain.aliens.ShooterAlien;
 
-public class ShooterAlienLogic {
+public class ShooterAlienLogic implements Serializable {
 	ShooterAlien shooterAlien;
 	private final GameController gameController;
 	private final Random random = new Random();
@@ -56,7 +57,7 @@ public class ShooterAlienLogic {
 				gameController.getGameFrame().getGamePanel().setNullIcon(shooterAlien.getLocation());
 				
 			}
-			GameInfo.getInstance().removeAlien(shooterAlien);
+			GameInfo.getInstance().setActiveAlien(null);
 		}
 	}
 	
@@ -92,9 +93,9 @@ public class ShooterAlienLogic {
 		int rand = random.nextInt(object_locations.size());
 		
 		ShooterAlien shooterAlien = (ShooterAlien) AlienFactory.getInstance().getAlien("Shooter" , object_locations.get(rand));
-		setShooterAlien(shooterAlien);
+		setShooterAlien((ShooterAlien) GameInfo.getInstance().getActiveAlien());
 		placeShooterAlien();
-		return shooterAlien;
+		return (ShooterAlien) GameInfo.getInstance().getActiveAlien();
 	}
 
 

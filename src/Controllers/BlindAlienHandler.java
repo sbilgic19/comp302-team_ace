@@ -8,7 +8,9 @@ import domain.Player;
 import domain.aliens.BlindAlien;
 import domain.aliens.ShooterAlien;
 
-public class BlindAlienHandler {
+import java.io.Serializable;
+
+public class BlindAlienHandler implements Serializable {
 	BlindAlienLogic blindAlienLogic;
 	Player player;
 	GameController gameController;
