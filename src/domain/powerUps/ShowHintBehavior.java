@@ -1,6 +1,7 @@
 package domain.powerUps;
 
 import UI.GamePanel;
+import domain.GameInfo;
 import domain.Key;
 import domain.Player;
 
@@ -34,7 +35,7 @@ public class ShowHintBehavior implements PowerUpBehavior, Serializable {
 
   @Override
   public void performBehavior() {
-    player.removePowerUp("Hint");
+    GameInfo.getInstance().getPlayer().removePowerUp("Hint");
   }
 
 

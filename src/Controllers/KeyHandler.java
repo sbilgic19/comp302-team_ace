@@ -108,22 +108,22 @@ public class KeyHandler extends KeyAdapter {
 						powerUp = new PlasticBottlePowerUp(bottleStartPos,GameInfo.getInstance().getPlayer(), "North");
 						PlasticBottleMovementLogic plasticBottleMovementLogic = new PlasticBottleMovementLogic(playerHandler.getGameController(), powerUp);
 						plasticBottleMovementLogic.updateBottlePosition();
-						playerHandler.getPlayer().removePowerUp("PlasticBottle");
+						GameInfo.getInstance().getPlayer().removePowerUp("PlasticBottle");
 					} else if (isAPressed) {
 						powerUp = new PlasticBottlePowerUp(bottleStartPos, GameInfo.getInstance().getPlayer(),"West");
 						PlasticBottleMovementLogic plasticBottleMovementLogic = new PlasticBottleMovementLogic(playerHandler.getGameController(), powerUp);
 						plasticBottleMovementLogic.updateBottlePosition();
-						playerHandler.getPlayer().removePowerUp("PlasticBottle");
+						GameInfo.getInstance().getPlayer().removePowerUp("PlasticBottle");
 					} else if (isDPressed) {
 						powerUp = new PlasticBottlePowerUp(bottleStartPos, GameInfo.getInstance().getPlayer(),"East");
 						PlasticBottleMovementLogic plasticBottleMovementLogic = new PlasticBottleMovementLogic(playerHandler.getGameController(),powerUp);
 						plasticBottleMovementLogic.updateBottlePosition();
-						playerHandler.getPlayer().removePowerUp("PlasticBottle");
+						GameInfo.getInstance().getPlayer().removePowerUp("PlasticBottle");
 					} else if (isSPressed) {
 						powerUp = new PlasticBottlePowerUp(bottleStartPos, GameInfo.getInstance().getPlayer(),"South");
 						PlasticBottleMovementLogic plasticBottleMovementLogic = new PlasticBottleMovementLogic(playerHandler.getGameController(), powerUp);
 						plasticBottleMovementLogic.updateBottlePosition();
-						playerHandler.getPlayer().removePowerUp("PlasticBottle");
+						GameInfo.getInstance().getPlayer().removePowerUp("PlasticBottle");
 					}
 				}
 				lastSavedTime = currentTime;
