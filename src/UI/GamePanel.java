@@ -244,7 +244,7 @@ public class GamePanel extends JPanel {
   public void timeWastingAlienRandomizer() {
 
     timeWastingAlienHandler.getTimeWastingAlien();
-    wastingTimer = new Timer(800, new ActionListener() {
+    wastingTimer = new Timer(900, new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         if(!GameState.getInstance().isGameOver() && !GameState.getInstance().isPaused()){
@@ -253,7 +253,7 @@ public class GamePanel extends JPanel {
           if (b) {
             System.out.println("changed");
           }
-          if(wastingTimerSeconds == 9){
+          if(wastingTimerSeconds == 10){
             timeWastingAlienHandler.deactivate();
             wastingTimerSeconds=0;
             wastingTimer.stop();
@@ -268,7 +268,7 @@ public class GamePanel extends JPanel {
   public void shooterAlieanRandomizer() {
 
     shooterAlienHandler.getShooterAlien();
-    shooterTimer = new Timer(800, new ActionListener() {
+    shooterTimer = new Timer(900, new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         if(!GameState.getInstance().isPaused()&& !GameState.getInstance().isGameOver()){
@@ -276,7 +276,7 @@ public class GamePanel extends JPanel {
           if (shooterAlienHandler.shoot()) {
             System.out.println("Shooted");
           }
-          if(shooterTimerSeconds == 9){
+          if(shooterTimerSeconds == 10){
             shooterAlienHandler.deactivate();
             shooterTimerSeconds = 0;
             shooterTimer.stop();
@@ -290,16 +290,17 @@ public class GamePanel extends JPanel {
   public void blindAlieanRandomizer() {
 
     blindAlienHandler.getBlindAlien();
-    blindTimer = new Timer(800, new ActionListener() {
+    blindTimer = new Timer(500, new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         if(!GameState.getInstance().isGameOver() && !GameState.getInstance().isPaused()){
           blindTimerSeconds++;
           blindAlienHandler.move(plasticBottleLocation);
           blindAlienHandler.shoot();
-          if(blindTimerSeconds == 9){
+          if(blindTimerSeconds == 19){
             blindAlienHandler.deactivate();
             blindTimerSeconds = 0;
+            plasticBottleLocation = null;
             blindTimer.stop();
           }
         }
@@ -340,7 +341,7 @@ public class GamePanel extends JPanel {
       plasticBottleLocation = new Location(newXPlayerPosition, newYPlayerPosition);
       return true;
     } else
-      plasticBottleLocation = null;
+      //plasticBottleLocation = null;
       return false;
   }
 
