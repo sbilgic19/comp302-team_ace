@@ -242,6 +242,7 @@ public class GameFrame extends JFrame {
         	GameState.getInstance().setGameOver(true);
         	GameState.getInstance().setPaused(true);
         	System.out.println("game over!");
+			this.showPopUpOnScreen("GAME OVER!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 	
